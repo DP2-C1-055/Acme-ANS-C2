@@ -1,2 +1,5 @@
 acme.validation.leg.invalid-flight-number.message = Duplicate flight number. The flight number must be unique.
 acme.validation.leg.nonexistent-airline.message = Non-existent airline. The IATA code does not correspond to any registered airline.
+acme.validation.manager.invalid-identifier.message = Invalid identifier format. It must consist of 2 or 3 uppercase letters followed by 6 digits.
+acme.validation.manager.duplicated-identifier.message = Duplicate identifier. This identifier is already used by another manager.
+acme.validation.manager.incorrect-initials.message = The first two letters of the identifier must match the initials of the manager's name and surname.
