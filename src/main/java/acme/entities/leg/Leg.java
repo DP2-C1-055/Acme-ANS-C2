@@ -25,7 +25,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-// CUSTOM VALIDATOR
+@ValidFlightNumber
 public class Leg extends AbstractEntity {
 
 	// Serialisation version --------------------------------------------------
@@ -35,7 +35,7 @@ public class Leg extends AbstractEntity {
 	// Attributes -------------------------------------------------------------
 
 	@Mandatory
-	@ValidFlightNumber
+	@Valid
 	@Column(unique = true)
 	private String				flightNumber;
 

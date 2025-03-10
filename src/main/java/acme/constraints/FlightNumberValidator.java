@@ -8,10 +8,11 @@ import javax.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.validation.AbstractValidator;
+import acme.entities.leg.Leg;
 import acme.features.administrator.airline.AdministratorAirlineRepository;
 import acme.features.manager.leg.ManagerLegRepository;
 
-public class FlightNumberValidator extends AbstractValidator<ValidFlightNumber, String> {
+public class FlightNumberValidator extends AbstractValidator<ValidFlightNumber, Leg> {
 
 	// Internal state ---------------------------------------------------------
 
@@ -32,24 +33,29 @@ public class FlightNumberValidator extends AbstractValidator<ValidFlightNumber, 
 	}
 
 	@Override
-	public boolean isValid(final String flightNumber, final ConstraintValidatorContext context) {
+	public boolean isValid(final Leg leg, final ConstraintValidatorContext context) {
 		assert context != null;
 
 		boolean result;
 
-		if (flightNumber == null)
+		if (leg == null)
 			super.state(context, false, "*", "javax.validation.constraints.NotNull.message");
 		else {
 			{
-				boolean matchesPattern = flightNumber != null && FlightNumberValidator.FLIGHT_PATTERN.matcher(flightNumber).matches();
+				boolean matchesPattern = leg.getFlightNumber() != null && FlightNumberValidator.FLIGHT_PATTERN.matcher(leg.getFlightNumber()).matches();
 				super.state(context, matchesPattern, "flightNumber", "acme.validation.leg.invalid-flight-number.message");
 			}
 			{
-				boolean airlineExists = flightNumber != null && this.airlineRepository.existsByIataCode(flightNumber.substring(0, 2));
+				boolean airlineExists = leg.getFlightNumber() != null && this.airlineRepository.existsByIataCode(leg.getFlightNumber().substring(0, 2));
 				super.state(context, airlineExists, "flightNumber", "acme.validation.leg.nonexistent-airline.message");
 			}
 			{
-				boolean uniqueFlightNumber = this.legRepository.findLegByFlightNumber(flightNumber) == null;
+				boolean uniqueFlightNumber;
+				Leg existingLeg;
+
+				existingLeg = this.legRepository.findLegByFlightNumber(leg.getFlightNumber());
+				uniqueFlightNumber = existingLeg == null || existingLeg.equals(leg);
+
 				super.state(context, uniqueFlightNumber, "flightNumber", "acme.validation.leg.duplicated-flight-number.message");
 			}
 		}
@@ -57,4 +63,5 @@ public class FlightNumberValidator extends AbstractValidator<ValidFlightNumber, 
 		result = !super.hasErrors(context);
 		return result;
 	}
+
 }
