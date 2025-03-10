@@ -19,7 +19,7 @@ import acme.client.components.validation.ValidString;
 import acme.client.helpers.SpringHelper;
 import acme.entities.leg.Leg;
 import acme.features.manager.leg.ManagerLegRepository;
-import acme.realms.AirlineManager;
+import acme.realms.Manager;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -147,6 +147,6 @@ public class Flight extends AbstractEntity {
 	@Mandatory
 	@Valid
 	@ManyToOne(optional = false)
-	private AirlineManager airlineManager;
+	private Manager manager;
 
 }
