@@ -43,7 +43,7 @@ public class Passenger extends AbstractEntity {
 
 	@Mandatory
 	@ValidMoment(past = true)
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	protected Date				dateOfBirth;
 
 	@Optional
