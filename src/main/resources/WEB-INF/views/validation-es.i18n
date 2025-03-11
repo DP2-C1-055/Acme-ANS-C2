@@ -1,0 +1,5 @@
+acme.validation.leg.invalid-flight-number.message = Número de vuelo duplicado. El número de vuelo debe ser único.
+acme.validation.leg.nonexistent-airline.message = Aerolínea inexistente. El código IATA no corresponde a ninguna aerolínea registrada.
+acme.validation.manager.invalid-identifier.message = Formato de identificador inválido. Debe consistir en 2 o 3 letras mayúsculas seguidas de 6 dígitos.
+acme.validation.manager.duplicated-identifier.message = Identificador duplicado. Este identificador ya está siendo utilizado por otro manager.
+acme.validation.manager.incorrect-initials.message = Las dos primeras letras del identificador deben coincidir con las iniciales del nombre y del apellido del manager.
