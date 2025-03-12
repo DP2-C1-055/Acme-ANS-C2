@@ -9,7 +9,7 @@ import acme.client.repositories.AbstractRepository;
 @Repository
 public interface AdministratorAirlineRepository extends AbstractRepository {
 
-	@Query("select count(a) > 0 from Airline a where a.IATACode = :iataCode")
+	@Query("select count(a) > 0 from Airline a where a.iataCode = :iataCode")
 	boolean existsByIataCode(String iataCode);
 
 }
