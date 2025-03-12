@@ -1,0 +1,4 @@
+key,name,iata-code,website,airline-type,foundation-moment,email,phone-number
+airline-01,SkyHigh Airlines,SHA,https://www.skyhigh.com,LUXURY,2002/09/01 10:00,contact@skyhigh.com,+1234567890
+airline-02,BlueWings,BWA,https://www.bluewings.com,STANDARD,2012/09/01 10:00,info@bluewings.com,+441234567890
+airline-03,Golden Airways,GDA,https://www.goldenairways.com,LOW_COST,2022/09/01 10:00,info@golden.com,+5521998765432

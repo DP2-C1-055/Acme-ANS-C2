@@ -1,0 +1,5 @@
+key,name,iata-code,operational-scope,city,country,website,email,contact-phone
+# Base entities (Solo aeropuertos 01-03, usados en `leg.csv`) SE CAMBIARÁN CUANDO SE CREEN MÁS AIRPORT
+airport-01,John F. Kennedy International,SHA,INTERNATIONAL,New York,USA,https://www.jfkairport.com,info@jfkairport.com,+12134567890
+airport-02,Los Angeles International,BWA,INTERNATIONAL,Los Angeles,USA,https://www.flylax.com,info@laxairport.com,+13104567890
+airport-03,Heathrow,GDA,INTERNATIONAL,London,UK,https://www.heathrow.com,info@heathrow.com,+442034567890

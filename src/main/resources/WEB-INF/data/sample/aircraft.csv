@@ -1,0 +1,5 @@
+key,model,registration-number,capacity,cargo-weight,status,details
+# Base entities (Solo aviones 01-03, usados en `leg.csv`) SE CAMBIARÁN CUANDO SE CREEN MÁS AIRCRAFT
+aircraft-01,Boeing 737,N12345,0,20000,ACTIVE,"Standard commercial aircraft"
+aircraft-02,Airbus A320,N67890,160,22000,ACTIVE,"Modern fuel-efficient aircraft"
+aircraft-03,Boeing 777,N54321,255,45000,MAINTENANCE,"Long-haul wide-body aircraft"
