@@ -1,11 +1,14 @@
 
 package acme.constraints;
 
+import java.util.Date;
+
 import javax.validation.ConstraintValidatorContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.validation.AbstractValidator;
+import acme.client.helpers.MomentHelper;
 import acme.entities.leg.Leg;
 import acme.features.administrator.airline.AdministratorAirlineRepository;
 
@@ -44,6 +47,21 @@ public class LegValidator extends AbstractValidator<ValidLeg, Leg> {
 				if (leg.getScheduledDeparture() != null && leg.getScheduledArrival() != null) {
 					boolean validSchedule = leg.getScheduledDeparture().before(leg.getScheduledArrival());
 					super.state(context, validSchedule, "scheduledDeparture", "acme.validation.leg.departure-before-arrival.message");
+				}
+			}
+			// Validar que las fechas estén dentro del rango definido en el proyecto
+			// TODO: ESTO QUIZÁ HAY QUE HACERLO DE OTRA FORMA. PERO FUNCIONA
+			{
+				// Se usa el formato "yyyy/MM/dd HH:mm" para parsear las fechas definidas en application.properties
+				Date minMoment = MomentHelper.parse("2000/01/01 00:00", "yyyy/MM/dd HH:mm");
+				Date maxMoment = MomentHelper.parse("2200/12/31 23:59", "yyyy/MM/dd HH:mm");
+				if (leg.getScheduledDeparture() != null) {
+					boolean departureInRange = !leg.getScheduledDeparture().before(minMoment) && !leg.getScheduledDeparture().after(maxMoment);
+					super.state(context, departureInRange, "scheduledDeparture", "acme.validation.leg.departure-out-of-range.message");
+				}
+				if (leg.getScheduledArrival() != null) {
+					boolean arrivalInRange = !leg.getScheduledArrival().before(minMoment) && !leg.getScheduledArrival().after(maxMoment);
+					super.state(context, arrivalInRange, "scheduledArrival", "acme.validation.leg.arrival-out-of-range.message");
 				}
 			}
 		}
