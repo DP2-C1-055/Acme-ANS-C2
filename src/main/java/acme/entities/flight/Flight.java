@@ -42,10 +42,10 @@ public class Flight extends AbstractEntity {
 	@Mandatory
 	@Valid
 	@Automapped
-	private Indication			indication;
+	private Boolean				selfTransfer;
 
 	@Mandatory
-	@ValidMoney(min = 0, max = 1000000)
+	@ValidMoney
 	@Automapped
 	private Money				cost;
 
