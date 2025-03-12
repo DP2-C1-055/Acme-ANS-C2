@@ -11,8 +11,8 @@ import javax.validation.Payload;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = IdentifierValidator.class)
-public @interface ValidIdentifier {
+@Constraint(validatedBy = ManagerIdentifierValidator.class)
+public @interface ValidManagerIdentifier {
 
 	// Standard validation properties -----------------------------------------
 	String message() default "";

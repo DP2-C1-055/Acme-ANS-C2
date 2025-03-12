@@ -3,23 +3,16 @@ package acme.constraints;
 
 import javax.validation.ConstraintValidatorContext;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import acme.client.components.principals.DefaultUserIdentity;
 import acme.client.components.validation.AbstractValidator;
-import acme.features.authenticated.manager.AuthenticatedManagerRepository;
 import acme.realms.Manager;
 
-public class IdentifierValidator extends AbstractValidator<ValidIdentifier, Manager> {
+public class ManagerIdentifierValidator extends AbstractValidator<ValidManagerIdentifier, Manager> {
 
 	// Internal state ---------------------------------------------------------
 
-	@Autowired
-	private AuthenticatedManagerRepository repository;
-
-
 	@Override
-	protected void initialise(final ValidIdentifier annotation) {
+	protected void initialise(final ValidManagerIdentifier annotation) {
 		assert annotation != null;
 	}
 
@@ -37,12 +30,6 @@ public class IdentifierValidator extends AbstractValidator<ValidIdentifier, Mana
 				String identifier = manager.getIdentifier();
 				boolean matchesPattern = identifier != null && identifier.matches("^[A-Z]{2,3}\\d{6}$");
 				super.state(context, matchesPattern, "identifier", "acme.validation.manager.invalid-identifier.message");
-			}
-			{
-				// Validar que el identifier sea único
-				Manager existingManager = this.repository.findManagerByIdentifier(manager.getIdentifier());
-				boolean uniqueIdentifier = existingManager == null || existingManager.equals(manager);
-				super.state(context, uniqueIdentifier, "identifier", "acme.validation.manager.duplicated-identifier.message");
 			}
 			{
 				// Validar que las dos primeras letras del identifier coinciden con las iniciales de la identidad.

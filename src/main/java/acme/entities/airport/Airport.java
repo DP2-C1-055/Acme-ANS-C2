@@ -9,7 +9,6 @@ import acme.client.components.basis.AbstractEntity;
 import acme.client.components.mappings.Automapped;
 import acme.client.components.validation.Mandatory;
 import acme.client.components.validation.Optional;
-import acme.client.components.validation.ValidEmail;
 import acme.client.components.validation.ValidString;
 import acme.client.components.validation.ValidUrl;
 import acme.constraints.ValidPhone;
@@ -33,7 +32,7 @@ public class Airport extends AbstractEntity {
 	private String				name;
 
 	@Mandatory
-	@ValidString(pattern = "^[A-Z]{3}$", message = "{acme.validation.iataCode}")
+	@ValidString(pattern = "^[A-Z]{3}$", message = "{acme.validation.manager.iata}")
 	@Column(unique = true)
 	private String				iataCode;
 
@@ -58,7 +57,7 @@ public class Airport extends AbstractEntity {
 	private String				website;
 
 	@Optional
-	@ValidEmail
+	@ValidString(min = 0, max = 255)
 	@Automapped
 	private String				email;
 
