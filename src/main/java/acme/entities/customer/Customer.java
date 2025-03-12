@@ -7,12 +7,13 @@ import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
 
-import acme.client.components.basis.AbstractEntity;
+import acme.client.components.basis.AbstractRole;
 import acme.client.components.mappings.Automapped;
 import acme.client.components.validation.Mandatory;
 import acme.client.components.validation.Optional;
 import acme.client.components.validation.ValidNumber;
 import acme.client.components.validation.ValidString;
+import acme.constraints.ValidCustomer;
 import acme.entities.passenger.Passenger;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,7 +21,8 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Customer extends AbstractEntity {
+@ValidCustomer
+public class Customer extends AbstractRole {
 
 	protected static final long	serialVersionUID	= 1L;
 

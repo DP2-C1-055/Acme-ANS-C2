@@ -2,3 +2,4 @@ validation.identifierCode = El código identificador debe comenzar con 2 o 3 let
 validation.phoneNumber = El número de teléfono debe contener entre 6 y 15 dígitos, opcionalmente comenzando con '+'.
 validation.locatorCode = El código de localización debe tener entre 6 y 8 caracteres alfanuméricos en mayúsculas (A-Z, 0-9).
 validation.passportNumber = El número de pasaporte debe contener entre 6 y 9 caracteres alfanuméricos en mayúsculas (A-Z, 0-9).
+acme.validation.customer.identifier.message = Las dos o tres primeras letras deben corresponden a sus iniciales
