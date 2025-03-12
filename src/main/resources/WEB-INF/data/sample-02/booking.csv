@@ -1,0 +1,21 @@
+key,locatorCode,purchaseMoment,travelClass,price,lastNibble,key:customer,key:flight
+#base entity
+booking-01,"AB00CD",2012/07/02 00:00,"ECONOMY",EUR 500000.00,0000,customer-01,flight-01
+#purchaseMoment standard
+booking-02,"AB01CD",2000/01/01 00:00,"ECONOMY",EUR 500000.00,0000,customer-01,flight-01
+booking-03,"AB02CD",2000/01/01 00:01,"ECONOMY",EUR 500000.00,0000,customer-01,flight-01
+booking-04,"AB03CD",2024/12/31 23:59,"ECONOMY",EUR 500000.00,0000,customer-01,flight-01
+booking-05,"AB04CD",2025/01/01 00:00,"ECONOMY",EUR 500000.00,0000,customer-01,flight-01
+#travelClass standard
+booking-06,"AB05CD",2012/07/02 00:00,"BUSINESS",EUR 00.00,0000,customer-01,flight-01
+#price standard
+booking-07,"AB06CD",2012/07/02 00:00,"BUSINESS",EUR 00.00,0000,customer-01,flight-01
+booking-08,"AB07CD",2012/07/02 00:00,"BUSINESS",EUR 00.01,0000,customer-01,flight-01
+booking-09,"AB08CD",2012/07/02 00:00,"BUSINESS",EUR 999999.99,0000,customer-01,flight-01
+booking-10,"AB09CD",2012/07/02 00:00,"BUSINESS",EUR 1000000.00,0000,customer-01,flight-01
+#lastNible standard
+booking-11,"AB10CD",2012/07/02 00:00,"ECONOMY",EUR 500000.00,,customer-01,flight-01
+booking-12,"AB11CD",2012/07/02 00:00,"ECONOMY",EUR 500000.00,0,customer-01,flight-01
+booking-13,"AB12CD",2012/07/02 00:00,"ECONOMY",EUR 500000.00,1,customer-01,flight-01
+booking-14,"AB13CD",2012/07/02 00:00,"ECONOMY",EUR 500000.00,9998,customer-01,flight-01
+booking-15,"AB14CD",2012/07/02 00:00,"ECONOMY",EUR 500000.00,9999,customer-01,flight-01
