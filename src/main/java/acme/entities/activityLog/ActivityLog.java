@@ -15,7 +15,8 @@ import acme.client.components.validation.Mandatory;
 import acme.client.components.validation.ValidMoment;
 import acme.client.components.validation.ValidNumber;
 import acme.client.components.validation.ValidString;
-import acme.entities.leg.Leg;
+import acme.constraints.ValidActivityLog;
+import acme.entities.assignment.Assignment;
 import acme.realms.crew.Crew;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,6 +24,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+@ValidActivityLog
 public class ActivityLog extends AbstractEntity {
 
 	// Serialisation identifier ----------------------------------------
@@ -56,10 +58,10 @@ public class ActivityLog extends AbstractEntity {
 	@Mandatory
 	@Valid
 	@ManyToOne(optional = false)
-	private Leg					leg;
+	private Crew				crew;
 
 	@Mandatory
 	@Valid
 	@ManyToOne(optional = false)
-	private Crew				crew;
+	private Assignment			assignment;
 }
