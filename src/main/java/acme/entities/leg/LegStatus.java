@@ -1,5 +1,5 @@
 
-package acme.entities.flights;
+package acme.entities.leg;
 
 public enum LegStatus {
 
