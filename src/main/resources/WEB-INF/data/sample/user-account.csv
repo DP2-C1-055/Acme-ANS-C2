@@ -5,7 +5,3 @@ user-account-consumer-03,consumer3,consumer3,"UserIdentity{name: 'Manolo', surna
 user-account-provider-01,provider1,provider1,"UserIdentity{name: 'Laurel', surname: 'Provider', email: 'laurel@acme.com'}",true
 user-account-provider-02,provider2,provider2,"UserIdentity{name: 'Martina', surname: 'коза თხა', email: 'martina@acme.com'}",true
 user-account-provider-03,provider3,provider3,"UserIdentity{name: 'Antonia', surname: 'אבטיח Æløzå', email: 'antonia@acme.com'}",true
-user-account-manager-01,manager1,manager1,"UserIdentity{name: 'Manager', surname: 'One', email: 'manager1@mail.com'}",true
-user-account-manager-02,manager2,manager2,"UserIdentity{name: 'Manager', surname: 'Two', email: 'manager2@mail.com'}",true
-user-account-manager-03,manager3,manager3,"UserIdentity{name: 'Manager', surname: 'Three', email: 'manager3@mail.com'}",true
-
