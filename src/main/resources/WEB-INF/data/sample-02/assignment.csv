@@ -9,8 +9,8 @@ assignment-05,CABIN_ATTENDANT,2012/07/02 00:00,CONFIRMED,"Lorem ipsum dolor sit 
 # Last Update - Variaciones (minimo,intermedio,maximo)
 assignment-06,PILOT,2000/01/01 00:00,CONFIRMED,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",crew-01,leg-01
 assignment-07,PILOT,2000/01/01 00:01,CONFIRMED,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",crew-02,leg-01
-assignment-08,PILOT,2200/12/31 23:58,CONFIRMED,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",crew-01,leg-02
-assignment-09,PILOT,2200/12/31 23:59,CONFIRMED,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",crew-02,leg-02
+assignment-08,PILOT,2024/12/31 23:59,CONFIRMED,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",crew-01,leg-02
+assignment-09,PILOT,2025/01/01 00:00,CONFIRMED,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",crew-02,leg-02
 # Current Status - Cobertura completa,"",""
 assignment-10,PILOT,2012/07/02 00:00,CONFIRMED,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",crew-01,leg-01
 assignment-11,PILOT,2012/07/02 00:00,PENDING,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",crew-01,leg-02
