@@ -39,4 +39,8 @@ public class Task extends AbstractEntity {
 	@Automapped
 	protected Integer			estimatedDuration;
 
+	@Mandatory
+	@Valid
+	@ManyToOne(optional = false)
+	private Technician			technician;
 }
