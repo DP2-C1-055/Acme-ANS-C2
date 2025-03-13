@@ -1,5 +1,5 @@
 
-package acme.entities.customer;
+package acme.realms.Customer;
 
 import org.springframework.stereotype.Repository;
 
