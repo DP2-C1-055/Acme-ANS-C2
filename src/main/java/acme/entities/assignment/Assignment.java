@@ -15,6 +15,7 @@ import acme.client.components.validation.Mandatory;
 import acme.client.components.validation.Optional;
 import acme.client.components.validation.ValidMoment;
 import acme.client.components.validation.ValidString;
+import acme.entities.leg.Leg;
 import acme.realms.crew.Crew;
 import lombok.Getter;
 import lombok.Setter;
@@ -57,9 +58,9 @@ public class Assignment extends AbstractEntity {
 	@ManyToOne(optional = false)
 	protected Crew				crew;
 
-	//	@Mandatory
-	//	@Valid
-	//	@ManyToOne(optional = false)
-	//	protected Leg				leg;
+	@Mandatory
+	@Valid
+	@ManyToOne(optional = false)
+	protected Leg				leg;
 
 }

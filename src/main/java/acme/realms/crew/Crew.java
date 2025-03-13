@@ -3,10 +3,10 @@ package acme.realms.crew;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 
 import acme.client.components.basis.AbstractRole;
-
 import acme.client.components.datatypes.Money;
 import acme.client.components.mappings.Automapped;
 import acme.client.components.validation.Mandatory;
@@ -14,13 +14,16 @@ import acme.client.components.validation.Optional;
 import acme.client.components.validation.ValidMoney;
 import acme.client.components.validation.ValidNumber;
 import acme.client.components.validation.ValidString;
+import acme.constraints.ValidCrewIdentifier;
+import acme.constraints.ValidPhone;
+import acme.entities.airline.Airline;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
-
+@ValidCrewIdentifier
 public class Crew extends AbstractRole {
 
 	// Serialisation version --------------------------------------------------
@@ -30,12 +33,12 @@ public class Crew extends AbstractRole {
 	// Attributes -------------------------------------------------------------
 
 	@Mandatory
-	@Column(unique = true)
 	@ValidString(pattern = "^[A-Z]{2,3}\\d{6}$", message = "{validation.code}")
+	@Column(unique = true)
 	private String				code;
 
 	@Mandatory
-	@ValidString(pattern = "^\\+?\\d{6,15}$", message = "{validation.phoneNumber}")
+	@ValidPhone
 	private String				phoneNumber;
 
 	@Mandatory
@@ -48,18 +51,18 @@ public class Crew extends AbstractRole {
 	private AvailabilityStatus	availability;
 
 	@Mandatory
-	@ValidMoney
+	@ValidMoney(min = 0, max = 1000000)
 	private Money				salary;
 
 	@Optional
-	@ValidNumber(min = 0, integer = 2, fraction = 0)
+	@ValidNumber(min = 0, max = 120)
 	private Integer				yearsExperience;
 
 	// Relationships ----------------------------------------------------
 
-	//	@NotNull
-	//	@Valid
-	//	@ManyToOne(optional = false)
-	//	protected Airline
+	@Mandatory
+	@Valid
+	@ManyToOne(optional = false)
+	private Airline				airline;
 
 }
