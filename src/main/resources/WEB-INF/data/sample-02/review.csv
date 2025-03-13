@@ -1,0 +1,48 @@
+key,name,moment,subject,text,score,recommended
+# Base entity
+review-00,Great Experience,2010/06/15 12:00,Service,I had a wonderful experience with this service.,9.50,RECOMMENDED
+# Name variations
+review-01,A,2010/06/15 12:00,Service,I had a wonderful experience with this service.,9.50,RECOMMENDED
+review-02,AB,2010/06/15 12:00,Service,I had a wonderful experience with this service.,9.50,RECOMMENDED
+review-03,AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,2010/06/15 12:00,Service,I had a wonderful experience with this service.,9.50,RECOMMENDED
+review-04,AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,2010/06/15 12:00,Service,I had a wonderful experience with this service.,9.50,RECOMMENDED
+review-05,洛伦·伊普森,2010/06/15 12:00,Service,I had a wonderful experience with this service.,9.50,RECOMMENDED
+review-06,โลเร็ม อิปซัม,2010/06/15 12:00,Service,I had a wonderful experience with this service.,9.50,RECOMMENDED
+review-07,لوريم إيبسوم,2010/06/15 12:00,Service,I had a wonderful experience with this service.,9.50,RECOMMENDED
+review-08,<script>alert('Hacked');</script>,2010/06/15 12:00,Service,I had a wonderful experience with this service.,9.50,RECOMMENDED
+review-09,<marquee>Malicious</marquee>,2010/06/15 12:00,Service,I had a wonderful experience with this service.,9.50,RECOMMENDED
+review-10,' OR '1'='1,2010/06/15 12:00,Service,I had a wonderful experience with this service.,9.50,RECOMMENDED
+# Moment variations
+review-11,Great Experience,2000/01/01 00:00,Service,I had a wonderful experience with this service.,9.50,RECOMMENDED
+review-12,Great Experience,2000/01/01 00:01,Service,I had a wonderful experience with this service.,9.50,RECOMMENDED
+review-13,Great Experience,2024/12/31 23:59,Service,I had a wonderful experience with this service.,9.50,RECOMMENDED
+review-14,Great Experience,2025/01/01 00:00,Service,I had a wonderful experience with this service.,9.50,RECOMMENDED
+# Subject variations
+review-15,Great Experience,2010/06/15 12:00,S,I had a wonderful experience with this service.,9.50,RECOMMENDED
+review-16,Great Experience,2010/06/15 12:00,Se,I had a wonderful experience with this service.,9.50,RECOMMENDED
+review-17,Great Experience,2010/06/15 12:00,ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwx,I had a wonderful experience with this service.,9.50,RECOMMENDED
+review-18,Great Experience,2010/06/15 12:00,ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvw,I had a wonderful experience with this service.,9.50,RECOMMENDED
+review-19,Great Experience,2010/06/15 12:00,โลเร็ม อิปซัม,I had a wonderful experience with this service.,9.50,RECOMMENDED
+review-20,Great Experience,2010/06/15 12:00,لوريم إيبسوم,I had a wonderful experience with this service.,9.50,RECOMMENDED
+review-21,Great Experience,2010/06/15 12:00,<script>alert('subject');</script>,I had a wonderful experience with this service.,9.50,RECOMMENDED
+review-22,Great Experience,2010/06/15 12:00,<marquee>Subject</marquee>,I had a wonderful experience with this service.,9.50,RECOMMENDED
+review-23,Great Experience,2010/06/15 12:00,' OR '1'='1,I had a wonderful experience with this service.,9.50,RECOMMENDED
+# Text variations
+review-24,Great Experience,2010/06/15 12:00,Service,T,9.50,RECOMMENDED
+review-25,Great Experience,2010/06/15 12:00,Service,Te,9.50,RECOMMENDED
+review-26,Great Experience,2010/06/15 12:00,Service,XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX,9.50,RECOMMENDED
+review-27,Great Experience,2010/06/15 12:00,Service,<script>alert('text');</script>,9.50,RECOMMENDED
+review-28,Great Experience,2010/06/15 12:00,Service,<marquee>Text</marquee>,9.50,RECOMMENDED
+review-29,Great Experience,2010/06/15 12:00,Service,' OR '1'='1,9.50,RECOMMENDED
+review-30,Great Experience,2010/06/15 12:00,Service,โลเร็ม อิปซัม,9.50,RECOMMENDED
+review-31,Great Experience,2010/06/15 12:00,Service,لوريم إيبسوم,9.50,RECOMMENDED
+review-32,Great Experience,2010/06/15 12:00,Service,洛伦·伊پ森,9.50,RECOMMENDED
+# Score variations
+review-33,Great Experience,2010/06/15 12:00,Service,I had a wonderful experience with this service.,0.00,RECOMMENDED
+review-34,Great Experience,2010/06/15 12:00,Service,I had a wonderful experience with this service.,0.01,RECOMMENDED
+review-35,Great Experience,2010/06/15 12:00,Service,I had a wonderful experience with this service.,5.50,RECOMMENDED
+review-36,Great Experience,2010/06/15 12:00,Service,I had a wonderful experience with this service.,10.00,RECOMMENDED
+review-37,Great Experience,2010/06/15 12:00,Service,I had a wonderful experience with this service.,7.25,RECOMMENDED
+# Recommended variations
+review-38,Great Experience,2010/06/15 12:00,Service,I had a wonderful experience with this service.,9.50,RECOMMENDED
+review-39,Great Experience,2010/06/15 12:00,Service,I had a wonderful experience with this service.,9.50,NOT_RECOMMENDED
