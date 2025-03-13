@@ -1,0 +1,5 @@
+key,code,phoneNumber,skills,availability,salary,yearsExperience,key:airline,key:user-account
+# Base entity
+crew-01,CA123456,+34632154789,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",AVAILABLE,EUR 500.00,50,airline-01,user-account-crew-01
+crew-02,CB123456,+51123456789,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",ON_VACATION,EUR 500000.00,5,airline-02,user-account-crew-02
+crew-03,CC123456,+5491112345678,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",ON_LEAVE,EUR 50.00,10,airline-03,user-account-crew-03

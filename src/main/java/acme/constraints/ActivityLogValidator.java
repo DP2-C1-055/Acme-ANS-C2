@@ -30,7 +30,7 @@ public class ActivityLogValidator implements ConstraintValidator<ValidActivityLo
 		Date maxMoment = MomentHelper.parse("2200/12/31 23:59", "yyyy/MM/dd HH:mm");
 
 		if (activityLog.getRegistrationMoment() != null) {
-			boolean inRange = !activityLog.getRegistrationMoment().before(minMoment) && !activityLog.getRegistrationMoment().after(maxMoment);
+			boolean inRange = !activityLog.getRegistrationMoment().before(minMoment) && activityLog.getRegistrationMoment().compareTo(maxMoment) <= 0;  // Asegura que 2200/12/31 23:59 sea válido
 
 			if (!inRange) {
 				context.buildConstraintViolationWithTemplate("acme.validation.activitylog.registration-out-of-range.message").addPropertyNode("registrationMoment").addConstraintViolation();
@@ -40,4 +40,5 @@ public class ActivityLogValidator implements ConstraintValidator<ValidActivityLo
 
 		return true;
 	}
+
 }

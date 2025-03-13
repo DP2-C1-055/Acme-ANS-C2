@@ -1,0 +1,31 @@
+key,duty,lastUpdate,currentStatus,remarks,key:crew,key:leg
+# Base entity
+assignment-01,PILOT,2012/07/02 00:00,CONFIRMED,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",crew-01,leg-04
+# Duty - Cobertura completa
+assignment-02,PILOT,2012/07/02 00:00,CONFIRMED,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",crew-01,leg-04
+assignment-03,CO_PILOT,2012/07/02 00:00,CONFIRMED,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",crew-02,leg-04
+assignment-04,LEAD_ATTENDANT,2012/07/02 00:00,CONFIRMED,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",crew-01,leg-04
+assignment-05,CABIN_ATTENDANT,2012/07/02 00:00,CONFIRMED,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",crew-02,leg-04
+# Last Update - Variaciones (minimo,intermedio,maximo)
+assignment-06,PILOT,2000/01/01 00:00,CONFIRMED,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",crew-01,leg-04
+assignment-07,PILOT,2000/01/01 00:01,CONFIRMED,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",crew-02,leg-04
+assignment-08,PILOT,2024/12/31 23:59,CONFIRMED,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",crew-01,leg-04
+assignment-09,PILOT,2025/01/01 00:00,CONFIRMED,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",crew-02,leg-04
+# Current Status - Cobertura completa,"",""
+assignment-10,PILOT,2012/07/02 00:00,CONFIRMED,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",crew-01,leg-04
+assignment-11,PILOT,2012/07/02 00:00,PENDING,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",crew-01,leg-04
+assignment-12,PILOT,2012/07/02 00:00,CANCELLED,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",crew-02,leg-04
+# Remarks - Variaciones estandar (minimo,intermedio,maximo)
+assignment-13,PILOT,2012/07/02 00:00,CONFIRMED,L,crew-01,leg-04
+assignment-14,PILOT,2012/07/02 00:00,CONFIRMED,Lo,crew-01,leg-04
+assignment-15,PILOT,2012/07/02 00:00,CONFIRMED,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",crew-02,leg-04
+assignment-16,PILOT,2012/07/02 00:00,CONFIRMED,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut enim ad minim veniam? Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor",crew-01,leg-04
+assignment-17,PILOT,2012/07/02 00:00,CONFIRMED,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut enim ad minim veniam? Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor*",crew-02,leg-04
+# Remarks - Otros alfabetos
+assignment-18,PILOT,2012/07/02 00:00,CONFIRMED,โลเร็ม อิปซัม,crew-01,leg-04
+assignment-19,PILOT,2012/07/02 00:00,CONFIRMED,لوريم إيبسوم,crew-01,leg-04
+assignment-20,PILOT,2012/07/02 00:00,CONFIRMED,洛伦·伊普森,crew-01,leg-04
+# Remarks - pruebas de inyección de código
+assignment-21,PILOT,2012/07/02 00:00,CONFIRMED,<marquee>Hacked</marquee>,crew-02,leg-04
+assignment-22,PILOT,2012/07/02 00:00,CONFIRMED,<script>alert(‘Hacked!’);</script>,crew-02,leg-04
+assignment-23,PILOT,2012/07/02 00:00,CONFIRMED,' or 'A' = 'A,crew-01,leg-04

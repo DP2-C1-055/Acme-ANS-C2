@@ -33,7 +33,7 @@ public class Crew extends AbstractRole {
 	// Attributes -------------------------------------------------------------
 
 	@Mandatory
-	@ValidString(pattern = "^[A-Z]{2,3}\\d{6}$", message = "{validation.code}")
+	@ValidString
 	@Column(unique = true)
 	private String				code;
 
