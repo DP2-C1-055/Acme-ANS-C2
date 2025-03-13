@@ -1,0 +1,12 @@
+acme.validation.leg.invalid-flight-number.message = Número de vuelo duplicado. El número de vuelo debe ser único.
+acme.validation.leg.nonexistent-airline.message = Aerolínea inexistente. El código IATA no corresponde a ninguna aerolínea registrada.
+acme.validation.leg.flightNumber = Formato de número de vuelo inválido. Debe constar del código IATA de la aerolínea (3 letras) seguido de 4 dígitos.
+acme.validation.leg.departure-before-arrival.message = La salida programada debe ser anterior a la llegada programada.
+acme.validation.leg.departure-out-of-range.message = La salida programada debe estar entre 2000/01/01 00:00 y 2200/12/31 23:59.
+acme.validation.leg.arrival-out-of-range.message = La llegada programada debe estar entre 2000/01/01 00:00 y 2200/12/31 23:59.
+acme.validation.manager.invalid-identifier.message = Formato de identificador inválido. Debe consistir en 2 o 3 letras mayúsculas seguidas de 6 dígitos.
+acme.validation.manager.duplicated-identifier.message = Identificador duplicado. Este identificador ya está siendo utilizado por otro manager.
+acme.validation.manager.incorrect-initials.message = Las dos primeras letras del identificador deben coincidir con las iniciales del nombre y del apellido del manager.
+acme.validation.iataCode = El código IATA debe contener exactamente tres letras mayúsculas.
+acme.validation.ValidPhone.message = Formato de número de teléfono inválido. Puede comenzar opcionalmente con '+' seguido de 6 a 15 dígitos.
+

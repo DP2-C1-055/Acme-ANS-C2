@@ -1,0 +1,4 @@
+key,identifier,years-of-experience,date-of-birth,picture-url,key:airline,key:user-account
+manager-01,MO123456,5,2005/09/01 10:00,http://example.com/manager01.jpg,airline-01,user-account-manager-01
+manager-02,MT223456,10,2000/09/01 10:00,http://example.com/manager02.jpg,airline-02,user-account-manager-02
+manager-03,MT323456,0,2002/09/01 10:00,http://example.com/manager03.jpg,airline-03,user-account-manager-03
