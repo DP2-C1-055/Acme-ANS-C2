@@ -56,11 +56,11 @@ public class Assignment extends AbstractEntity {
 	@Mandatory
 	@Valid
 	@ManyToOne(optional = false)
-	protected Crew				crew;
+	private Crew				crew;
 
 	@Mandatory
 	@Valid
 	@ManyToOne(optional = false)
-	protected Leg				leg;
+	private Leg					leg;
 
 }

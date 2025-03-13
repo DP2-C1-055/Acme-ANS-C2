@@ -5,3 +5,6 @@ user-account-customer-03,true,"UserIdentity{name: 'Customer4', surname: 'ustomer
 user-account-manager-01,true,"UserIdentity{name: 'Manager', surname: 'One', email: 'manager1@mail.com'}",manager1,manager1
 user-account-manager-02,true,"UserIdentity{name: 'Manager', surname: 'Two', email: 'manager2@mail.com'}",manager2,manager2
 user-account-manager-03,true,"UserIdentity{name: 'Manager', surname: 'Three', email: 'manager3@mail.com'}",manager3,manager3
+user-account-crew-01,true,"UserIdentity{name: 'Crew', surname: 'One', email: 'crew1@mail.com'}",crew1,crew1
+user-account-crew-02,true,"UserIdentity{name: 'Crew', surname: 'Two', email: 'crew2@mail.com'}",crew2,crew2
+user-account-crew-03,true,"UserIdentity{name: 'Crew', surname: 'Three', email: 'crew3@mail.com'}",crew3,crew3
