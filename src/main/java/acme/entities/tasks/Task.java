@@ -32,12 +32,12 @@ public class Task extends AbstractEntity {
 	@Mandatory
 	@ValidNumber(min = 0, max = 10)
 	@Automapped
-	protected Integer			priority;
+	private Integer			priority;
 
 	@Mandatory
 	@ValidNumber(min = 0, max = 1000)
 	@Automapped
-	protected Integer			estimatedDuration;
+	private Integer			estimatedDuration;
 
 	@Mandatory
 	@Valid
