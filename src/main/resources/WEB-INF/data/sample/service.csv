@@ -1,0 +1,5 @@
+name,pictureLink,averageDwellTime,promotionCode,discountAmount
+"Lounge Access","https://example.com/images/lounge.jpg",2.5,"LOUN-25",10.0
+"Priority Boarding","https://example.com/images/boarding.jpg",1.8,"PRIO-25",
+"Extra Baggage","https://example.com/images/baggage.jpg",3.0,"BAGG-25",15.0
+"Fast Track Security","https://example.com/images/security.jpg",2.0,,
