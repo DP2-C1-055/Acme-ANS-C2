@@ -1,41 +1,41 @@
 key,registrationMoment,typeIncident,description,severityLevel,key:crew,key:assignment
 # Base entity
-activity-log-01,2012/07/02 00:00,Lorem ipsum dolor sit ame,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",5,crew-01,assignment-01
+activity-log-01,2006/04/02 5:00,Lorem ipsum dolor sit ame,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",5,crew-01,assignment-01
 # Registration Moment - Variaciones (minimo,intermedio,maximo)
-activity-log-02,2000/01/01 00:00,Lorem ipsum dolor sit ame,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",5,crew-01,assignment-01
-activity-log-03,2000/01/01 00:01,Lorem ipsum dolor sit ame,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",5,crew-01,assignment-01
-activity-log-04,2024/12/31 23:59,Lorem ipsum dolor sit ame,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",5,crew-01,assignment-01
-activity-log-05,2025/01/01 00:00,Lorem ipsum dolor sit ame,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",5,crew-01,assignment-01
+activity-log-02,2000/01/01 10:00,Lorem ipsum dolor sit ame,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",5,crew-01,assignment-01
+activity-log-03,2000/01/01 10:01,Lorem ipsum dolor sit ame,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",5,crew-01,assignment-01
+activity-log-04,2012/07/01 23:59,Lorem ipsum dolor sit ame,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",5,crew-01,assignment-01
+activity-log-05,2012/07/01 00:00,Lorem ipsum dolor sit ame,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",5,crew-01,assignment-01
 # Type Incident - Variaciones estandar (minimo,intermedio,maximo)
-activity-log-06,2012/07/02 00:00,L,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",5,crew-01,assignment-01
-activity-log-07,2012/07/02 00:00,Lo,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",5,crew-01,assignment-01
-activity-log-08,2012/07/02 00:00,Lorem ipsum dolor sit ame,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",5,crew-01,assignment-01
-activity-log-09,2012/07/02 00:00,"Lorem ipsum dolor sit amet,consectetur adipiscin","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",5,crew-01,assignment-01
-activity-log-10,2012/07/02 00:00,"Lorem ipsum dolor sit amet,consectetur adipiscing","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",5,crew-01,assignment-01
+activity-log-06,2006/04/02 5:00,L,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",5,crew-01,assignment-01
+activity-log-07,2006/04/02 5:00,Lo,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",5,crew-01,assignment-01
+activity-log-08,2006/04/02 5:00,Lorem ipsum dolor sit ame,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",5,crew-01,assignment-01
+activity-log-09,2006/04/02 5:00,"Lorem ipsum dolor sit amet,consectetur adipiscin","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",5,crew-01,assignment-01
+activity-log-10,2006/04/02 5:00,"Lorem ipsum dolor sit amet,consectetur adipiscing","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",5,crew-01,assignment-01
 # Type Incident - Otros alfabetos
-activity-log-11,2012/07/02 00:00,โลเร็ม อิปซัม,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",5,crew-01,assignment-01
-activity-log-12,2012/07/02 00:00,لوريم إيبسوم,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",5,crew-01,assignment-01
-activity-log-13,2012/07/02 00:00,洛伦·伊普森,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",5,crew-01,assignment-01
+activity-log-11,2006/04/02 5:00,โลเร็ม อิปซัม,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",5,crew-01,assignment-01
+activity-log-12,2006/04/02 5:00,لوريم إيبسوم,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",5,crew-01,assignment-01
+activity-log-13,2006/04/02 5:00,洛伦·伊普森,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",5,crew-01,assignment-01
 # Type Incident - Pruebas de inyección de código,,"","","",""
-activity-log-14,2012/07/02 00:00,<marquee>Hacked</marquee>,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",5,crew-01,assignment-01
-activity-log-15,2012/07/02 00:00,<script>alert(‘Hacked!’);</script>,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",5,crew-01,assignment-01
-activity-log-16,2012/07/02 00:00,' or 'A' = 'A,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",5,crew-01,assignment-01
+activity-log-14,2006/04/02 5:00,<marquee>Hacked</marquee>,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",5,crew-01,assignment-01
+activity-log-15,2006/04/02 5:00,<script>alert(‘Hacked!’);</script>,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",5,crew-01,assignment-01
+activity-log-16,2006/04/02 5:00,' or 'A' = 'A,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",5,crew-01,assignment-01
 # Description - Variaciones estandar (minimo,intermedio,maximo)
-activity-log-17,2012/07/02 00:00,Lorem ipsum dolor sit ame,L,5,crew-01,assignment-01
-activity-log-18,2012/07/02 00:00,Lorem ipsum dolor sit ame,Lo,5,crew-01,assignment-01
-activity-log-19,2012/07/02 00:00,Lorem ipsum dolor sit ame,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",5,crew-01,assignment-01
-activity-log-20,2012/07/02 00:00,Lorem ipsum dolor sit ame,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut enim ad minim veniam? Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor",5,crew-01,assignment-01
-activity-log-21,2012/07/02 00:00,Lorem ipsum dolor sit ame,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut enim ad minim veniam? Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor*",5,crew-01,assignment-01
+activity-log-17,2006/04/02 5:00,Lorem ipsum dolor sit ame,L,5,crew-01,assignment-01
+activity-log-18,2006/04/02 5:00,Lorem ipsum dolor sit ame,Lo,5,crew-01,assignment-01
+activity-log-19,2006/04/02 5:00,Lorem ipsum dolor sit ame,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",5,crew-01,assignment-01
+activity-log-20,2006/04/02 5:00,Lorem ipsum dolor sit ame,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut enim ad minim veniam? Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor",5,crew-01,assignment-01
+activity-log-21,2006/04/02 5:00,Lorem ipsum dolor sit ame,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut enim ad minim veniam? Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor*",5,crew-01,assignment-01
 # Description - Otros alfabetos
-activity-log-22,2012/07/02 00:00,Lorem ipsum dolor sit ame,โลเร็ม อิปซัม,5,crew-01,assignment-01
-activity-log-23,2012/07/02 00:00,Lorem ipsum dolor sit ame,لوريم إيبسوم,5,crew-01,assignment-01
-activity-log-24,2012/07/02 00:00,Lorem ipsum dolor sit ame,洛伦·伊普森,5,crew-01,assignment-01
+activity-log-22,2006/04/02 5:00,Lorem ipsum dolor sit ame,โลเร็ม อิปซัม,5,crew-01,assignment-01
+activity-log-23,2006/04/02 5:00,Lorem ipsum dolor sit ame,لوريم إيبسوم,5,crew-01,assignment-01
+activity-log-24,2006/04/02 5:00,Lorem ipsum dolor sit ame,洛伦·伊普森,5,crew-01,assignment-01
 # Description - Pruebas de inyección de código
-activity-log-25,2012/07/02 00:00,Lorem ipsum dolor sit ame,<marquee>Hacked</marquee>,5,crew-01,assignment-01
-activity-log-26,2012/07/02 00:00,Lorem ipsum dolor sit ame,<script>alert(‘Hacked!’);</script>,5,crew-01,assignment-01
-activity-log-27,2012/07/02 00:00,Lorem ipsum dolor sit ame,' or 'A' = 'A,5,crew-01,assignment-01
+activity-log-25,2006/04/02 5:00,Lorem ipsum dolor sit ame,<marquee>Hacked</marquee>,5,crew-01,assignment-01
+activity-log-26,2006/04/02 5:00,Lorem ipsum dolor sit ame,<script>alert(‘Hacked!’);</script>,5,crew-01,assignment-01
+activity-log-27,2006/04/02 5:00,Lorem ipsum dolor sit ame,' or 'A' = 'A,5,crew-01,assignment-01
 # Severity Level - Variaciones (minimo,intermedio,maximo)
-activity-log-28,2012/07/02 00:00,Lorem ipsum dolor sit ame,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",0,crew-01,assignment-02
-activity-log-29,2012/07/02 00:00,Lorem ipsum dolor sit ame,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",1,crew-01,assignment-02
-activity-log-30,2012/07/02 00:00,Lorem ipsum dolor sit ame,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",10,crew-01,assignment-02
-activity-log-31,2012/07/02 00:00,Lorem ipsum dolor sit ame,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",10,crew-01,assignment-02
+activity-log-28,2006/04/02 5:00,Lorem ipsum dolor sit ame,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",0,crew-01,assignment-01
+activity-log-29,2006/04/02 5:00,Lorem ipsum dolor sit ame,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",1,crew-01,assignment-01
+activity-log-30,2006/04/02 5:00,Lorem ipsum dolor sit ame,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",10,crew-01,assignment-01
+activity-log-31,2006/04/02 5:00,Lorem ipsum dolor sit ame,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",10,crew-01,assignment-01
