@@ -14,6 +14,7 @@ import acme.client.components.validation.Mandatory;
 import acme.client.components.validation.ValidMoment;
 import acme.client.components.validation.ValidMoney;
 import acme.client.components.validation.ValidString;
+import acme.entities.aircraft.Aircraft;
 
 public class MaintenanceRecord extends AbstractEntity {
 
@@ -31,7 +32,7 @@ public class MaintenanceRecord extends AbstractEntity {
 	@Mandatory
 	@Valid
 	@Automapped
-	private Status				status;
+	private RecordStatus				status;
 
 	@Mandatory
 	@ValidString(min = 6, max = 8, pattern = "^\\d{2}-\\d{1,2}-\\d{1,2}$")
@@ -47,4 +48,14 @@ public class MaintenanceRecord extends AbstractEntity {
 	@ValidString(min = 1, max = 255)
 	@Automapped
 	private String				notes;
+
+	@Mandatory
+	@Valid
+	@ManyToOne(optional = false)
+	private Technician			technician;
+
+	@Mandatory
+	@Valid
+	@ManyToOne(optional = false)
+	private Aircraft			aircraft;
 }
