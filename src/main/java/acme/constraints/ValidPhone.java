@@ -12,8 +12,6 @@ import javax.validation.Payload;
 import javax.validation.ReportAsSingleViolation;
 import javax.validation.constraints.Pattern;
 
-import org.hibernate.validator.constraints.Length;
-
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
@@ -21,7 +19,6 @@ import org.hibernate.validator.constraints.Length;
 @Constraint(validatedBy = {})
 @ReportAsSingleViolation
 
-@Length(min = 6, max = 16)
 @Pattern(regexp = "^\\+?\\d{6,15}$")
 public @interface ValidPhone {
 
