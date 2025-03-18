@@ -7,31 +7,31 @@ service-04,Fast Track Security,https://example.com/images/security.jpg,2.0,,
 
 
 # Name variation
-service-05, Premium Lounge Access, http://lorem.com/ipsum, 1.5, LORM-25, 10.0
-service-06, VIP Priority Boarding, http://lorem.com/ipsum, 1.5, LORM-25, 10.0
-service-07, Additional Baggage Allowance , http://lorem.com/ipsum, 1.5, LORM-25, 10.0
-service-08, Express Security Lane , http://lorem.com/ipsum, 1.5, LORM-25, 10.0
+service-05,Premium Lounge Access,http://lorem.com/ipsum,4.5,LORM-25,10.0
+service-06,VIP Priority Boarding,http://lorem.com/ipsum,4.5,LORM-25,10.0
+service-07,Additional Baggage Allowance,http://lorem.com/ipsum,4.5,LORM-25,10.0
+service-08,Express Security Lane,http://lorem.com/ipsum,4.5,LORM-25,10.0
 
 # Picture-link variation
-service-09, Lorem ipsum dolor sit ame, https://example.com/images/premium-lounge.jpg, 1.5, LORM-25, 10.0
-service-10, Lorem ipsum dolor sit ame, https://example.com/images/vip-boarding.jpg, 1.5, LORM-25, 10.0
-service-11, Lorem ipsum dolor sit ame, https://example.com/images/extra-baggage.jpg, 1.5, LORM-25, 10.0
-service-12, Lorem ipsum dolor sit ame, https://example.com/images/express-security.jpg, 1.5, LORM-25, 10.0
+service-09,Lorem ipsum dolor sit ame,https://example.com/images/premium-lounge.jpg,4.5,LORM-25,10.0
+service-10,Lorem ipsum dolor sit ame,https://example.com/images/vip-boarding.jpg,4.5,LORM-25,10.0
+service-11,Lorem ipsum dolor sit ame,https://example.com/images/extra-baggage.jpg,4.5,LORM-25,10.0
+service-12,Lorem ipsum dolor sit ame,https://example.com/images/express-security.jpg,4.5,LORM-25,10.0
 
 # Average-dwell-time variation
-service-13, Lorem ipsum dolor sit ame, http://lorem.com/ipsum, 3.0, LORM-25, 10.0
-service-14, Lorem ipsum dolor sit ame, http://lorem.com/ipsum, 1.5, LORM-25, 10.0
-service-15, Lorem ipsum dolor sit ame, http://lorem.com/ipsum, 6.0, LORM-25, 10.0
-service-16, Lorem ipsum dolor sit ame, http://lorem.com/ipsum, 4.5, LORM-25, 10.0
+service-13,Lorem ipsum dolor sit ame,http://lorem.com/ipsum,3.0,LORM-25,10.0
+service-14,Lorem ipsum dolor sit ame,http://lorem.com/ipsum,8.5,LORM-25,10.0
+service-15,Lorem ipsum dolor sit ame,http://lorem.com/ipsum,6.0,LORM-25,10.0
+service-16,Lorem ipsum dolor sit ame,http://lorem.com/ipsum,4.5,LORM-25,10.0
 
 # Promotion-code variation
-service-17, Lorem ipsum dolor sit ame, http://lorem.com/ipsum, 1.5, LORM-25, 10.0
-service-18, Lorem ipsum dolor sit ame, http://lorem.com/ipsum, 1.5, ATRS-25, 10.0
-service-19, Lorem ipsum dolor sit ame, http://lorem.com/ipsum, 1.5, NRUS-25, 10.0
-service-20, Lorem ipsum dolor sit ame, http://lorem.com/ipsum, 1.5, CRBI-25, 10.0
+service-17,Lorem ipsum dolor sit ame,http://lorem.com/ipsum,4.5,LORM-25,10.0
+service-18,Lorem ipsum dolor sit ame,http://lorem.com/ipsum,4.5,ATRS-25,10.0
+service-19,Lorem ipsum dolor sit ame,http://lorem.com/ipsum,4.5,NRUS-25,10.0
+service-20,Lorem ipsum dolor sit ame,http://lorem.com/ipsum,4.5,CRBI-25,10.0
 
 # Discount-amount variation
-service-21, Lorem ipsum dolor sit ame, http://lorem.com/ipsum, 1.5, LORM-25, 50.0
-service-22, Lorem ipsum dolor sit ame, http://lorem.com/ipsum, 1.5, LORM-25, 10.0
-service-23, Lorem ipsum dolor sit ame, http://lorem.com/ipsum, 1.5, LORM-25, 7.0
-service-24, Lorem ipsum dolor sit ame, http://lorem.com/ipsum, 1.5, LORM-25,
+service-21,Lorem ipsum dolor sit ame,http://lorem.com/ipsum,4.5,LORM-25,50.0
+service-22,Lorem ipsum dolor sit ame,http://lorem.com/ipsum,4.5,LORM-25,10.0
+service-23,Lorem ipsum dolor sit ame,http://lorem.com/ipsum,4.5,LORM-25,7.0
+service-24,Lorem ipsum dolor sit ame,http://lorem.com/ipsum,4.5,LORM-25,
