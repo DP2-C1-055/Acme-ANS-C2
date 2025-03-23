@@ -55,6 +55,11 @@ public class Leg extends AbstractEntity {
 	@Automapped
 	private LegStatus			status;
 
+	@Mandatory
+	//@Valid
+	@Automapped
+	private boolean				draftMode;
+
 	// Derived attribute ------------------------------------------------------
 
 
