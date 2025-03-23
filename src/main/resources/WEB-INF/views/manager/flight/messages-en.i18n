@@ -5,8 +5,8 @@ manager.flight.list.label.cost = Cost
 manager.flight.list.label.selfTransfer = Self Transfer
 manager.flight.list.button.create = Create Flight
 
-manager.flight.publish.no-leg = The flight must have at least one leg to be published.
-manager.flight.publish.legs-not-published = All legs of the flight must be published.
+manager.flight.publish.no-leg = The flight must have at least one leg to be published
+manager.flight.publish.legs-not-published = All legs of the flight must be published
 
 manager.flight.form.title = Flight Form
 
@@ -14,6 +14,7 @@ manager.flight.form.label.tag = Tag:
 manager.flight.form.label.selfTransfer = Self Transfer:
 manager.flight.form.label.cost = Cost:
 manager.flight.form.label.description = Description:
+manager.flight.form.label.manager = Manager:
 
 manager.flight.form.button.legs = Legs
 manager.flight.form.button.update = Update Flight
