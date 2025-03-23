@@ -2,7 +2,7 @@ key,name,iata-code,operational-scope,city,country,website,email,contact-phone
 # Base entity
 airport-00,John F. Kennedy International Airport,JFK,INTERNATIONAL,New York,USA,https://www.jfkairport.com,info@jfkairport.com,+12125551234
 # name variations
-airport-01,A,AAB,INTERNATIONAL,New York,USA,https://www.jfkairport.com,info@jfkairport.com,+12125551234
+airport-01,A,AAA,INTERNATIONAL,New York,USA,https://www.jfkairport.com,info@jfkairport.com,+12125551234
 airport-02,AB,AAC,INTERNATIONAL,New York,USA,https://www.jfkairport.com,info@jfkairport.com,+12125551234
 airport-03,AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,AAD,INTERNATIONAL,New York,USA,https://www.jfkairport.com,info@jfkairport.com,+12125551234
 airport-04,AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,AAE,INTERNATIONAL,New York,USA,https://www.jfkairport.com,info@jfkairport.com,+12125551234
