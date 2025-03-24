@@ -1,0 +1,14 @@
+# list-booking ##########################################################
+customer.booking.list.title = List Bookigs
+customer.booking.list.label.locatorCode = Locator Code
+customer.booking.list.label.purchaseMoment = Purchase Moment
+customer.booking.list.label.draftMode = Draft Mode
+
+# show-booking ##########################################################
+customer.booking.form.title = Booking details
+customer.booking.form.label.locatorCode = Locator Code
+customer.booking.form.label.purchaseMoment = Purchase Moment
+customer.booking.form.label.travelClass = Travel Class
+customer.booking.form.label.price = Price
+customer.booking.form.label.lastNibble = Credit Card
+customer.booking.form.label.passenger.name = Passenger

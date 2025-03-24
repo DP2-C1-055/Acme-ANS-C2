@@ -1,37 +1,37 @@
-key,fullName,email,passportNumber,dateOfBirth,specialNeeds
+key,fullName,email,passportNumber,dateOfBirth,specialNeeds,draftMode
 # base entity
-passenger-01,"Lorem ipsum dolor sit amet, consectetur adipiscing","acme@lorem-ipsum.org","AAAAAA",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing"
+passenger-01,"Lorem ipsum dolor sit amet, consectetur adipiscing","acme@lorem-ipsum.org","AAAAAA",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing",true
 #fullName standard
-passenger-02,"L","acme@lorem-ipsum.org","AAAAAA1",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing"
-passenger-03,"Lo","acme@lorem-ipsum.org","AAAAAA2",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing"
-passenger-04,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut enim ad minim veniam? Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor","acme@lorem-ipsum.org","AAAAAA3",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing"
-passenger-05,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut enim ad minim veniam? Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor*","acme@lorem-ipsum.org","AAAAAA4",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing"
-passenger-06,"โลเร็ม อิปซัม","acme@lorem-ipsum.org","AAAAAA5",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing"
-passenger-07,"لوريم إيبسوم","acme@lorem-ipsum.org","AAAAAA6",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing"
-passenger-08,"洛伦·伊普森","acme@lorem-ipsum.org","AAAAA7",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing"
-passenger-09,"<marquee>Hacked</marquee>","acme@lorem-ipsum.org","AAAAAA8",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing"
-passenger-10,"<script>alert(‘Hacked!’);</script>","acme@lorem-ipsum.org","AAAAAA9",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing"
-passenger-11,"' or 'A' = 'A","acme@lorem-ipsum.org","AAAAAA10",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing"
+passenger-02,"L","acme@lorem-ipsum.org","AAAAAA1",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing",true
+passenger-03,"Lo","acme@lorem-ipsum.org","AAAAAA2",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing",true
+passenger-04,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut enim ad minim veniam? Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor","acme@lorem-ipsum.org","AAAAAA3",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing",true
+passenger-05,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut enim ad minim veniam? Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor*","acme@lorem-ipsum.org","AAAAAA4",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing",true
+passenger-06,"โลเร็ม อิปซัม","acme@lorem-ipsum.org","AAAAAA5",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing",true
+passenger-07,"لوريم إيبسوم","acme@lorem-ipsum.org","AAAAAA6",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing",true
+passenger-08,"洛伦·伊普森","acme@lorem-ipsum.org","AAAAA7",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing",true
+passenger-09,"<marquee>Hacked</marquee>","acme@lorem-ipsum.org","AAAAAA8",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing",true
+passenger-10,"<script>alert(‘Hacked!’);</script>","acme@lorem-ipsum.org","AAAAAA9",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing",true
+passenger-11,"' or 'A' = 'A","acme@lorem-ipsum.org","AAAAAA10",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing",true
 #email standard
-passenger-13,"Lorem ipsum dolor sit amet, consectetur adipiscing","a@b.e","AAAAAA12",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing"
-passenger-14,"Lorem ipsum dolor sit amet, consectetur adipiscing","a@b.es","AAAAAA13",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing"
-passenger-15,"Lorem ipsum dolor sit amet, consectetur adipiscing","a@b.esx","AAAAAA14",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing"
-passenger-16,"Lorem ipsum dolor sit amet, consectetur adipiscing","lorem-ipsum@dolor.sit.amet.consectetur.adipiscing.elit.sed.do.eiusmod.tempor.incididunt.ut.labore.et.dolore.magna.aliqua.Ut.enim.ad.minim.veniam.quis.nostrud.exercitation.ullamco.laboris.nisi.ut.aliquip.ex.ea.commodo.consequat.duis.aute.irure.doloris.edu","AAAAAA15",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing"
-passenger-17,"Lorem ipsum dolor sit amet, consectetur adipiscing","lorem-ipsum@dolor.sit.amet.consectetur.adipiscing.elit.sed.do.eiusmod.tempor.incididunt.ut.labore.et.dolore.magna.aliqua.Ut.enim.ad.minim.veniam.quis.nostrud.exercitation.ullamco.laboris.nisi.ut.aliquip.ex.ea.commodo.consequat.duis.aute.irure.dolor.es.org","AAAAAA16",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing"
+passenger-13,"Lorem ipsum dolor sit amet, consectetur adipiscing","a@b.e","AAAAAA12",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing",true
+passenger-14,"Lorem ipsum dolor sit amet, consectetur adipiscing","a@b.es","AAAAAA13",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing",true
+passenger-15,"Lorem ipsum dolor sit amet, consectetur adipiscing","a@b.esx","AAAAAA14",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing",true
+passenger-16,"Lorem ipsum dolor sit amet, consectetur adipiscing","lorem-ipsum@dolor.sit.amet.consectetur.adipiscing.elit.sed.do.eiusmod.tempor.incididunt.ut.labore.et.dolore.magna.aliqua.Ut.enim.ad.minim.veniam.quis.nostrud.exercitation.ullamco.laboris.nisi.ut.aliquip.ex.ea.commodo.consequat.duis.aute.irure.doloris.edu","AAAAAA15",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing",true
+passenger-17,"Lorem ipsum dolor sit amet, consectetur adipiscing","lorem-ipsum@dolor.sit.amet.consectetur.adipiscing.elit.sed.do.eiusmod.tempor.incididunt.ut.labore.et.dolore.magna.aliqua.Ut.enim.ad.minim.veniam.quis.nostrud.exercitation.ullamco.laboris.nisi.ut.aliquip.ex.ea.commodo.consequat.duis.aute.irure.dolor.es.org","AAAAAA16",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing",true
 #dateOfBirth standard
-passenger-18,"Lorem ipsum dolor sit amet, consectetur adipiscing","acme@lorem-ipsum.org","AAAAAA17",2000/01/01 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing"
-passenger-19,"Lorem ipsum dolor sit amet, consectetur adipiscing","acme@lorem-ipsum.org","AAAAAA18",2000/01/01 00:01,"Lorem ipsum dolor sit amet, consectetur adipiscing"
-passenger-20,"Lorem ipsum dolor sit amet, consectetur adipiscing","acme@lorem-ipsum.org","AAAAAA19",2024/12/31 23:59,"Lorem ipsum dolor sit amet, consectetur adipiscing"
-passenger-21,"Lorem ipsum dolor sit amet, consectetur adipiscing","acme@lorem-ipsum.org","AAAAAA20",2025/01/01 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing"
+passenger-18,"Lorem ipsum dolor sit amet, consectetur adipiscing","acme@lorem-ipsum.org","AAAAAA17",2000/01/01 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing",true
+passenger-19,"Lorem ipsum dolor sit amet, consectetur adipiscing","acme@lorem-ipsum.org","AAAAAA18",2000/01/01 00:01,"Lorem ipsum dolor sit amet, consectetur adipiscing",true
+passenger-20,"Lorem ipsum dolor sit amet, consectetur adipiscing","acme@lorem-ipsum.org","AAAAAA19",2024/12/31 23:59,"Lorem ipsum dolor sit amet, consectetur adipiscing",true
+passenger-21,"Lorem ipsum dolor sit amet, consectetur adipiscing","acme@lorem-ipsum.org","AAAAAA20",2025/01/01 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing",true
 #specialNeeds standard
-passenger-22,"Lorem ipsum dolor sit amet, consectetur adipiscing","acme@lorem-ipsum.org","AAAAAA21",2012/07/02 00:00,"L"
-passenger-23,"Lorem ipsum dolor sit amet, consectetur adipiscing","acme@lorem-ipsum.org","AAAAAA22",2012/07/02 00:00,"Lo"
-passenger-24,"Lorem ipsum dolor sit amet, consectetur adipiscing","acme@lorem-ipsum.org","AAAAAA23",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscin"
-passenger-25,"Lorem ipsum dolor sit amet, consectetur adipiscing","acme@lorem-ipsum.org","AAAAAA24",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing"
-passenger-26,"Lorem ipsum dolor sit amet, consectetur adipiscing","acme@lorem-ipsum.org","AAAAAA25",2012/07/02 00:00,"โลเร็ม อิปซัม"
-passenger-27,"Lorem ipsum dolor sit amet, consectetur adipiscing","acme@lorem-ipsum.org","AAAAAA26",2012/07/02 00:00,"لوريم إيبسوم"
-passenger-28,"Lorem ipsum dolor sit amet, consectetur adipiscing","acme@lorem-ipsum.org","AAAAAA27",2012/07/02 00:00,"洛伦·伊普森"
-passenger-29,"Lorem ipsum dolor sit amet, consectetur adipiscing","acme@lorem-ipsum.org","AAAAAA28",2012/07/02 00:00,"<marquee>Hacked</marquee>"
-passenger-30,"Lorem ipsum dolor sit amet, consectetur adipiscing","acme@lorem-ipsum.org","AAAAAA29",2012/07/02 00:00,"<script>alert(‘Hacked!’);</script>"
-passenger-31,"Lorem ipsum dolor sit amet, consectetur adipiscing","acme@lorem-ipsum.org","AAAAAA30",2012/07/02 00:00,"' or 'A' = 'A "
-passenger-32,"Lorem ipsum dolor sit amet, consectetur adipiscing","acme@lorem-ipsum.org","AAAAAA31",2012/07/02 00:00,""
+passenger-22,"Lorem ipsum dolor sit amet, consectetur adipiscing","acme@lorem-ipsum.org","AAAAAA21",2012/07/02 00:00,"L",true
+passenger-23,"Lorem ipsum dolor sit amet, consectetur adipiscing","acme@lorem-ipsum.org","AAAAAA22",2012/07/02 00:00,"Lo",true
+passenger-24,"Lorem ipsum dolor sit amet, consectetur adipiscing","acme@lorem-ipsum.org","AAAAAA23",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscin",true
+passenger-25,"Lorem ipsum dolor sit amet, consectetur adipiscing","acme@lorem-ipsum.org","AAAAAA24",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing",true
+passenger-26,"Lorem ipsum dolor sit amet, consectetur adipiscing","acme@lorem-ipsum.org","AAAAAA25",2012/07/02 00:00,"โลเร็ม อิปซัม",true
+passenger-27,"Lorem ipsum dolor sit amet, consectetur adipiscing","acme@lorem-ipsum.org","AAAAAA26",2012/07/02 00:00,"لوريم إيبسوم",true
+passenger-28,"Lorem ipsum dolor sit amet, consectetur adipiscing","acme@lorem-ipsum.org","AAAAAA27",2012/07/02 00:00,"洛伦·伊普森",true
+passenger-29,"Lorem ipsum dolor sit amet, consectetur adipiscing","acme@lorem-ipsum.org","AAAAAA28",2012/07/02 00:00,"<marquee>Hacked</marquee>",true
+passenger-30,"Lorem ipsum dolor sit amet, consectetur adipiscing","acme@lorem-ipsum.org","AAAAAA29",2012/07/02 00:00,"<script>alert(‘Hacked!’);</script>",true
+passenger-31,"Lorem ipsum dolor sit amet, consectetur adipiscing","acme@lorem-ipsum.org","AAAAAA30",2012/07/02 00:00,"' or 'A' = 'A ",true
+passenger-32,"Lorem ipsum dolor sit amet, consectetur adipiscing","acme@lorem-ipsum.org","AAAAAA31",2012/07/02 00:00,"",true
