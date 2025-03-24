@@ -39,10 +39,12 @@ public class Crew extends AbstractRole {
 
 	@Mandatory
 	@ValidPhone
+	@Automapped
 	private String				phoneNumber;
 
 	@Mandatory
 	@ValidString
+	@Automapped
 	private String				skills;
 
 	@Mandatory
@@ -52,10 +54,12 @@ public class Crew extends AbstractRole {
 
 	@Mandatory
 	@ValidMoney(min = 0, max = 1000000)
+	@Automapped
 	private Money				salary;
 
 	@Optional
 	@ValidNumber(min = 0, max = 120)
+	@Automapped
 	private Integer				yearsExperience;
 
 	// Relationships ----------------------------------------------------

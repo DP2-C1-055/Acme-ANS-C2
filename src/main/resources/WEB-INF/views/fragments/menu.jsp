@@ -40,6 +40,11 @@
 		<acme:menu-option code="master.menu.manager" access="hasRealm('Manager')">
 			<acme:menu-suboption code="master.menu.employer.list-my-flights" action="/manager/flight/list" />
 		</acme:menu-option>
+		
+		<acme:menu-option code="master.menu.crew" access="hasRealm('Crew')">
+			<acme:menu-suboption code="master.menu.crew.assignment.list-assignments" action="/crew/assignment/list" />
+		</acme:menu-option>
+		
 
 		<acme:menu-option code="master.menu.provider" access="hasRealm('Provider')">
 			<acme:menu-suboption code="master.menu.provider.favourite-link" action="http://www.example.com/"/>
