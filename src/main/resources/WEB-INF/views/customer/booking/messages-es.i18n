@@ -12,3 +12,5 @@ customer.booking.form.label.travelClass = Clase de viaje
 customer.booking.form.label.price = Precio
 customer.booking.form.label.lastNibble = Tarjeta de crédito
 customer.booking.form.label.passenger.name = Pasajero
+customer.booking.form.label.flight = Etiqueta de vuelo
+customer.booking.form.button.passenger = Pasajeros
