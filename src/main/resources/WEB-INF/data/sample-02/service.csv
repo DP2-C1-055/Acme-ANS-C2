@@ -1,0 +1,43 @@
+key,name,picture-link,average-dwell-time,promotion-code,discount-amount
+# Base entity
+service-00,Premium Cleaning,https://www.example.com/cleaning.jpg,50.50,BASE-25,
+# Name variations
+service-01,A,https://www.example.com/service.jpg,50.50,NAME-25,10.00
+service-02,AB,https://www.example.com/service.jpg,50.50,ABCD-25,10.00
+service-03,AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,https://www.example.com/service.jpg,50.50,EFGH-25,10.00
+service-04,AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,https://www.example.com/service.jpg,50.50,IJKL-25,10.00
+service-05,โลเร็ม อิปซัม,https://www.example.com/service.jpg,50.50,MNOP-25,10.00
+service-06,لوريم إيبسوم,https://www.example.com/service.jpg,50.50,QRST-25,10.00
+service-07,洛伦·伊پ森,https://www.example.com/service.jpg,50.50,UVWX-25,10.00
+service-08,<script>alert(‘Hacked!’);</script>,https://www.example.com/service.jpg,50.50,YZAB-25,10.00
+service-09,<marquee>Hacked</marquee>,https://www.example.com/service.jpg,50.50,CDEF-25,10.00
+service-10,' or 'A' = 'A,https://www.example.com/service.jpg,50.50,GHIJ-25,10.00
+# Picture-link variations
+service-11,Standard Service,ftp://a,50.50,KLMN-25,10.00
+service-12,Standard Service,ftp://a.b,50.50,OPQR-25,10.00
+service-13,Standard Service,"http://www.lorem-ipsum.org/dolor/sit/amet,/consectetur/adipiscing/elit,/sed/do/eiusmod/tempor/incididunt/ut/labore/et/dolore/magna/aliqua/Ut/enim/ad/minim/veniam/quis/nostrud/exercitation/ullamco/laboris/nisi/ut/aliquip/ex/ea/commodo/consequat/duis/aute/",50.50,STUV-25,10.00
+service-14,Standard Service,http://www.lorem-ipsum.org/dolor/sit.html,50.50,WXYZ-25,10.00
+service-15,Standard Service,http://example.org/a/b?a&b,50.50,AAAA-25,10.00
+# AverageDwellTime variations
+service-16,Quick Service,https://www.example.com/service.jpg,1.00,BBBB-25,10.00
+service-17,Quick Service,https://www.example.com/service.jpg,1.01,CCCC-25,10.00
+service-18,Quick Service,https://www.example.com/service.jpg,50.50,DDDD-25,10.00
+service-19,Quick Service,https://www.example.com/service.jpg,99.99,EEEE-25,10.00
+service-20,Quick Service,https://www.example.com/service.jpg,100.00,FFFF-25,10.00
+service-21,Quick Service,https://www.example.com/service.jpg,75.0,GGGG-25,10.00
+# PromotionCode variations
+service-22,Promo Service,https://www.example.com/service.jpg,50.50,HHHH-25,10.00
+service-23,Promo Service,https://www.example.com/service.jpg,50.50,IIII-25,10.00
+service-24,Promo Service,https://www.example.com/service.jpg,50.50,JJJJ-25,10.00
+service-25,Promo Service,https://www.example.com/service.jpg,50.50,KKKK-25,10.00
+service-26,Promo Service,https://www.example.com/service.jpg,50.50,LLLL-25,10.00
+service-27,Promo Service,https://www.example.com/service.jpg,50.50,MMMM-25,10.00
+service-28,Promo Service,https://www.example.com/service.jpg,50.50,NNNN-25,10.00
+service-29,Promo Service,https://www.example.com/service.jpg,50.50,"",10.00
+# DiscountAmount variations
+service-30,Discount Service,https://www.example.com/service.jpg,50.50,PPPP-25,
+service-31,Discount Service,https://www.example.com/service.jpg,50.50,QQQQ-25,0.00
+service-32,Discount Service,https://www.example.com/service.jpg,50.50,RRRR-25,50.50
+service-33,Discount Service,https://www.example.com/service.jpg,50.50,SSSS-25,100.00
+service-34,Discount Service,https://www.example.com/service.jpg,50.50,TTTT-25,99.00
+service-35,Discount Service,https://www.example.com/service.jpg,50.50,UUUU-25,1.00
