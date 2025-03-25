@@ -33,6 +33,11 @@ master.menu.administrator.list-aiports = List airports
 master.menu.manager = Manager
 master.menu.employer.list-my-flights = List my flights
 
+# master.menu.crew ###################################################
+
+master.menu.crew = Crew
+master.menu.crew.assignment.list-assignments = List my assignments
+
 # master.menu.provider ########################################################
 
 master.menu.provider = Provider
