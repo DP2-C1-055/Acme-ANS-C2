@@ -17,7 +17,6 @@ import acme.client.components.validation.ValidNumber;
 import acme.client.components.validation.ValidString;
 import acme.constraints.ValidActivityLog;
 import acme.entities.assignment.Assignment;
-import acme.realms.crew.Crew;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -54,11 +53,6 @@ public class ActivityLog extends AbstractEntity {
 	private Integer				severityLevel;
 
 	// Relationships ----------------------------------------------------
-
-	@Mandatory
-	@Valid
-	@ManyToOne(optional = false)
-	private Crew				crew;
 
 	@Mandatory
 	@Valid

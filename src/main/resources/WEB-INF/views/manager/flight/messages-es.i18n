@@ -1,0 +1,24 @@
+manager.flight.list.title = Vuelos
+
+manager.flight.list.label.tag = Tag
+manager.flight.list.label.cost = Costo
+manager.flight.list.label.selfTransfer = Transferencia Propia
+manager.flight.list.button.create = Crear Vuelo
+
+manager.flight.publish.no-leg = El vuelo debe tener al menos un tramo para poder publicarse
+manager.flight.publish.legs-not-published = Todos los tramos del vuelo deben estar publicados
+
+manager.flight.form.title = Formulario de Vuelo
+
+manager.flight.form.label.tag = Identificador:
+manager.flight.form.label.selfTransfer = Transferencia Propia:
+manager.flight.form.label.cost = Costo:
+manager.flight.form.label.description = Descripción:
+manager.flight.form.label.manager = Manager:
+
+manager.flight.form.button.legs = Tramos
+manager.flight.form.button.update = Actualizar Vuelo
+manager.flight.form.button.delete = Eliminar Vuelo
+manager.flight.form.button.publish = Publicar Vuelo
+manager.flight.form.button.create = Crear Vuelo
+

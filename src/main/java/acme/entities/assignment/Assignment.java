@@ -51,6 +51,11 @@ public class Assignment extends AbstractEntity {
 	@Automapped
 	private String				remarks;
 
+	@Mandatory
+	@Valid
+	@Automapped
+	private boolean				draftMode;
+
 	// Relationships ----------------------------------------------------
 
 	@Mandatory
@@ -62,5 +67,4 @@ public class Assignment extends AbstractEntity {
 	@Valid
 	@ManyToOne(optional = false)
 	private Leg					leg;
-
 }
