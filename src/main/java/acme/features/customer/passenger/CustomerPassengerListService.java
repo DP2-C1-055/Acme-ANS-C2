@@ -2,6 +2,7 @@
 package acme.features.customer.passenger;
 
 import java.util.Collection;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -59,7 +60,18 @@ public class CustomerPassengerListService extends AbstractGuiService<Customer, P
 		assert object != null;
 
 		Dataset dataset;
-		dataset = super.unbindObject(object, "fullName", "email", "passportNumber");
+		dataset = super.unbindObject(object, "fullName", "email", "passportNumber", "draftMode");
+
+		if (object.getDraftMode()) {
+			final Locale local = super.getRequest().getLocale();
+			String draftmodeText;
+			if (local.equals(Locale.ENGLISH))
+				draftmodeText = "Yes";
+			else
+				draftmodeText = "Sí";
+			dataset.put("draftMode", draftmodeText);
+		} else
+			dataset.put("draftMode", "No");
 
 		super.getResponse().addData(dataset);
 	}

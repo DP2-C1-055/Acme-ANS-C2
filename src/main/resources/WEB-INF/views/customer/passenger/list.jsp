@@ -7,6 +7,7 @@
 	<acme:list-column code="customer.passenger.list.label.fullName" path="fullName" />
 	<acme:list-column code="customer.passenger.list.label.email" path="email"/>
 	<acme:list-column code="customer.passenger.list.label.passportNumber" path="passportNumber" />
+	<acme:list-column code="customer.passenger.list.label.draftMode" path="draftMode" />
 </acme:list>
 	   <jstl:choose>
 		<jstl:when test="${acme:anyOf(_command, 'list') && bookingDraftMode == true}">
