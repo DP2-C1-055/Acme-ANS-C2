@@ -33,7 +33,7 @@ service-25,Promo Service,https://www.example.com/service.jpg,50.50,KKKK-25,10.00
 service-26,Promo Service,https://www.example.com/service.jpg,50.50,LLLL-25,10.00
 service-27,Promo Service,https://www.example.com/service.jpg,50.50,MMMM-25,10.00
 service-28,Promo Service,https://www.example.com/service.jpg,50.50,NNNN-25,10.00
-service-29,Promo Service,https://www.example.com/service.jpg,50.50,"",10.00
+service-29,Promo Service,https://www.example.com/service.jpg,50.50,FSFS-25,10.00
 # DiscountAmount variations
 service-30,Discount Service,https://www.example.com/service.jpg,50.50,PPPP-25,
 service-31,Discount Service,https://www.example.com/service.jpg,50.50,QQQQ-25,0.00
