@@ -14,7 +14,7 @@ import acme.entities.technicians.TechnicianRepository;
 public class ValidTechnicianValidator extends AbstractValidator<ValidTechnician, Technician> {
 
 	@Autowired
-	private TechnicianRepository		technicianRepository;
+	private TechnicianRepository	technicianRepository;
 
 	// Patrón para código IATA: 3 letras mayúsculas.
 	private static final Pattern	LICENSENUMBER_PATTERN	= Pattern.compile("^[A-Z]{2-3}\\d{6}$");
@@ -54,3 +54,5 @@ public class ValidTechnicianValidator extends AbstractValidator<ValidTechnician,
 			}
 		}
 		return !super.hasErrors(context);
+	}
+}
