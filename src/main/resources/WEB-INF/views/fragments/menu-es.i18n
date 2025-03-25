@@ -27,6 +27,7 @@ master.menu.administrator.populate-db-sample = Poblar BD (ejemplos)
 master.menu.administrator.shut-system-down = Parar el sistema
 
 master.menu.administrator.list-aiports = Listar aeropuertos
+master.menu.administrator.list-airline = Listar aerolíneas
 
 # master.menu.manager ###################################################
 
