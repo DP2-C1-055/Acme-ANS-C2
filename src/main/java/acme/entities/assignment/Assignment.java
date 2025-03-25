@@ -52,7 +52,7 @@ public class Assignment extends AbstractEntity {
 	private String				remarks;
 
 	@Mandatory
-	@Valid
+	//@Valid
 	@Automapped
 	private boolean				draftMode;
 
