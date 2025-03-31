@@ -37,7 +37,7 @@ public class CustomerPassengerListService extends AbstractGuiService<Customer, P
 
 		Booking booking = this.customerBookingRepository.findBookingById(super.getRequest().getData("bookingId", int.class));
 
-		status = super.getRequest().getPrincipal().hasRealmOfType(Customer.class) && bookings.contains(booking) && booking.getDraftMode();
+		status = super.getRequest().getPrincipal().hasRealmOfType(Customer.class) && bookings.contains(booking);
 
 		super.getResponse().setAuthorised(status);
 	}

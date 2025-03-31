@@ -8,3 +8,4 @@
 	<acme:list-column code="customer.booking.list.label.purchaseMoment" path="purchaseMoment"/>
 	<acme:list-column code="customer.booking.list.label.draftMode" path="draftMode"/>
 </acme:list>
+<acme:button code="customer.booking.list.button.create" action="/customer/booking/create"/>

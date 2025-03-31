@@ -3,6 +3,7 @@ customer.booking.list.title = Lista de reserva
 customer.booking.list.label.locatorCode = Código de localizador
 customer.booking.list.label.purchaseMoment = Momento de compra
 customer.booking.list.label.draftMode = Modo borrador
+customer.booking.list.button.create = Nueva reserva
 
 # show-booking ##########################################################
 customer.booking.form.title = Detalles de la reserva
@@ -14,3 +15,11 @@ customer.booking.form.label.lastNibble = Tarjeta de crédito
 customer.booking.form.label.passenger.name = Pasajero
 customer.booking.form.label.flight = Etiqueta de vuelo
 customer.booking.form.button.passenger = Pasajeros
+customer.booking.error.draftMode = Todos los pasajeros deben estar confirmados
+customer.booking.error.noPassengers = Debe haber al menos un pasajero en la reserva
+customer.booking.form.button.create = Nueva reserva
+customer.booking.form.button.update = Actualizar
+customer.booking.form.button.publish = Publicar
+customer.booking.form.button.delete = Eliminar
+customer.booking.error.lastNibble = Para confirmar la reserva introduzca su tarjeta de crédito
+customer.booking.error.locatorCodeDuplicate = Código de localización duplicado

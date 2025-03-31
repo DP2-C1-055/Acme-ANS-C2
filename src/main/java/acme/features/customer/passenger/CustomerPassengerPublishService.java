@@ -81,7 +81,7 @@ public class CustomerPassengerPublishService extends AbstractGuiService<Customer
 
 		Money money = new Money();
 		money.setAmount(bookingCostUpdated);
-		money.setCurrency(booking.getPrice().getCurrency());
+		money.setCurrency(booking.getFlight().getCost().getCurrency());
 
 		booking.setPrice(money);
 		this.customerBookingRepository.save(booking);
