@@ -38,6 +38,7 @@ master.menu.employer.list-my-flights = List my flights
 
 master.menu.crew = Crew
 master.menu.crew.assignment.list-assignments = List my assignments
+master.menu.crew.assignment.list-activity-log = List activity logs
 
 # master.menu.provider ########################################################
 

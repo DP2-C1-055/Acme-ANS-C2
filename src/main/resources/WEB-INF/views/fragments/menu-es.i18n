@@ -38,6 +38,7 @@ master.menu.employer.list-my-flights = Listar mis vuelos
 
 master.menu.crew = Tripulación
 master.menu.crew.assignment.list-assignments = Listar mis asignaciones
+master.menu.crew.assignment.list-activity-log = Listar registros de actividad
 
 # master.menu.provider ########################################################
 
