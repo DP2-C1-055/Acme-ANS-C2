@@ -54,91 +54,68 @@ public class Flight extends AbstractEntity {
 	@Automapped
 	private String				description;
 
+	@Mandatory
+	//@Valid
+	@Automapped
+	private boolean				draftMode;
+
 	// Derived attributes -----------------------------------------------------
 
 
 	@Transient
 	public Date getScheduledDeparture() {
+		Date departure = null;
 		ManagerLegRepository legRepo = SpringHelper.getBean(ManagerLegRepository.class);
-		Collection<Leg> legs = legRepo.findLegsByFlightId(this.getId());
-		if (legs == null || legs.isEmpty()) // He tenido que hacerlo así porque da error al usar el tipo Optional por incompatibilidad con @Optional
-			return null;
-		Date minDeparture = null;
-		for (Leg leg : legs) {
-			Date departure = leg.getScheduledDeparture();
-			if (departure != null)
-				if (minDeparture == null || departure.before(minDeparture))
-					minDeparture = departure;
-		}
-		return minDeparture;
+		Collection<Leg> legs = legRepo.findLegsByFlightIdOrderByScheduledDepartureAsc(this.getId());
+		if (legs != null && !legs.isEmpty())
+			departure = legs.iterator().next().getScheduledDeparture();
+		return departure;
 	}
 
 	@Transient
 	public Date getScheduledArrival() {
+		Date arrival = null;
 		ManagerLegRepository legRepo = SpringHelper.getBean(ManagerLegRepository.class);
-		Collection<Leg> legs = legRepo.findLegsByFlightId(this.getId());
-		if (legs == null || legs.isEmpty())
-			return null;
-		Date maxArrival = null;
-		for (Leg leg : legs) {
-			Date arrival = leg.getScheduledArrival();
-			if (arrival != null)
-				if (maxArrival == null || arrival.after(maxArrival))
-					maxArrival = arrival;
-		}
-		return maxArrival;
+		Collection<Leg> legs = legRepo.findLegsByFlightIdOrderByScheduledArrivalDesc(this.getId());
+		if (legs != null && !legs.isEmpty())
+			arrival = legs.iterator().next().getScheduledArrival();
+		return arrival;
 	}
 
 	@Transient
 	public String getOriginCity() {
+		String originCity = null;
 		ManagerLegRepository legRepo = SpringHelper.getBean(ManagerLegRepository.class);
-		Collection<Leg> legs = legRepo.findLegsByFlightId(this.getId());
-		if (legs == null || legs.isEmpty())
-			return null;
-		Date earliestDeparture = null;
-		Leg firstLeg = null;
-		for (Leg leg : legs) {
-			Date departure = leg.getScheduledDeparture();
-			if (departure != null)
-				if (earliestDeparture == null || departure.before(earliestDeparture)) {
-					earliestDeparture = departure;
-					firstLeg = leg;
-				}
+		Collection<Leg> legs = legRepo.findLegsByFlightIdOrderByScheduledDepartureAsc(this.getId());
+		if (legs != null && !legs.isEmpty()) {
+			Leg firstLeg = legs.iterator().next();
+			if (firstLeg.getDepartureAirport() != null)
+				originCity = firstLeg.getDepartureAirport().getCity();
 		}
-		if (firstLeg != null && firstLeg.getDepartureAirport() != null)
-			return firstLeg.getDepartureAirport().getCity();
-		return null;
+		return originCity;
 	}
 
 	@Transient
 	public String getDestinationCity() {
+		String destinationCity = null;
 		ManagerLegRepository legRepo = SpringHelper.getBean(ManagerLegRepository.class);
-		Collection<Leg> legs = legRepo.findLegsByFlightId(this.getId());
-		if (legs == null || legs.isEmpty())
-			return null;
-		Date latestArrival = null;
-		Leg lastLeg = null;
-		for (Leg leg : legs) {
-			Date arrival = leg.getScheduledArrival();
-			if (arrival != null)
-				if (latestArrival == null || arrival.after(latestArrival)) {
-					latestArrival = arrival;
-					lastLeg = leg;
-				}
+		Collection<Leg> legs = legRepo.findLegsByFlightIdOrderByScheduledArrivalDesc(this.getId());
+		if (legs != null && !legs.isEmpty()) {
+			Leg lastLeg = legs.iterator().next();
+			if (lastLeg.getArrivalAirport() != null)
+				destinationCity = lastLeg.getArrivalAirport().getCity();
 		}
-		if (lastLeg != null && lastLeg.getArrivalAirport() != null)
-			return lastLeg.getArrivalAirport().getCity();
-		return null;
+		return destinationCity;
 	}
 
 	@Transient
 	public int getNumberOfLayovers() {
+		int layovers = 0;
 		ManagerLegRepository legRepo = SpringHelper.getBean(ManagerLegRepository.class);
 		Collection<Leg> legs = legRepo.findLegsByFlightId(this.getId());
-		if (legs == null || legs.isEmpty())
-			return 0;
-		// Número de layovers es igual al número de legs menos uno.
-		return Math.max(legs.size() - 1, 0);
+		if (legs != null && !legs.isEmpty())
+			layovers = Math.max(legs.size() - 1, 0);
+		return layovers;
 	}
 
 	// Relationships ----------------------------------------------------------
