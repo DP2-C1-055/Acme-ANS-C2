@@ -43,9 +43,9 @@ public class MaintenanceRecord extends AbstractEntity {
 	private RecordStatus		status;
 
 	@Mandatory
-	@ValidString(min = 6, max = 8, pattern = "^\\d{2}-\\d{1,2}-\\d{1,2}$")
-	@Automapped
-	private String				nextInspectionDue;
+	@ValidMoment
+	@Temporal(TemporalType.DATE)
+	private Date				nextInspectionDue;
 
 	@Mandatory
 	@ValidMoney
