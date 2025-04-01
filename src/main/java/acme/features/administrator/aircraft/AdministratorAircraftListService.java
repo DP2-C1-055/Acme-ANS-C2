@@ -14,10 +14,12 @@ import acme.entities.aircraft.Aircraft;
 @GuiService
 public class AdministratorAircraftListService extends AbstractGuiService<Administrator, Aircraft> {
 
+	// Internal state ---------------------------------------------------------
 	@Autowired
 	private AdministratorAircraftRepository repository;
 
 
+	// AbstractGuiService interface -------------------------------------------
 	@Override
 	public void authorise() {
 		super.getResponse().setAuthorised(true);
@@ -28,6 +30,7 @@ public class AdministratorAircraftListService extends AbstractGuiService<Adminis
 		Collection<Aircraft> aircrafts;
 
 		aircrafts = this.repository.findAllAircrafts();
+
 		super.getBuffer().addData(aircrafts);
 	}
 
@@ -35,7 +38,8 @@ public class AdministratorAircraftListService extends AbstractGuiService<Adminis
 	public void unbind(final Aircraft aircraft) {
 		Dataset dataset;
 
-		dataset = super.unbindObject(aircraft, "model", "registrationNumber", "capacity", "cargoWeight", "status", "details", "airline.name");
+		dataset = super.unbindObject(aircraft, "model", "registrationNumber", "capacity", "cargoWeight", "status");
+
 		super.getResponse().addData(dataset);
 	}
 }

@@ -15,10 +15,9 @@ import acme.entities.aircraft.ServiceStatus;
 import acme.entities.airline.Airline;
 
 @GuiService
-public class AdministratorAircraftShowService extends AbstractGuiService<Administrator, Aircraft> {
+public class AdministratorAircraftCreateService extends AbstractGuiService<Administrator, Aircraft> {
 
 	// Internal state ---------------------------------------------------------
-
 	@Autowired
 	private AdministratorAircraftRepository repository;
 
@@ -33,12 +32,36 @@ public class AdministratorAircraftShowService extends AbstractGuiService<Adminis
 	@Override
 	public void load() {
 		Aircraft aircraft;
-		int id;
 
-		id = super.getRequest().getData("id", int.class);
-		aircraft = this.repository.findAircraftById(id);
+		aircraft = new Aircraft();
 
 		super.getBuffer().addData(aircraft);
+
+	}
+
+	@Override
+	public void bind(final Aircraft aircraft) {
+		int airlineId;
+		Airline airline;
+
+		airlineId = super.getRequest().getData("airline", int.class);
+		airline = this.repository.findAirlineById(airlineId);
+
+		super.bindObject(aircraft, "model", "registrationNumber", "capacity", "cargoWeight", "status", "details");
+		aircraft.setAirline(airline);
+	}
+
+	@Override
+	public void validate(final Aircraft aircraft) {
+		boolean confirmation;
+
+		confirmation = super.getRequest().getData("confirmation", boolean.class);
+		super.state(confirmation, "confirmation", "acme.validation.confirmation.message");
+	}
+
+	@Override
+	public void perform(final Aircraft aircraft) {
+		this.repository.save(aircraft);
 	}
 
 	@Override
@@ -54,9 +77,10 @@ public class AdministratorAircraftShowService extends AbstractGuiService<Adminis
 
 		dataset = super.unbindObject(aircraft, "model", "registrationNumber", "capacity", "cargoWeight", "status", "details");
 		dataset.put("statuses", choices);
-
-		dataset.put("airline", selectedAirlines.getSelected().getKey());
 		dataset.put("airlines", selectedAirlines);
+		dataset.put("airline", selectedAirlines.getSelected().getKey());
+		dataset.put("confirmation", false);
+		dataset.put("readonly", false);
 
 		super.getResponse().addData(dataset);
 
