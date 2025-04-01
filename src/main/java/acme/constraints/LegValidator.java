@@ -1,27 +1,26 @@
 
 package acme.constraints;
 
-import java.util.Date;
-
 import javax.validation.ConstraintValidatorContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.validation.AbstractValidator;
-import acme.client.helpers.MomentHelper;
 import acme.entities.leg.Leg;
 import acme.features.administrator.airline.AdministratorAirlineRepository;
+import acme.features.manager.leg.ManagerLegRepository;
 
 public class LegValidator extends AbstractValidator<ValidLeg, Leg> {
 
 	// Internal state ---------------------------------------------------------
+	@Autowired
+	private AdministratorAirlineRepository	airlineRepository;
 
 	@Autowired
-	private AdministratorAirlineRepository airlineRepository;
+	private ManagerLegRepository			legRepository;
+
 
 	// ConstraintValidator interface ------------------------------------------
-
-
 	@Override
 	protected void initialise(final ValidLeg annotation) {
 		assert annotation != null;
@@ -30,17 +29,37 @@ public class LegValidator extends AbstractValidator<ValidLeg, Leg> {
 	@Override
 	public boolean isValid(final Leg leg, final ConstraintValidatorContext context) {
 		assert context != null;
-
 		boolean result;
 
 		if (leg == null)
 			super.state(context, false, "*", "javax.validation.constraints.NotNull.message");
 		else {
+			// Validar que ninguno de los atributos obligatorios sea nulo
+			super.state(context, leg.getFlightNumber() != null, "flightNumber", "acme.validation.leg.null.flightNumber");
+			super.state(context, leg.getScheduledDeparture() != null, "scheduledDeparture", "acme.validation.leg.null.scheduledDeparture");
+			super.state(context, leg.getScheduledArrival() != null, "scheduledArrival", "acme.validation.leg.null.scheduledArrival");
+			super.state(context, leg.getStatus() != null, "status", "acme.validation.leg.null.status");
+			super.state(context, leg.getDepartureAirport() != null, "departureAirport", "acme.validation.leg.null.departureAirport");
+			super.state(context, leg.getArrivalAirport() != null, "arrivalAirport", "acme.validation.leg.null.arrivalAirport");
+			super.state(context, leg.getAircraft() != null, "aircraft", "acme.validation.leg.null.aircraft");
+			super.state(context, leg.getFlight() != null, "flight", "acme.validation.leg.null.flight");
+
 			// Validar que el flightNumber comienza con el IATA code (los 3 primeros caracteres)
 			{
 				String flightNumber = leg.getFlightNumber();
-				boolean airlineExists = flightNumber != null && flightNumber.length() >= 3 && this.airlineRepository.existsByIataCode(flightNumber.substring(0, 3));
-				super.state(context, airlineExists, "flightNumber", "acme.validation.leg.nonexistent-airline.message");
+				if (flightNumber != null && flightNumber.length() >= 3) {
+					boolean airlineExists = this.airlineRepository.existsByIataCode(flightNumber.substring(0, 3));
+					super.state(context, airlineExists, "flightNumber", "acme.validation.leg.nonexistent-airline.message");
+				}
+			}
+			// Validar que el flightNumber sea único mediante findByFlightNumber
+			{
+				String flightNumber = leg.getFlightNumber();
+				if (flightNumber != null) {
+					Leg existing = this.legRepository.findByFlightNumber(flightNumber);
+					boolean unique = existing == null || existing.getId() == leg.getId();
+					super.state(context, unique, "flightNumber", "acme.validation.leg.flightNumber.unique.message");
+				}
 			}
 			// Validar que la salida (scheduledDeparture) es anterior a la llegada (scheduledArrival)
 			{
@@ -49,19 +68,11 @@ public class LegValidator extends AbstractValidator<ValidLeg, Leg> {
 					super.state(context, validSchedule, "scheduledDeparture", "acme.validation.leg.departure-before-arrival.message");
 				}
 			}
-			// Validar que las fechas estén dentro del rango definido en el proyecto
-			// TODO: ESTO QUIZÁ HAY QUE HACERLO DE OTRA FORMA. PERO FUNCIONA
+			// Validar que el aeropuerto de salida y el de llegada sean diferentes
 			{
-				// Se usa el formato "yyyy/MM/dd HH:mm" para parsear las fechas definidas en application.properties
-				Date minMoment = MomentHelper.parse("2000/01/01 00:00", "yyyy/MM/dd HH:mm");
-				Date maxMoment = MomentHelper.parse("2200/12/31 23:59", "yyyy/MM/dd HH:mm");
-				if (leg.getScheduledDeparture() != null) {
-					boolean departureInRange = !leg.getScheduledDeparture().before(minMoment) && !leg.getScheduledDeparture().after(maxMoment);
-					super.state(context, departureInRange, "scheduledDeparture", "acme.validation.leg.departure-out-of-range.message");
-				}
-				if (leg.getScheduledArrival() != null) {
-					boolean arrivalInRange = !leg.getScheduledArrival().before(minMoment) && !leg.getScheduledArrival().after(maxMoment);
-					super.state(context, arrivalInRange, "scheduledArrival", "acme.validation.leg.arrival-out-of-range.message");
+				if (leg.getDepartureAirport() != null && leg.getArrivalAirport() != null) {
+					boolean differentAirports = leg.getDepartureAirport().getId() != leg.getArrivalAirport().getId();
+					super.state(context, differentAirports, "arrivalAirport", "acme.validation.leg.airport-different.message");
 				}
 			}
 		}
