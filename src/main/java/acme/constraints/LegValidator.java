@@ -34,11 +34,23 @@ public class LegValidator extends AbstractValidator<ValidLeg, Leg> {
 		if (leg == null)
 			super.state(context, false, "*", "javax.validation.constraints.NotNull.message");
 		else {
+			// Validar que ninguno de los atributos obligatorios sea nulo
+			super.state(context, leg.getFlightNumber() != null, "flightNumber", "acme.validation.leg.null.flightNumber");
+			super.state(context, leg.getScheduledDeparture() != null, "scheduledDeparture", "acme.validation.leg.null.scheduledDeparture");
+			super.state(context, leg.getScheduledArrival() != null, "scheduledArrival", "acme.validation.leg.null.scheduledArrival");
+			super.state(context, leg.getStatus() != null, "status", "acme.validation.leg.null.status");
+			super.state(context, leg.getDepartureAirport() != null, "departureAirport", "acme.validation.leg.null.departureAirport");
+			super.state(context, leg.getArrivalAirport() != null, "arrivalAirport", "acme.validation.leg.null.arrivalAirport");
+			super.state(context, leg.getAircraft() != null, "aircraft", "acme.validation.leg.null.aircraft");
+			super.state(context, leg.getFlight() != null, "flight", "acme.validation.leg.null.flight");
+
 			// Validar que el flightNumber comienza con el IATA code (los 3 primeros caracteres)
 			{
 				String flightNumber = leg.getFlightNumber();
-				boolean airlineExists = flightNumber != null && flightNumber.length() >= 3 && this.airlineRepository.existsByIataCode(flightNumber.substring(0, 3));
-				super.state(context, airlineExists, "flightNumber", "acme.validation.leg.nonexistent-airline.message");
+				if (flightNumber != null && flightNumber.length() >= 3) {
+					boolean airlineExists = this.airlineRepository.existsByIataCode(flightNumber.substring(0, 3));
+					super.state(context, airlineExists, "flightNumber", "acme.validation.leg.nonexistent-airline.message");
+				}
 			}
 			// Validar que el flightNumber sea único mediante findByFlightNumber
 			{
