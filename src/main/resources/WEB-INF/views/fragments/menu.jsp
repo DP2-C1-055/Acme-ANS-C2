@@ -44,6 +44,7 @@
 		
 		<acme:menu-option code="master.menu.crew" access="hasRealm('Crew')">
 			<acme:menu-suboption code="master.menu.crew.assignment.list-assignments" action="/crew/assignment/list" />
+			<acme:menu-suboption code="master.menu.crew.assignment.list-activity-log" action="/crew/activity-log/list" />
 		</acme:menu-option>
 		
 
@@ -53,6 +54,9 @@
 
 		<acme:menu-option code="master.menu.consumer" access="hasRealm('Consumer')">
 			<acme:menu-suboption code="master.menu.consumer.favourite-link" action="http://www.example.com/"/>
+		</acme:menu-option>
+		<acme:menu-option code="master.menu.customer" access="hasRealm('Customer')">
+			<acme:menu-suboption code="master.menu.customer.list-bookings" action="/customer/booking/list" />
 		</acme:menu-option>
 	</acme:menu-left>
 

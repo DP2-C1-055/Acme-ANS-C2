@@ -1,0 +1,19 @@
+crew.activity-log.form.title = Activity log form
+crew.activity-log.list.title = Listing of Activity logs
+
+crew.activityLog.form.label.registrationMoment = Registration Moment:
+crew.activityLog.form.label.typeIncident = Type Incident:
+crew.activityLog.form.label.description = Description:
+crew.activityLog.form.label.severityLevel = Severity Level:
+crew.activityLog.form.label.confirmation = Do you want to confirm?
+
+crew.activityLog.form.button.publish = Publish
+crew.activityLog.form.button.create = Create
+crew.activityLog.form.button.update = Update
+crew.activityLog.form.button.delete = Delete
+
+crew.activityLog.list.label.registrationMoment = Registration Moment:
+crew.activityLog.list.label.typeIncident = Type Incident:
+crew.activityLog.list.label.severityLevel = Severity Level:
+
+crew.activityLog.list.button.create = Create

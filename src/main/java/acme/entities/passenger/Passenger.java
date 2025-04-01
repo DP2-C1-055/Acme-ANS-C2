@@ -7,7 +7,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Pattern;
 
 import acme.client.components.basis.AbstractEntity;
 import acme.client.components.mappings.Automapped;
@@ -22,6 +21,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+//@ValidPassenger
 public class Passenger extends AbstractEntity {
 
 	protected static final long	serialVersionUID	= 1L;
@@ -37,12 +37,12 @@ public class Passenger extends AbstractEntity {
 	protected String			email;
 
 	@Mandatory
-	@Pattern(regexp = "^[A-Z0-9]{6,9}$", message = "{validation.passportNumber}")
+	@ValidString(pattern = "^[A-Z0-9]{6,9}$", message = "{acme.validation.passportNumber}")
 	@Column(unique = true)
 	protected String			passportNumber;
 
 	@Mandatory
-	@ValidMoment(past = true)
+	@ValidMoment(past = true, message = "{acme.validation.dateOfBirth}")
 	@Temporal(TemporalType.TIMESTAMP)
 	protected Date				dateOfBirth;
 
@@ -50,5 +50,7 @@ public class Passenger extends AbstractEntity {
 	@ValidString(max = 50)
 	@Automapped
 	protected String			specialNeeds;
+
+	protected Boolean			draftMode;
 
 }

@@ -1,5 +1,5 @@
 
-package acme.entities.Takes;
+package acme.entities.BookingRecord;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -15,7 +15,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Take extends AbstractEntity {
+public class BookingRecord extends AbstractEntity {
 
 	protected static final long	serialVersionUID	= 1L;
 
