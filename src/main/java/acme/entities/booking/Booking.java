@@ -9,7 +9,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
-import javax.validation.constraints.Pattern;
 
 import acme.client.components.basis.AbstractEntity;
 import acme.client.components.datatypes.Money;
@@ -32,7 +31,7 @@ public class Booking extends AbstractEntity {
 	protected static final long	serialVersionUID	= 1L;
 
 	@Mandatory
-	@Pattern(regexp = "^[A-Z0-9]{6,8}$", message = "{validation.locatorCode}")
+	@ValidString(pattern = "^[A-Z0-9]{6,8}$", message = "{validation.locatorCode}")
 	@Column(unique = true)
 	protected String			locatorCode;
 
@@ -52,9 +51,11 @@ public class Booking extends AbstractEntity {
 	protected Money				price;
 
 	@Optional
-	@ValidString(max = 4)
+	@ValidString(max = 4, pattern = "^[0-9]{0,4}$")
 	@Automapped
 	protected String			lastNibble;
+
+	protected Boolean			draftMode;
 
 	// Relationships ----------------------------------------------------------
 

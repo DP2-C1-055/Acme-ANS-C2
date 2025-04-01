@@ -1,5 +1,0 @@
-validation.identifierCode = The identifier code must begin with 2 or 3 capital letters (initials) followed by 6 digits.
-validation.phoneNumber = The phone number must contain between 6 and 15 digits, optionally starting with '+'.
-validation.locatorCode = The location code must be between 6 and 8 uppercase alphanumeric characters (A-Z, 0-9).
-validation.passportNumber = The passport number must contain between 6 and 9 alphanumeric characters in capital letters (A-Z, 0-9).
-acme.validation.customer.identifier.message = The first two or three letters should correspond to your initials.
