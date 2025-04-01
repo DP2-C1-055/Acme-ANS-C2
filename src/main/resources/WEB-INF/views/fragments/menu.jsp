@@ -44,6 +44,7 @@
 		
 		<acme:menu-option code="master.menu.crew" access="hasRealm('Crew')">
 			<acme:menu-suboption code="master.menu.crew.assignment.list-assignments" action="/crew/assignment/list" />
+			<acme:menu-suboption code="master.menu.crew.assignment.list-activity-log" action="/crew/activity-log/list" />
 		</acme:menu-option>
 		
 
