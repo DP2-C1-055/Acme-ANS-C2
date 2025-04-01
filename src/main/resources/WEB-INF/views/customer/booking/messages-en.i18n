@@ -1,0 +1,25 @@
+# list-booking ##########################################################
+customer.booking.list.title = List Bookigs
+customer.booking.list.label.locatorCode = Locator Code
+customer.booking.list.label.purchaseMoment = Purchase Moment
+customer.booking.list.label.draftMode = Draft Mode
+customer.booking.list.button.create = New Booking
+
+# show-booking ##########################################################
+customer.booking.form.title = Booking details
+customer.booking.form.label.locatorCode = Locator Code
+customer.booking.form.label.purchaseMoment = Purchase Moment
+customer.booking.form.label.travelClass = Travel Class
+customer.booking.form.label.price = Price
+customer.booking.form.label.lastNibble = Credit Card
+customer.booking.form.label.passenger.name = Passenger
+customer.booking.form.label.flight = Flight Tag
+customer.booking.form.button.passenger = Passengers
+customer.booking.error.draftMode = All passengers have to be confirmed
+customer.booking.error.noPassengers = There must be at least one passenger in the booking
+customer.booking.form.button.create = New Booking
+customer.booking.form.button.update = Update
+customer.booking.form.button.publish = Publish
+customer.booking.form.button.delete = Delete
+customer.booking.error.lastNibble = To confirm your booking please enter your credit card details
+customer.booking.error.locatorCodeDuplicate = Locator code duplicate

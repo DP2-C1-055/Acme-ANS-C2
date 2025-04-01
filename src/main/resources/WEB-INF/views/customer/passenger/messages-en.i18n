@@ -1,0 +1,19 @@
+# list-passenger ##########################################################
+customer.passenger.list.title = List Passengers
+customer.passenger.list.label.fullName = Full Name
+customer.passenger.list.label.passportNumber = Passport Number
+customer.passenger.list.label.email = Email
+customer.passenger.form.button.create = New Passenger
+customer.passenger.list.button.create = Create
+customer.passenger.list.label.draftMode = Draftmode
+# show-passenger ##########################################################
+customer.passenger.form.title = New Passenger
+customer.passenger.form.label.fullName = Full Name
+customer.passenger.form.label.email = Email
+customer.passenger.form.label.passportNumber = Passport Number
+customer.passenger.form.label.dateOfBirth = Date Of Birth
+customer.passenger.form.label.specialNeeds = Special Needs
+# form-passenger ##########################################################
+customer.passenger.form.button.update = Update
+customer.passenger.form.button.delete = Delete
+customer.passenger.form.button.publish = Publish
