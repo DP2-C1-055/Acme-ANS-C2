@@ -11,45 +11,36 @@ import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.aircraft.Aircraft;
 import acme.entities.airport.Airport;
-import acme.entities.flight.Flight;
 import acme.entities.leg.Leg;
 import acme.entities.leg.LegStatus;
-import acme.features.manager.flight.ManagerFlightRepository;
 import acme.realms.Manager;
 
 @GuiService
-public class ManagerLegCreateService extends AbstractGuiService<Manager, Leg> {
+public class ManagerLegUpdateService extends AbstractGuiService<Manager, Leg> {
 
 	@Autowired
-	private ManagerLegRepository	repository;
-
-	@Autowired
-	private ManagerFlightRepository	flightRepository;
+	private ManagerLegRepository repository;
 
 
 	@Override
 	public void authorise() {
-		int flightId = super.getRequest().getData("masterId", int.class);
-		Flight flight = this.flightRepository.findFlightById(flightId);
-		boolean status = flight != null && super.getRequest().getPrincipal().hasRealm(flight.getManager());
+		int legId = super.getRequest().getData("id", int.class);
+		Leg leg = this.repository.findLegById(legId);
+		// Se permite actualizar sólo si la leg existe, está en modo borrador y el manager es el propietario del flight asociado.
+		boolean status = leg != null && leg.isDraftMode() && super.getRequest().getPrincipal().hasRealm(leg.getFlight().getManager());
 		super.getResponse().setAuthorised(status);
 	}
 
 	@Override
 	public void load() {
-		int flightId = super.getRequest().getData("masterId", int.class);
-		// Se añade el masterId como dato global
-		super.getResponse().addGlobal("masterId", flightId);
-		// Se obtiene el Flight real desde el repositorio
-		Flight flight = this.flightRepository.findFlightById(flightId);
-		Leg leg = new Leg();
-		leg.setFlight(flight);
-		leg.setDraftMode(true);
+		int legId = super.getRequest().getData("id", int.class);
+		Leg leg = this.repository.findLegById(legId);
 		super.getBuffer().addData(leg);
 	}
 
 	@Override
 	public void bind(final Leg leg) {
+		// Se enlazan los atributos editables y las relaciones necesarias.
 		super.bindObject(leg, "flightNumber", "scheduledDeparture", "scheduledArrival", "status");
 		super.bindObject(leg, "departureAirport", "arrivalAirport", "aircraft");
 	}
