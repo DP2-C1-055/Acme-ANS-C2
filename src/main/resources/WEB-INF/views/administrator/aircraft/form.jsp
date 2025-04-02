@@ -15,7 +15,7 @@
 	<acme:input-checkbox code="administrator.aircraft.form.label.confirmation" path="confirmation"/>
 	
  	<jstl:choose>
-		<jstl:when test="${acme:anyOf(_command, 'show|update|delete')}">
+		<jstl:when test="${acme:anyOf(_command, 'show|update')}">
 			<acme:submit code="administrator.aircraft.form.button.update" action="/administrator/aircraft/update"/>
 		</jstl:when>
 		<jstl:when test="${_command == 'create'}">
