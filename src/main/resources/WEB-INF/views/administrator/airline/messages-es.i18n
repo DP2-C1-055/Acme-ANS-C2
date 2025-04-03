@@ -2,7 +2,7 @@ administrator.airline.list.label.name = Nombre
 administrator.airline.list.label.iataCode = Código Iata
 administrator.airline.list.label.airlineType = Tipo de Aerolínea
 administrator.airline.list.label.draftMode = Modo borrador
-administrator.airline.list.title = List of airline = Listado de aerolíneas
+administrator.airline.list.title = Listado de aerolíneas
 
 #Form view
 administrator.airline.form.label.name = Nombre
