@@ -1,6 +1,8 @@
 
 package acme.features.crew.assignment;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.models.Dataset;
@@ -10,6 +12,7 @@ import acme.client.services.GuiService;
 import acme.entities.assignment.Assignment;
 import acme.entities.assignment.CurrentStatus;
 import acme.entities.assignment.DutyCrew;
+import acme.entities.leg.Leg;
 import acme.realms.crew.Crew;
 
 @GuiService
@@ -25,39 +28,51 @@ public class CrewAssignmentShowService extends AbstractGuiService<Crew, Assignme
 
 	@Override
 	public void authorise() {
-		super.getResponse().setAuthorised(true);
-	}
+		boolean status;
+		int assignmentId;
+		Crew member;
+		Assignment assignment;
 
+		assignmentId = super.getRequest().getData("id", int.class);
+		assignment = this.repository.findAssignmentById(assignmentId);
+		member = assignment == null ? null : assignment.getCrew();
+		status = member != null && (!assignment.isDraftMode() || super.getRequest().getPrincipal().hasRealm(member));
+
+		super.getResponse().setAuthorised(status);
+	}
 	@Override
 	public void load() {
 		Assignment assignment;
-		int id;
+		int assignmentId;
 
-		id = super.getRequest().getData("id", int.class);
-		assignment = this.repository.findAssignmentById(id);
+		assignmentId = super.getRequest().getData("id", int.class);
+		assignment = this.repository.findAssignmentById(assignmentId);
 
-		if (assignment != null)
-			super.getBuffer().addData(assignment);
+		super.getBuffer().addData(assignment);
 	}
 
 	@Override
 	public void unbind(final Assignment assignment) {
-		SelectChoices choices, choices2;
 		Dataset dataset;
+		SelectChoices statuses;
+		SelectChoices duties;
+		Collection<Leg> legs;
+		SelectChoices selectedLegs;
+		String memberCode;
 
-		choices = SelectChoices.from(DutyCrew.class, assignment.getDuty());
-		choices2 = SelectChoices.from(CurrentStatus.class, assignment.getCurrentStatus());
+		legs = this.repository.findAllLegs();
+		memberCode = assignment.getCrew().getCode();
 
-		dataset = super.unbindObject(assignment, "duty", "lastUpdate", "currentStatus", "remarks");
-		dataset.put("confirmation", false);
-		dataset.put("duty", choices);
-		dataset.put("currentStatus", choices2);
+		statuses = SelectChoices.from(CurrentStatus.class, assignment.getCurrentStatus());
+		duties = SelectChoices.from(DutyCrew.class, assignment.getDuty());
+		selectedLegs = SelectChoices.from(legs, "flightNumber", assignment.getLeg());
 
-		// Agregar detalles del tramo de vuelo asociado
-		dataset.put("leg", assignment.getLeg());
-
-		// Agregar detalles del miembro de la tripulación de vuelo asociado
-		dataset.put("crew", assignment.getCrew());
+		dataset = super.unbindObject(assignment, "duty", "lastUpdate", "currentStatus", "remarks", "draftMode");
+		dataset.put("statuses", statuses);
+		dataset.put("member", memberCode);
+		dataset.put("duties", duties);
+		dataset.put("leg", selectedLegs.getSelected().getKey());
+		dataset.put("legs", selectedLegs);
 
 		super.getResponse().addData(dataset);
 	}
