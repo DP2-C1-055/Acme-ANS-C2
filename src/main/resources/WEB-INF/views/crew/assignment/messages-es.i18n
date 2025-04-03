@@ -5,16 +5,21 @@ crew.assignment.list.label.name = Nombre
 crew.assignment.list.label.lastUpdate = Última Actualización
 crew.assignment.list.label.currentStatus = Estado Actual
 crew.assignment.list.label.remarks = Observaciones
-crew.assignment.list.button.create = Crear Asignación
+crew.assignment.list.label.duty = Tarea
+crew.assignment.list.button.create = Crear
 
-crew.assignment.form.label.duty = Deber
+crew.assignment.form.label.duty = Tarea
 crew.assignment.form.label.lastUpdate = Última Actualización
 crew.assignment.form.label.currentStatus = Estado Actual
 crew.assignment.form.label.remarks = Observaciones
 crew.assignment.form.label.crew = Tripulación
 crew.assignment.form.label.manager = Gerente
+crew.assignment.form.label.crew-member = Miembro de la tripulación de vuelo
+crew.assignment.form.label.leg = Tramo
+
 crew.assignment.form.button.legs = Ver Tramos
-crew.assignment.form.button.update = Actualizar Asignación
-crew.assignment.form.button.delete = Eliminar Asignación
-crew.assignment.form.button.publish = Publicar Asignación
-crew.assignment.form.button.create = Crear Asignación
+crew.assignment.form.button.member = Miembro
+crew.assignment.form.button.update = Actualizar
+crew.assignment.form.button.delete = Eliminar
+crew.assignment.form.button.publish = Publicar
+crew.assignment.form.button.create = Crear
