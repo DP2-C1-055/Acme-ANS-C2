@@ -10,7 +10,11 @@
 	<acme:input-select code="crew.assignment.form.label.currentStatus" path="currentStatus" choices= "${statuses}"/>
 	<acme:input-textarea code="crew.assignment.form.label.remarks" path="remarks"/>
 
-	<jstl:choose>		
+	<jstl:choose>
+		<jstl:when test="${_command == 'show' && draftMode == false}">
+ 			<acme:button code="crew.assignment.form.button.activityLog" action="/crew/activity-log/list?assignmentId=${id}"/>			
+ 		</jstl:when>
+ 				
 		<jstl:when test="${acme:anyOf(_command, 'show|update|publish') && draftMode == true}">
             <acme:submit code="crew.assignment.form.button.update" action="/crew/assignment/update"/>
             <acme:submit code="crew.assignment.form.button.delete" action="/crew/assignment/delete"/>

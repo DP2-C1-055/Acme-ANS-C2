@@ -1,19 +1,21 @@
 crew.activity-log.form.title = Formulario de registro de actividad
-crewr.activity-log.list.title = Listado de registros de actividad
+crew.activity-log.list.title = Listado de registros de actividad
 
-crew.activityLog.form.label.registrationMoment = Momento de registro:
-crew.activityLog.form.label.typeIncident = Tipo de incidente:
+crew.activityLog.form.label.registrationMoment = Momento de registro
+crew.activityLog.form.label.typeIncident = Tipo de incidente
 crew.activityLog.form.label.description = Descripción:
-crew.activityLog.form.label.severityLevel = Nivel de severidad:
+crew.activityLog.form.label.severityLevel = Nivel de severidad
 crew.activityLog.form.label.confirmation = ¿Desea confirmar?
+crew.activityLog.form.label.number = Número de vuelo
 
 crew.activityLog.form.button.publish = Publicar
 crew.activityLog.form.button.create = Crear
 crew.activityLog.form.button.update = Actualizar
 crew.activityLog.form.button.delete = Eliminar
 
-crew.activityLog.list.label.registrationMoment = Momento de registro:
-crew.activityLog.list.label.typeIncident = Tipo de incidente:
-crew.activityLog.list.label.severityLevel = Nivel de severidad:
+crew.activityLog.list.label.registrationMoment = Momento de registro
+crew.activityLog.list.label.typeIncident = Tipo de incidente
+crew.activityLog.list.label.severityLevel = Nivel de severidad
+crew.activityLog.list.label.number = Número de vuelo
 
 crew.activityLog.list.button.create = Crear
