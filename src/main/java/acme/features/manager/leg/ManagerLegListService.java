@@ -2,6 +2,7 @@
 package acme.features.manager.leg;
 
 import java.util.Collection;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -40,7 +41,21 @@ public class ManagerLegListService extends AbstractGuiService<Manager, Leg> {
 
 	@Override
 	public void unbind(final Leg leg) {
+		assert leg != null;
+
 		Dataset dataset = super.unbindObject(leg, "flightNumber", "scheduledDeparture", "scheduledArrival");
+
+		if (leg.isDraftMode()) {
+			final Locale locale = super.getRequest().getLocale();
+			String draftModeText;
+			if (locale.equals(Locale.ENGLISH))
+				draftModeText = "Yes";
+			else
+				draftModeText = "Sí";
+			dataset.put("draftMode", draftModeText);
+		} else
+			dataset.put("draftMode", "No");
+
 		super.getResponse().addData(dataset);
 	}
 

@@ -3,6 +3,7 @@ manager.leg.list.label.flightNumber = Número de Vuelo
 manager.leg.list.label.scheduledDeparture = Salida Programada
 manager.leg.list.label.scheduledArrival = Llegada Programada
 manager.leg.list.button.create = Crear Tramo
+manager.leg.list.label.draftMode = Modo Borrador
 
 manager.leg.form.title = Tramo
 manager.leg.form.label.flightNumber = Número de Vuelo:
