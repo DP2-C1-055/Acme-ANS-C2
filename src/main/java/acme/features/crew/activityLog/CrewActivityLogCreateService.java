@@ -18,12 +18,8 @@ import acme.realms.crew.Crew;
 @GuiService
 public class CrewActivityLogCreateService extends AbstractGuiService<Crew, ActivityLog> {
 
-	// Internal state ---------------------------------------------------------
-
 	@Autowired
 	private CrewActivityLogRepository repository;
-
-	// AbstractGuiService interface -------------------------------------------
 
 
 	@Override
@@ -33,24 +29,13 @@ public class CrewActivityLogCreateService extends AbstractGuiService<Crew, Activ
 
 	@Override
 	public void load() {
-		ActivityLog activityLog;
-		Date registrationMoment;
-		registrationMoment = MomentHelper.getCurrentMoment();
-
-		int assignmentId;
 		Assignment assignment;
+		int id;
 
-		assignmentId = super.getRequest().getData("assignmentId", int.class);
-		assignment = this.repository.findAssignmentById(assignmentId);
+		id = super.getRequest().getData("id", int.class);
+		assignment = this.repository.findAssignmentById(id);
 
-		activityLog = new ActivityLog();
-		activityLog.setRegistrationMoment(registrationMoment);
-		activityLog.setTypeIncident("");
-		activityLog.setDescription("");
-		activityLog.setDraftMode(true);
-		activityLog.setAssignment(assignment);
-
-		super.getBuffer().addData(activityLog);
+		super.getBuffer().addData(assignment);
 	}
 
 	@Override
@@ -59,7 +44,7 @@ public class CrewActivityLogCreateService extends AbstractGuiService<Crew, Activ
 		int assignmentId;
 		Assignment assignment;
 
-		assignmentId = super.getRequest().getData("assignmentId", int.class);
+		assignmentId = super.getRequest().getData("id", int.class);
 		assignment = this.repository.findAssignmentById(assignmentId);
 		now = MomentHelper.getCurrentMoment();
 
@@ -70,9 +55,6 @@ public class CrewActivityLogCreateService extends AbstractGuiService<Crew, Activ
 
 	@Override
 	public void validate(final ActivityLog activityLog) {
-		if (!activityLog.getAssignment().isDraftMode())
-			super.state(false, "*", "acme.validation.activityLog.assignment-published.message");
-
 		Date now = MomentHelper.getCurrentMoment();
 		if (MomentHelper.isBefore(now, activityLog.getAssignment().getLeg().getScheduledArrival()))
 			super.state(false, "*", "El momento de registro del registro debe ocurrir después de que termine la escala");
@@ -89,17 +71,16 @@ public class CrewActivityLogCreateService extends AbstractGuiService<Crew, Activ
 		Dataset dataset;
 		SelectChoices selectedAssignments;
 		Collection<Assignment> assignments;
-		Crew member;
+		int member;
 
-		member = (Crew) super.getRequest().getPrincipal().getActiveRealm();
-		assignments = this.repository.findAssignmentsByCrewId(member.getId());
+		member = super.getRequest().getPrincipal().getActiveRealm().getId();
+		assignments = this.repository.findAssignmentPublishedByCrewId(member);
 		selectedAssignments = SelectChoices.from(assignments, "leg.flightNumber", activityLog.getAssignment());
 
 		dataset = super.unbindObject(activityLog, "registrationMoment", "typeIncident", "description", "severityLevel", "draftMode");
+		dataset.put("assignmentId", super.getRequest().getData("assignmentId", int.class));
 		dataset.put("assignments", selectedAssignments);
 		dataset.put("assignment", selectedAssignments.getSelected().getKey());
-		dataset.put("assignmentId", super.getRequest().getData("assignmentId", int.class));
-
 		super.getResponse().addData(dataset);
 	}
 }

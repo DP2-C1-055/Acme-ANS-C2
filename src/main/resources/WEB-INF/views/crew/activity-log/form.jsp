@@ -16,7 +16,7 @@
 			
 		</jstl:when>
 		<jstl:when test="${_command == 'create'}">
-			<acme:submit code="crew.activityLog.form.button.create" action="/crew/activity-log/create?assignmentId=${assignmentId}"/>
+			<acme:submit code="crew.activityLog.form.button.create" action="/crew/activity-log/create?assignmentId=${id}"/>
 		</jstl:when>		
 	</jstl:choose>
 </acme:form>

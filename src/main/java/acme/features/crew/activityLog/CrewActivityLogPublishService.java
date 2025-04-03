@@ -18,58 +18,45 @@ import acme.realms.crew.Crew;
 @GuiService
 public class CrewActivityLogPublishService extends AbstractGuiService<Crew, ActivityLog> {
 
-	// Internal state ---------------------------------------------------------
-
 	@Autowired
 	private CrewActivityLogRepository repository;
-
-	// AbstractGuiService interface -------------------------------------------
 
 
 	@Override
 	public void authorise() {
 		boolean status;
-		ActivityLog activityLog;
-		int assignmentId;
+		int logId;
 		Crew member;
+		ActivityLog log;
 
-		assignmentId = super.getRequest().getData("assignmentId", int.class);
-		activityLog = this.repository.findActivityLogById(assignmentId);
-		member = activityLog == null ? null : activityLog.getAssignment().getCrew();
-		status = member != null && activityLog.isDraftMode() && super.getRequest().getPrincipal().hasRealm(member);
+		logId = super.getRequest().getData("id", int.class);
+		log = this.repository.findActivityLogById(logId);
+		member = log == null ? null : log.getAssignment().getCrew();
+		status = member != null && log.isDraftMode() && super.getRequest().getPrincipal().hasRealm(member);
 
 		super.getResponse().setAuthorised(status);
 	}
 
 	@Override
 	public void load() {
-		ActivityLog activityLog;
-		int assignmentId;
+		ActivityLog log;
+		int logId;
 
-		assignmentId = super.getRequest().getData("assignmentId", int.class);
-		activityLog = this.repository.findActivityLogById(assignmentId);
+		logId = super.getRequest().getData("id", int.class);
+		log = this.repository.findActivityLogById(logId);
 
-		super.getBuffer().addData(activityLog);
+		super.getBuffer().addData(log);
 	}
 
 	@Override
-	public void bind(final ActivityLog activityLog) {
-		Date now;
-		int assignmentId;
-		Assignment assignment;
+	public void bind(final ActivityLog log) {
+		super.bindObject(log, "typeIncident", "description", "severityLevel");
 
-		assignmentId = super.getRequest().getData("assignment", int.class);
-		assignment = this.repository.findAssignmentById(assignmentId);
-		now = MomentHelper.getCurrentMoment();
-
-		super.bindObject(activityLog, "typeIncident", "description", "severityLevel");
-		activityLog.setRegistrationMoment(now);
-		activityLog.setAssignment(assignment);
 	}
 
 	@Override
-	public void validate(final ActivityLog activityLog) {
-		Assignment assignment = activityLog.getAssignment();
+	public void validate(final ActivityLog log) {
+		Assignment assignment = log.getAssignment();
 		Date now = MomentHelper.getCurrentMoment();
 		if (assignment.isDraftMode())
 			super.state(false, "*", "acme.validation.activity-log.assignment-not-published.message");
@@ -78,28 +65,27 @@ public class CrewActivityLogPublishService extends AbstractGuiService<Crew, Acti
 	}
 
 	@Override
-	public void perform(final ActivityLog activityLog) {
-		activityLog.setDraftMode(false);
-		this.repository.save(activityLog);
+	public void perform(final ActivityLog log) {
+		log.setDraftMode(false);
+		this.repository.save(log);
 	}
 
 	@Override
-	public void unbind(final ActivityLog activityLog) {
+	public void unbind(final ActivityLog log) {
 		Dataset dataset;
 		SelectChoices selectedAssignments;
 		Collection<Assignment> assignments;
 		Crew member;
 
 		member = (Crew) super.getRequest().getPrincipal().getActiveRealm();
-		assignments = this.repository.findAssignmentsByCrewId(member.getId());
-		selectedAssignments = SelectChoices.from(assignments, "leg.flightNumber", activityLog.getAssignment());
+		assignments = this.repository.findAssignmentPublishedByCrewId(member.getId());
+		selectedAssignments = SelectChoices.from(assignments, "leg.flightNumber", log.getAssignment());
 
-		dataset = super.unbindObject(activityLog, "registrationMoment", "typeIncident", "description", "severityLevel", "draftMode");
+		dataset = super.unbindObject(log, "registrationMoment", "typeIncident", "description", "severityLevel", "draftMode");
 		dataset.put("assignments", selectedAssignments);
 		dataset.put("assignment", selectedAssignments.getSelected().getKey());
-		dataset.put("assignmentId", super.getRequest().getData("assignmentId", int.class));
+		dataset.put("id", super.getRequest().getData("id", int.class));
 
 		super.getResponse().addData(dataset);
 	}
-
 }

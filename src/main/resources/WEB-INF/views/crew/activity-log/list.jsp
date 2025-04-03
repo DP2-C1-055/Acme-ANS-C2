@@ -10,6 +10,5 @@
 	<acme:list-payload path="payload"/>
 </acme:list>
 
-<jstl:if test="${showingCreate}">
-	<acme:button code="crew.activityLog.list.button.create" action="/crew/activity-log/create?assignmentId=${assignmentId}"/>
-</jstl:if>
+	<acme:button code="crew.activityLog.list.button.create" action="/crew/activity-log/create?assignmentId=${id}"/>
+

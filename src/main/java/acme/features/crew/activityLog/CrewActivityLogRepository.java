@@ -32,5 +32,5 @@ public interface CrewActivityLogRepository extends AbstractRepository {
 	Collection<ActivityLog> findActivityLogsByAssignmentId(int assignmentId);
 
 	@Query("select a from Assignment a where a.crew.id = :crewId or a.draftMode = false")
-	Collection<Assignment> findActivityLogPublishedByCrewId(int crewId);
+	Collection<Assignment> findAssignmentPublishedByCrewId(int crewId);
 }

@@ -31,7 +31,7 @@ public class CrewActivityLogUpdateService extends AbstractGuiService<Crew, Activ
 		int assignmentId;
 		Crew member;
 
-		assignmentId = super.getRequest().getData("assignmentId", int.class);
+		assignmentId = super.getRequest().getData("id", int.class);
 		activityLog = this.repository.findActivityLogById(assignmentId);
 		member = activityLog == null ? null : activityLog.getAssignment().getCrew();
 		status = member != null && activityLog.isDraftMode() && super.getRequest().getPrincipal().hasRealm(member);
@@ -74,13 +74,12 @@ public class CrewActivityLogUpdateService extends AbstractGuiService<Crew, Activ
 		Crew member;
 
 		member = (Crew) super.getRequest().getPrincipal().getActiveRealm();
-		assignments = this.repository.findActivityLogPublishedByCrewId(member.getId());
+		assignments = this.repository.findAssignmentPublishedByCrewId(member.getId());
 		selectedAssignments = SelectChoices.from(assignments, "leg.flightNumber", activityLog.getAssignment());
 
 		dataset = super.unbindObject(activityLog, "registrationMoment", "typeIncident", "description", "severityLevel", "draftMode");
 		dataset.put("assignments", selectedAssignments);
 		dataset.put("assignment", selectedAssignments.getSelected().getKey());
-		dataset.put("assignmentId", activityLog.getAssignment().getId());
 
 		super.getResponse().addData(dataset);
 	}
