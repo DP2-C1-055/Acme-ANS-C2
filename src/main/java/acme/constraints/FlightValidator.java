@@ -1,6 +1,8 @@
 
 package acme.constraints;
 
+import java.util.Collection;
+
 import javax.validation.ConstraintValidatorContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,18 +32,18 @@ public class FlightValidator extends AbstractValidator<ValidFlight, Flight> {
 			return false;
 		}
 
-		// Si el vuelo está publicado (draftMode == false)...
-		if (!flight.isDraftMode()) {
-			// Recuperamos todos los Legs asociados al vuelo.
-			java.util.Collection<Leg> legs = this.legRepository.findLegsByFlightId(flight.getId());
-			if (legs != null)
-				for (Leg leg : legs)
-					if (leg.isDraftMode()) {
-						super.state(context, false, "draftMode", "acme.validation.flight.leg-published.message");
-						// No hace falta seguir iterando si se encuentra alguno en draft.
-						break;
-					}
-		}
+		// Recuperamos todos los Legs asociados al vuelo.
+		Collection<Leg> legs = this.legRepository.findLegsByFlightId(flight.getId());
+
+		// Validación existente: si el vuelo está publicado (draftMode == false),
+		// ningún leg asociado debe estar en modo borrador.
+		if (!flight.isDraftMode() && legs != null)
+			for (Leg leg : legs)
+				if (leg.isDraftMode()) {
+					super.state(context, false, "draftMode", "acme.validation.flight.leg-published.message");
+					// No es necesario seguir iterando si se encuentra alguno en borrador.
+					break;
+				}
 
 		return !super.hasErrors(context);
 	}
