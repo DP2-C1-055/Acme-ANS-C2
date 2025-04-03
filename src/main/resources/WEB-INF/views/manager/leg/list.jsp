@@ -3,9 +3,11 @@
 <%@taglib prefix="acme" uri="http://acme-framework.org/"%>
 
 <acme:list>
-    <acme:list-column code="manager.leg.list.label.flightNumber" path="flightNumber" width="30%"/>
-    <acme:list-column code="manager.leg.list.label.scheduledDeparture" path="scheduledDeparture" width="35%"/>
-    <acme:list-column code="manager.leg.list.label.scheduledArrival" path="scheduledArrival" width="35%"/>
+    <acme:list-column code="manager.leg.list.label.flightNumber" path="flightNumber" width="20%" sortable="false"/>
+    <acme:list-column code="manager.leg.list.label.scheduledDeparture" path="scheduledDeparture" width="30%"/>
+    <acme:list-column code="manager.leg.list.label.scheduledArrival" path="scheduledArrival" width="30%"/>
+    <acme:list-column code="manager.leg.list.label.draftMode" path="draftMode" width="20%" sortable="false"/>
+    
     <acme:list-payload path="payload"/>
 </acme:list>
 
