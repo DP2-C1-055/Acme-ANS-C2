@@ -52,4 +52,7 @@ acme.validation.assignment.member-with-overlapping-legs.message = The selected m
 acme.validation.assignment.leg-has-pilot.message = The selected leg already has a pilot
 acme.validation.assignment.leg-has-copilot.message = The selected leg already has a copilot
 acme.validation.assignment.duty-null.message = The duty is null and cannot be assigned
-acme.validation.assignment.leg-null.message = The leg cannot be null
+acme.validation.assignment.leg-null.message = The leg cannot be nullacme.validation.assignment.leg-null.message = The leg cannot be null
+acme.validation.activity-log.assignment-not-published.message = This log cannot be published as the selected flight assignment has not been published yet
+acme.validation.activity-log.leg-not-finished.message = Cannot save the log because the selected leg has not yet been completed 
+acme.validation.activityLog.assignment-published.message = Cannot modify or delete this activity log record because its corresponding assignment has already been published.
