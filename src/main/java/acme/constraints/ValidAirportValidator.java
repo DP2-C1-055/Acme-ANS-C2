@@ -34,25 +34,40 @@ public class ValidAirportValidator extends AbstractValidator<ValidAirport, Airpo
 			return false;
 		}
 
+		// Validación del iataCode
 		String iataCode = airport.getIataCode();
-		// Validar que el iataCode no sea nulo.
 		if (iataCode == null)
 			super.state(context, false, "iataCode", "javax.validation.constraints.NotNull.message");
 		else {
-			// Validar el formato del iataCode (3 letras mayúsculas).
 			boolean matchesPattern = ValidAirportValidator.IATA_PATTERN.matcher(iataCode).matches();
 			super.state(context, matchesPattern, "iataCode", "acme.validation.airport.invalid-iataCode.message");
 
-			// Solo si el formato es correcto se valida la unicidad.
+			// Solo se valida la unicidad si el formato es correcto.
 			if (matchesPattern) {
 				Airport existing = this.airportRepository.findByIataCode(iataCode);
 				boolean unique = true;
 				if (existing != null)
-					// Comparar IDs: si existe otro aeropuerto con el mismo código y su ID es distinto, es duplicado.
+					// Si existe otro aeropuerto con el mismo código y su ID es distinto, es duplicado.
 					unique = airport.getId() == existing.getId();
 				super.state(context, unique, "iataCode", "acme.validation.airport.duplicated-iataCode.message");
 			}
 		}
+
+		// Validación de longitud para website: máximo 255 caracteres
+		if (airport.getWebsite() != null && airport.getWebsite().length() > 255)
+			super.state(context, false, "website", "acme.validation.airport.max-length-website.message");
+
+		// Validación de longitud para email: máximo 255 caracteres
+		if (airport.getEmail() != null && airport.getEmail().length() > 255)
+			super.state(context, false, "email", "acme.validation.airport.max-length-email.message");
+
+		if (airport.getName() != null && airport.getName().length() > 50)
+			super.state(context, false, "name", "acme.validation.airport.max-length-name.message");
+		if (airport.getCity() != null && airport.getCity().length() > 50)
+			super.state(context, false, "city", "acme.validation.airport.max-length-city.message");
+		if (airport.getCountry() != null && airport.getCountry().length() > 50)
+			super.state(context, false, "country", "acme.validation.airport.max-length-country.message");
+
 		return !super.hasErrors(context);
 	}
 }

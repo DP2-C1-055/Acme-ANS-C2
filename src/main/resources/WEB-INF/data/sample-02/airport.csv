@@ -59,7 +59,7 @@ airport-48,Test Email Variation Airport,ABW,INTERNATIONAL,New York,USA,ftp://a,i
 airport-49,Test Email Variation Airport,ABX,INTERNATIONAL,New York,USA,ftp://a.b,john.doe+alias@example.com,+12125551234
 airport-50,Test Email Variation Airport,ABY,INTERNATIONAL,New York,USA,"http://www.lorem-ipsum.org/dolor/sit/amet,/consectetur/adipiscing/elit,/sed/do/eiusmod/tempor/incididunt/ut/labore/et/dolore/magna/aliqua/Ut/enim/ad/minim/veniam/quis/nostrud/exercitation/ullamco/laboris/nisi/ut/aliquip/ex/ea/commodo/consequat/duis/aute/",very.long.email.address.with.lots.of.details@example.com,+12125551234
 airport-51,Test Email Variation Airport,ABZ,INTERNATIONAL,New York,USA,"http://www.lorem-ipsum.org/dolor/sit/amet,/consectetur/adipiscing/elit,/sed/do/eiusmod/tempor/incididunt/ut/labore/et/dolore/magna/aliqua/Ut/enim/ad/minim/veniam/quis/nostrud/exercitation/ullamco/laboris/nisi/ut/aliquip/ex/ea/commodo/consequat/duis/aute/X",correo@ejemplo.com,+12125551234
-airport-52,Test Email Variation Airport,ACA,INTERNATIONAL,New York,USA,http://www.lorem-ipsum.org/dolor/sit.html,<script>alert('hack')</script>@example.com,+12125551234
+airport-52,Test Email Variation Airport,ACA,INTERNATIONAL,New York,USA,http://example.org/a,<script>alert('hack')</script>@example.com,+12125551234
 # contact-phone variations
 airport-53,Test Phone Variation Airport,ACB,INTERNATIONAL,New York,USA,https://www.example.com,phone@test.com,+123456
 airport-54,Test Phone Variation Airport,ACC,INTERNATIONAL,New York,USA,https://www.example.com,phone@test.com,+1234567
