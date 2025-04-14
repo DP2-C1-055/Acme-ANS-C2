@@ -15,6 +15,11 @@ manager.flight.form.label.selfTransfer = Self Transfer:
 manager.flight.form.label.cost = Cost:
 manager.flight.form.label.description = Description:
 manager.flight.form.label.manager = Manager:
+manager.flight.form.label.scheduledDeparture = Scheduled Departure:
+manager.flight.form.label.scheduledArrival = Scheduled Arrival:
+manager.flight.form.label.originCity = Origin City:
+manager.flight.form.label.destinationCity = Destination City:
+manager.flight.form.label.numberOfLayovers = Number of Layovers:
 
 manager.flight.form.button.legs = Legs
 manager.flight.form.button.update = Update Flight
