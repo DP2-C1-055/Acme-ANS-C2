@@ -121,6 +121,14 @@ public class Flight extends AbstractEntity {
 		//TODO: Si un vuelo no tiene legs, ponerlo a null
 	}
 
+	@Transient
+	public String getCustomFlightText() {
+		String tag = this.getTag();
+		String origin = this.getOriginCity();
+		String destination = this.getDestinationCity();
+		return tag + " - " + origin + " - " + destination;
+	}
+
 	// Relationships ----------------------------------------------------------
 
 
@@ -128,5 +136,4 @@ public class Flight extends AbstractEntity {
 	@Valid
 	@ManyToOne(optional = false)
 	private Manager manager;
-
 }

@@ -62,3 +62,4 @@ acme.validation.airport.max-length-email.message=El email no puede tener más de
 acme.validation.length=No se cumplen los requisitos de longitud
 acme.validation.flight.leg-required.message = El vuelo debe tener al menos un tramo para ser publicado
 
+validation.lastNibble = Sólo se permiten 4 dígitos

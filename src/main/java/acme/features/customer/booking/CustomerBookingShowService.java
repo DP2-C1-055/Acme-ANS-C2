@@ -57,18 +57,18 @@ public class CustomerBookingShowService extends AbstractGuiService<Customer, Boo
 		Collection<Flight> flights;
 
 		SelectChoices choices;
-
 		if (object.getDraftMode())
 			flights = this.repository.getAllFlightWithDraftModeFalse();
 		else
 			flights = this.repository.getOneFlightByBookingId(object.getId());
 
-		choices = SelectChoices.from(flights, "tag", object.getFlight());
+		choices = SelectChoices.from(flights, "customFlightText", object.getFlight());
 
-		dataset = super.unbindObject(object, "locatorCode", "purchaseMoment", "travelClass", "price", "lastNibble", "draftMode");
+		dataset = super.unbindObject(object, "locatorCode", "purchaseMoment", "travelClass", "lastNibble", "draftMode");
 		dataset.put("travelClassChoices", SelectChoices.from(TravelClass.class, object.getTravelClass()));
 		dataset.put("flight", object.getFlight().getTag());
 		dataset.put("flights", choices);
+		dataset.put("price", object.getBookingPrice());
 
 		super.getResponse().addData(dataset);
 

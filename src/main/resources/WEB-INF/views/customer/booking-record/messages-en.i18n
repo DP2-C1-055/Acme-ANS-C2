@@ -1,0 +1,9 @@
+# list-BookingRecord ##########################################################
+customer.booking-record.list.title = Booking Record
+customer.bookingRecord.list.label.passengerName = Passenger Name
+customer.bookingRecord.list.label.bookingLocator = Booking Locator
+customer.booking-record.form.button.create = Add Passenger
+customer.booking-record.list.label.passenger = Passenger
+customer.booking-record.form.title = Add Passenger
+customer.booking-record.list.label.bookingLocator = Booking Locator
+customer.booking-record.form.button.delete = Delete Passenger

@@ -59,3 +59,4 @@ acme.validation.length=Length requirements are not met
 acme.validation.flight.leg-required.message = The flight must have at least one leg to be published
 
 
+validation.lastNibble = Only 4 digits allowed

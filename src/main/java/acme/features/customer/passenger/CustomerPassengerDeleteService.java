@@ -7,44 +7,36 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
-import acme.entities.BookingRecord.BookingRecord;
-import acme.entities.booking.Booking;
 import acme.entities.passenger.Passenger;
-import acme.features.customer.booking.CustomerBookingRepository;
-import acme.features.customer.bookingRecord.BookingRecordRepository;
+import acme.features.customer.bookingRecord.CustomerBookingRecordRepository;
 import acme.realms.Customer.Customer;
 
 @GuiService
 public class CustomerPassengerDeleteService extends AbstractGuiService<Customer, Passenger> {
 
 	@Autowired
-	private CustomerPassengerRepository	repository;
+	private CustomerPassengerRepository		repository;
 
 	@Autowired
-	private CustomerBookingRepository	customerBookingRepository;
-
-	@Autowired
-	private BookingRecordRepository		bookingRecordRepository;
+	private CustomerBookingRecordRepository	bookingRecordRepository;
 
 
 	@Override
 	public void authorise() {
-		boolean status;
 
 		int customerId;
 
 		customerId = super.getRequest().getPrincipal().getActiveRealm().getId();
+		Collection<Passenger> passengers = this.repository.findPassengenrsByCustomerId(customerId);
 
-		int passengerId = super.getRequest().getData("id", int.class);
-		Passenger passenger = this.repository.findPassengerById(passengerId);
+		Passenger passenger;
+		int id;
 
-		Collection<Booking> customerBookings = this.customerBookingRepository.findBookingByCustomer(customerId);
+		id = super.getRequest().getData("id", int.class);
+		passenger = this.repository.findPassengerById(id);
 
-		Booking booking = this.bookingRecordRepository.findBookingByPassengerId(super.getRequest().getData("id", int.class));
+		super.getResponse().setAuthorised(passengers.contains(passenger) && passenger.getDraftMode());
 
-		status = super.getRequest().getPrincipal().hasRealmOfType(Customer.class) && customerBookings.contains(booking) && passenger.getDraftMode();
-
-		super.getResponse().setAuthorised(status);
 	}
 
 	@Override
@@ -65,9 +57,6 @@ public class CustomerPassengerDeleteService extends AbstractGuiService<Customer,
 
 	@Override
 	public void perform(final Passenger passenger) {
-		BookingRecord bookingRecord = this.bookingRecordRepository.findBookingRecord(passenger.getId());
-
-		this.bookingRecordRepository.delete(bookingRecord);
 		this.repository.delete(passenger);
 
 	}
