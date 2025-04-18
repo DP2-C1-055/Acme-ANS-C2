@@ -37,14 +37,14 @@ flight-26,TAG-26,TRUE,EUR 500.00,"Lorem ipsum dolor sit amet, consectetur adipis
 # description - otros alfabetos
 flight-27,TAG-27,TRUE,EUR 500.00,โลเร็ม อิปซัม,true,manager-01
 flight-28,TAG-28,TRUE,EUR 500.00,لوريم إيبسوم,true,manager-01
-flight-29,TAG-29,TRUE,EUR 500.00,洛伦·伊普森,false,manager-01
+flight-29,TAG-29,TRUE,EUR 500.00,洛伦·伊普森,true,manager-01
 # description - pruebas de inyección de código
 flight-30,TAG-30,TRUE,EUR 500.00,<script>alert('Hacked!');</script>,true,manager-01
 flight-31,TAG-31,TRUE,EUR 500.00,<marquee>Hacked</marquee>,true,manager-01
 flight-32,TAG-32,TRUE,EUR 500.00,' OR 'A' = 'A,true,manager-01
 flight-33,TAG-33,TRUE,EUR 500.00,SELECT * FROM users;,true,manager-01
-flight-34,TAG-34,TRUE,EUR 500.00,DROP TABLE flights;,false,manager-01
+flight-34,TAG-34,TRUE,EUR 500.00,DROP TABLE flights;,true,manager-01
 flight-35,TAG-35,TRUE,EUR 500.00,' or 'A' = 'A,true,manager-01
 # manager - diferentes valores
 flight-36,TAG-36,TRUE,EUR 500.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",true,manager-02
-flight-37,TAG-37,TRUE,EUR 500.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",false,manager-03
+flight-37,TAG-37,TRUE,EUR 500.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",true,manager-03

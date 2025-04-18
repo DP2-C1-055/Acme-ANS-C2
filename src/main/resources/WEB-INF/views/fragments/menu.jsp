@@ -58,6 +58,7 @@
 		</acme:menu-option>
 		<acme:menu-option code="master.menu.customer" access="hasRealm('Customer')">
 			<acme:menu-suboption code="master.menu.customer.list-bookings" action="/customer/booking/list" />
+			<acme:menu-suboption code="master.menu.customer.list-passenger" action="/customer/passenger/list" />
 		</acme:menu-option>
 	</acme:menu-left>
 

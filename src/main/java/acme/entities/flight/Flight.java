@@ -120,6 +120,14 @@ public class Flight extends AbstractEntity {
 		return layovers;
 	}
 
+	@Transient
+	public String getCustomFlightText() {
+		String tag = this.getTag();
+		String origin = this.getOriginCity();
+		String destination = this.getDestinationCity();
+		return tag + " - " + origin + " - " + destination;
+	}
+
 	// Relationships ----------------------------------------------------------
 
 
@@ -127,5 +135,4 @@ public class Flight extends AbstractEntity {
 	@Valid
 	@ManyToOne(optional = false)
 	private Manager manager;
-
 }

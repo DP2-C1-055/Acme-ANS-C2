@@ -6,7 +6,6 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import acme.client.components.datatypes.Money;
 import acme.client.components.models.Dataset;
 import acme.client.components.views.SelectChoices;
 import acme.client.helpers.MomentHelper;
@@ -15,13 +14,17 @@ import acme.client.services.GuiService;
 import acme.entities.booking.Booking;
 import acme.entities.booking.TravelClass;
 import acme.entities.flight.Flight;
+import acme.features.manager.leg.ManagerLegRepository;
 import acme.realms.Customer.Customer;
 
 @GuiService
 public class CustomerBookingCreateService extends AbstractGuiService<Customer, Booking> {
 
 	@Autowired
-	private CustomerBookingRepository repository;
+	private CustomerBookingRepository	repository;
+
+	@Autowired
+	private ManagerLegRepository		managerLeyRepository;
 
 
 	@Override
@@ -39,12 +42,6 @@ public class CustomerBookingCreateService extends AbstractGuiService<Customer, B
 		Booking booking = new Booking();
 		booking.setLocatorCode("");
 		booking.setLastNibble("");
-
-		//Inicialize money type
-		Money money = new Money();
-		money.setAmount(0.00);
-		money.setCurrency("EUR");
-		booking.setPrice(money);
 
 		int customerId;
 		customerId = super.getRequest().getPrincipal().getActiveRealm().getId();
@@ -67,12 +64,6 @@ public class CustomerBookingCreateService extends AbstractGuiService<Customer, B
 
 	@Override
 	public void perform(final Booking booking) {
-
-		Money money = new Money();
-		money.setAmount(0.00);
-		money.setCurrency(booking.getFlight().getCost().getCurrency());
-
-		booking.setPrice(money);
 		booking.setDraftMode(true);
 
 		this.repository.save(booking);
@@ -86,8 +77,9 @@ public class CustomerBookingCreateService extends AbstractGuiService<Customer, B
 
 		SelectChoices choices;
 		Collection<Flight> flights = this.repository.getAllFlightWithDraftModeFalse();
-		choices = SelectChoices.from(flights, "tag", object.getFlight());
-		dataset = super.unbindObject(object, "locatorCode", "purchaseMoment", "travelClass", "price", "lastNibble", "draftMode");
+
+		choices = SelectChoices.from(flights, "customFlightText", object.getFlight());
+		dataset = super.unbindObject(object, "locatorCode", "purchaseMoment", "travelClass", "lastNibble", "draftMode");
 		dataset.put("travelClassChoices", SelectChoices.from(TravelClass.class, object.getTravelClass()));
 		dataset.put("flight", choices.getSelected().getKey());
 		dataset.put("flights", choices);
