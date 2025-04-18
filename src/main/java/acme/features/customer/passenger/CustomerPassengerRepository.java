@@ -18,4 +18,10 @@ public interface CustomerPassengerRepository extends AbstractRepository {
 	@Query("Select p.passportNumber from Passenger p")
 	Collection<String> getAllPassportNumber();
 
+	@Query("Select p from Passenger p where p.customer.id =:customerId ")
+	Collection<Passenger> findPassengenrsByCustomerId(int customerId);
+
+	@Query("Select p from Passenger p where p.customer.id =:customerId and p.draftMode = false ")
+	Collection<Passenger> findPassengenrsDraftModeByCustomerId(int customerId);
+
 }

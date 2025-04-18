@@ -51,3 +51,4 @@ acme.validation.assignment.leg-null.message = El tramo no puede ser nulo
 acme.validation.activity-log.assignment-not-published.message = Este registro no puede ser publicado porque la asignación de vuelo seleccionada aún no ha sido publicada
 acme.validation.activity-log.leg-not-finished.message = No puedes guardar el registro porque la escala seleccionada aún no ha finalizado
 acme.validation.activityLog.assignment-published.message = No se puede modificar o eliminar este registro de actividad porque su asignación correspondiente ya está publicada.
+validation.lastNibble = Sólo se permiten 4 dígitos
