@@ -10,7 +10,7 @@
 	<acme:list-column code="customer.passenger.list.label.draftMode" path="draftMode" />
 </acme:list>
 <jstl:choose>
-	<jstl:when test="${acme:anyOf(_command, 'list') && bookingDraftMode == true}">
-  			<acme:button code="customer.passenger.form.button.create" action="/customer/passenger/create?bookingId=${bookingId}"/>
+	<jstl:when test="${acme:anyOf(_command, 'list')}">
+  			<acme:button code="customer.passenger.form.button.create" action="/customer/passenger/create"/>
   		</jstl:when>		
 </jstl:choose>	

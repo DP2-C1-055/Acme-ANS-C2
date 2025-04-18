@@ -9,42 +9,40 @@ import acme.client.components.models.Dataset;
 import acme.client.helpers.PrincipalHelper;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
-import acme.entities.booking.Booking;
 import acme.entities.passenger.Passenger;
 import acme.features.customer.booking.CustomerBookingRepository;
-import acme.features.customer.bookingRecord.BookingRecordRepository;
+import acme.features.customer.bookingRecord.CustomerBookingRecordRepository;
 import acme.realms.Customer.Customer;
 
 @GuiService
 public class CustomerPassengerUpdateService extends AbstractGuiService<Customer, Passenger> {
 
 	@Autowired
-	private CustomerPassengerRepository	repository;
+	private CustomerPassengerRepository		repository;
 
 	@Autowired
-	private CustomerBookingRepository	customerBookingRepository;
+	private CustomerBookingRepository		customerBookingRepository;
 
 	@Autowired
-	private BookingRecordRepository		bookingRecordRepository;
+	private CustomerBookingRecordRepository	bookingRecordRepository;
 
 
 	@Override
 	public void authorise() {
-		boolean status;
 
 		int customerId;
-		int passengerId = super.getRequest().getData("id", int.class);
+
 		customerId = super.getRequest().getPrincipal().getActiveRealm().getId();
+		Collection<Passenger> passengers = this.repository.findPassengenrsByCustomerId(customerId);
 
-		Collection<Booking> customerBookings = this.customerBookingRepository.findBookingByCustomer(customerId);
+		Passenger passenger;
+		int id;
 
-		Booking booking = this.bookingRecordRepository.findBookingByPassengerId(passengerId);
+		id = super.getRequest().getData("id", int.class);
+		passenger = this.repository.findPassengerById(id);
 
-		Passenger passenger = this.repository.findPassengerById(passengerId);
+		super.getResponse().setAuthorised(passengers.contains(passenger) && passenger.getDraftMode());
 
-		status = super.getRequest().getPrincipal().hasRealmOfType(Customer.class) && customerBookings.contains(booking) && passenger.getDraftMode();
-
-		super.getResponse().setAuthorised(status);
 	}
 
 	@Override
