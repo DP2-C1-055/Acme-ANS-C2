@@ -56,4 +56,6 @@ acme.validation.airport.max-length-country.message=The country must not exceed 5
 acme.validation.airport.max-length-website.message=The website URL must not exceed 255 characters
 acme.validation.airport.max-length-email.message=The email must not exceed 255 characters
 acme.validation.length=Length requirements are not met
+acme.validation.flight.leg-required.message = The flight must have at least one leg to be published
+
 

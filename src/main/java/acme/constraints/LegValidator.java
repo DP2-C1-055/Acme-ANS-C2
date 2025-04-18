@@ -100,9 +100,8 @@ public class LegValidator extends AbstractValidator<ValidLeg, Leg> {
 					}
 			}
 
-			// Nueva validación: el Aircraft no debe estar asignado en otro Leg que se solape en el tiempo.
+			// Aircraft no debe estar asignado en otro Leg que se solape en el tiempo.
 			if (leg.getAircraft() != null && leg.getScheduledDeparture() != null && leg.getScheduledArrival() != null) {
-				// Se asume que existe el método findLegsByAircraftId en legRepository.
 				Collection<Leg> aircraftLegs = this.legRepository.findLegsByAircraftId(leg.getAircraft().getId());
 				if (aircraftLegs != null)
 					for (Leg otherLeg : aircraftLegs) {

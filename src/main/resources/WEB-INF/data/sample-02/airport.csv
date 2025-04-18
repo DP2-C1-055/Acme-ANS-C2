@@ -3,8 +3,8 @@ key,name,iata-code,operational-scope,city,country,website,email,contact-phone
 airport-00,John F. Kennedy International Airport,JFK,INTERNATIONAL,New York,USA,https://www.jfkairport.com,info@jfkairport.com,+12125551234
 # name variations
 airport-01,A,AAA,INTERNATIONAL,New York,USA,https://www.jfkairport.com,info@jfkairport.com,+12125551234
-airport-02,AB,AAC,INTERNATIONAL,New York,USA,https://www.jfkairport.com,info@jfkairport.com,+12125551234
-airport-03,AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,AAD,INTERNATIONAL,New York,USA,https://www.jfkairport.com,info@jfkairport.com,+12125551234
+airport-02,AB,AAC,INTERNATIONAL,Paris,France,https://www.jfkairport.com,info@jfkairport.com,+12125551234
+airport-03,AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,AAD,INTERNATIONAL,Melbourne,Australia,https://www.jfkairport.com,info@jfkairport.com,+12125551234
 airport-04,AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,AAE,INTERNATIONAL,New York,USA,https://www.jfkairport.com,info@jfkairport.com,+12125551234
 airport-05,洛伦·伊普森,AAF,INTERNATIONAL,New York,USA,https://www.jfkairport.com,info@jfkairport.com,+12125551234
 airport-06,โลเร็ม อิปซัม,AAG,INTERNATIONAL,New York,USA,https://www.jfkairport.com,info@jfkairport.com,+12125551234
@@ -13,57 +13,57 @@ airport-08,<script>alert('Hacked');</script>,AAI,INTERNATIONAL,New York,USA,http
 airport-09,<marquee>Malicious</marquee>,AAJ,INTERNATIONAL,New York,USA,https://www.jfkairport.com,info@jfkairport.com,+12125551234
 airport-10,' OR '1'='1,AAK,INTERNATIONAL,New York,USA,https://www.jfkairport.com,info@jfkairport.com,+12125551234
 # iata-code variations
-airport-11,Aeropuerto Charles de Gaulle,AAL,INTERNATIONAL,Paris,France,https://www.testiata.com,iata@test.com,+33123456789
-airport-12,Aeropuerto de Orly,AAM,INTERNATIONAL,Paris,France,https://www.testiata.com,iata@test.com,+33123456789
-airport-13,Aeropuerto Le Bourget,AAN,INTERNATIONAL,Le Bourget,France,https://www.testiata.com,iata@test.com,+33123456789
-airport-14,Aeropuerto Beauvais–Tillé,AAO,INTERNATIONAL,Beauvais,France,https://www.testiata.com,iata@test.com,+33123456789
-airport-15,Aeropuerto XCR,AAP,INTERNATIONAL,Ciudad XCR,País XCR,https://www.testiata.com,iata@test.com,+33123456789
+airport-11,John F. Kennedy International Airport,AAL,INTERNATIONAL,New York,USA,https://www.jfkairport.com,info@jfkairport.com,+12125551234
+airport-12,John F. Kennedy International Airport,AAM,INTERNATIONAL,New York,USA,https://www.jfkairport.com,info@jfkairport.com,+12125551234
+airport-13,John F. Kennedy International Airport,AAN,INTERNATIONAL,New York,USA,https://www.jfkairport.com,info@jfkairport.com,+12125551234
+airport-14,John F. Kennedy International Airport,AAO,INTERNATIONAL,New York,USA,https://www.jfkairport.com,info@jfkairport.com,+12125551234
+airport-15,John F. Kennedy International Airport,AAP,INTERNATIONAL,New York,USA,https://www.jfkairport.com,info@jfkairport.com,+12125551234
 # operational-scope variations
-airport-16,Aeropuerto de Melbourne,AAQ,INTERNATIONAL,Melbourne,Australia,https://www.testscope.com,scope1@test.com,+61234567890
-airport-17,Aeropuerto de Adelaide,AAR,DOMESTIC,Adelaide,Australia,https://www.testscope.com,scope2@test.com,+61234567891
-airport-18,Aeropuerto de Canberra,AAS,REGIONAL,Canberra,Australia,https://www.testscope.com,scope3@test.com,+61234567892
+airport-16,John F. Kennedy International Airport,AAQ,INTERNATIONAL,New York,USA,https://www.jfkairport.com,info@jfkairport.com,+12125551234
+airport-17,John F. Kennedy International Airport,AAR,DOMESTIC,New York,USA,https://www.jfkairport.com,info@jfkairport.com,+12125551234
+airport-18,John F. Kennedy International Airport,AAS,REGIONAL,New York,USA,https://www.jfkairport.com,info@jfkairport.com,+12125551234
 # city variations
-airport-19,John F. Kennedy International Airport,AAT,INTERNATIONAL,L,United Kingdom,https://www.testcity.com,city@test.com,+442087600000
-airport-20,John F. Kennedy International Airport,AAU,INTERNATIONAL,Lo,United Kingdom,https://www.testcity.com,city@test.com,+442087600000
-airport-21,John F. Kennedy International Airport,AAV,INTERNATIONAL,LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL,United Kingdom,https://www.testcity.com,city@test.com,+442087600000
-airport-22,John F. Kennedy International Airport,AAW,INTERNATIONAL,LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL,United Kingdom,https://www.testcity.com,city@test.com,+442087600000
-airport-23,John F. Kennedy International Airport,AAX,INTERNATIONAL,洛伦·伊普森,United Kingdom,https://www.testcity.com,city@test.com,+442087600000
-airport-24,John F. Kennedy International Airport,AAY,INTERNATIONAL,โลเร็ม อิปซัม,United Kingdom,https://www.testcity.com,city@test.com,+442087600000
-airport-25,John F. Kennedy International Airport,AAZ,INTERNATIONAL,لوريم إيبسوم,United Kingdom,https://www.testcity.com,city@test.com,+442087600000
-airport-26,John F. Kennedy International Airport,ABA,INTERNATIONAL,<script>alert('Hacked');</script>,United Kingdom,https://www.testcity.com,city@test.com,+442087600000
-airport-27,John F. Kennedy International Airport,ABB,INTERNATIONAL,<marquee>Malicious</marquee>,United Kingdom,https://www.testcity.com,city@test.com,+442087600000
-airport-28,John F. Kennedy International Airport,ABC,INTERNATIONAL,' OR '1'='1,United Kingdom,https://www.testcity.com,city@test.com,+442087600000
+airport-19,John F. Kennedy International Airport,AAT,INTERNATIONAL,L,USA,https://www.jfkairport.com,info@jfkairport.com,+12125551234
+airport-20,John F. Kennedy International Airport,AAU,INTERNATIONAL,Lo,USA,https://www.jfkairport.com,info@jfkairport.com,+12125551234
+airport-21,John F. Kennedy International Airport,AAV,INTERNATIONAL,LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL,USA,https://www.jfkairport.com,info@jfkairport.com,+12125551234
+airport-22,John F. Kennedy International Airport,AAW,INTERNATIONAL,LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL,USA,https://www.jfkairport.com,info@jfkairport.com,+442087600000
+airport-23,John F. Kennedy International Airport,AAX,INTERNATIONAL,洛伦·伊普森,USA,https://www.jfkairport.com,info@jfkairport.com,+12125551234
+airport-24,John F. Kennedy International Airport,AAY,INTERNATIONAL,โลเร็ม อิปซัม,USA,https://www.jfkairport.com,info@jfkairport.com,+12125551234
+airport-25,John F. Kennedy International Airport,AAZ,INTERNATIONAL,لوريم إيبسوم,USA,https://www.jfkairport.com,info@jfkairport.com,+12125551234
+airport-26,John F. Kennedy International Airport,ABA,INTERNATIONAL,<script>alert('Hacked');</script>,USA,https://www.jfkairport.com,info@jfkairport.com,+12125551234
+airport-27,John F. Kennedy International Airport,ABB,INTERNATIONAL,<marquee>Malicious</marquee>,USA,https://www.jfkairport.com,info@jfkairport.com,+12125551234
+airport-28,John F. Kennedy International Airport,ABC,INTERNATIONAL,' OR '1'='1,USA,https://www.jfkairport.com,info@jfkairport.com,+12125551234
 # country variations
-airport-29,John F. Kennedy International Airport,ABD,INTERNATIONAL,Paris,F,https://www.testcountry.com,country@test.com,+33123456789
-airport-30,John F. Kennedy International Airport,ABE,INTERNATIONAL,Paris,FR,https://www.testcountry.com,country@test.com,+33123456780
-airport-31,John F. Kennedy International Airport,ABF,INTERNATIONAL,Paris,CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC,https://www.testcountry.com,country@test.com,+390612345678
-airport-32,John F. Kennedy International Airport,ABG,INTERNATIONAL,Paris,CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC,https://www.testcountry.com,country@test.com,+390212345678
-airport-33,John F. Kennedy International Airport,ABH,INTERNATIONAL,Paris,España,https://www.testcountry.com,country@test.com,+34911223344
-airport-34,John F. Kennedy International Airport,ABI,INTERNATIONAL,Paris,<script>alert('Hacked');</script>,https://www.testcountry.com,country@test.com,+34911223344
-airport-35,John F. Kennedy International Airport,ABJ,INTERNATIONAL,Paris,DROP TABLE countries;,https://www.testcountry.com,country@test.com,+6561234567
-airport-36,John F. Kennedy International Airport,ABK,INTERNATIONAL,Paris,洛伦·伊پ森,https://www.testcountry.com,country@test.com,+6561234567
-airport-37,John F. Kennedy International Airport,ABL,INTERNATIONAL,Paris,โลเร็ม อิปซัม,https://www.testcountry.com,country@test.com,+6561234567
-airport-38,John F. Kennedy International Airport,ABM,INTERNATIONAL,Paris,لوريم إيبسوم,https://www.testcountry.com,country@test.com,+6561234567
-airport-39,John F. Kennedy International Airport,ABN,INTERNATIONAL,Paris,<marquee>Malicious</marquee>,https://www.testcountry.com,country@test.com,+6561234567
-airport-40,John F. Kennedy International Airport,ABO,INTERNATIONAL,Paris,' OR '1'='1,https://www.testcountry.com,country@test.com,+6561234567
+airport-29,John F. Kennedy International Airport,ABD,INTERNATIONAL,New York,F,https://www.jfkairport.com,info@jfkairport.com,+12125551234
+airport-30,John F. Kennedy International Airport,ABE,INTERNATIONAL,New York,FR,https://www.jfkairport.com,info@jfkairport.com,+12125551234
+airport-31,John F. Kennedy International Airport,ABF,INTERNATIONAL,New York,CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC,https://www.jfkairport.com,info@jfkairport.com,+12125551234
+airport-32,John F. Kennedy International Airport,ABG,INTERNATIONAL,New York,CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC,https://www.jfkairport.com,info@jfkairport.com,+12125551234
+airport-33,John F. Kennedy International Airport,ABH,INTERNATIONAL,New York,España,https://www.jfkairport.com,info@jfkairport.com,+12125551234
+airport-34,John F. Kennedy International Airport,ABI,INTERNATIONAL,New York,<script>alert('Hacked');</script>,https://www.jfkairport.com,info@jfkairport.com,+12125551234
+airport-35,John F. Kennedy International Airport,ABJ,INTERNATIONAL,New York,DROP TABLE countries;,https://www.jfkairport.com,info@jfkairport.com,+12125551234
+airport-36,John F. Kennedy International Airport,ABK,INTERNATIONAL,New York,洛伦·伊پ森,https://www.jfkairport.com,info@jfkairport.com,+12125551234
+airport-37,John F. Kennedy International Airport,ABL,INTERNATIONAL,New York,โลเร็ม อิปซัม,https://www.jfkairport.com,info@jfkairport.com,+12125551234
+airport-38,John F. Kennedy International Airport,ABM,INTERNATIONAL,New York,لوريم إيبسوم,https://www.jfkairport.com,info@jfkairport.com,+12125551234
+airport-39,John F. Kennedy International Airport,ABN,INTERNATIONAL,New York,<marquee>Malicious</marquee>,https://www.jfkairport.com,info@jfkairport.com,+12125551234
+airport-40,John F. Kennedy International Airport,ABO,INTERNATIONAL,New York,' OR '1'='1,https://www.jfkairport.com,info@jfkairport.com,+12125551234
 # website variations
-airport-41,Test Website Variation Airport,ABP,INTERNATIONAL,New York,USA,https://www.example.com,web@test.com,+12125551234
-airport-42,Test Website Variation Airport,ABQ,INTERNATIONAL,New York,USA,http://example.com,web@test.com,+12125551234
-airport-43,Test Website Variation Airport,ABR,INTERNATIONAL,New York,USA,https://sub.example.com,web@test.com,+12125551234
-airport-44,Test Website Variation Airport,ABS,INTERNATIONAL,New York,USA,https://www.example.com/this/is/a/very/long/path/with/many/segments,web@test.com,+12125551234
-airport-45,Test Website Variation Airport,ABT,INTERNATIONAL,New York,USA,https://www.example.com/search?q=test,web@test.com,+12125551234
-airport-46,Test Website Variation Airport,ABU,INTERNATIONAL,New York,USA,https://www.example.com:8080,web@test.com,+12125551234
+airport-41,John F. Kennedy International Airport,ABP,INTERNATIONAL,New York,USA,http://lorem.com/ipsumhttp://lorem.com/ipsum,info@jfkairport.com,+12125551234
+airport-42,John F. Kennedy International Airport,ABQ,INTERNATIONAL,New York,USA,ftp://a,info@jfkairport.com,+12125551234
+airport-43,John F. Kennedy International Airport,ABR,INTERNATIONAL,New York,USA,ftp://a.b,info@jfkairport.com,+12125551234
+airport-44,John F. Kennedy International Airport,ABS,INTERNATIONAL,New York,USA,"http://www.lorem-ipsum.org/dolor/sit/amet,/consectetur/adipiscing/elit,/sed/do/eiusmod/tempor/incididunt/ut/labore/et/dolore/magna/aliqua/Ut/enim/ad/minim/veniam/quis/nostrud/exercitation/ullamco/laboris/nisi/ut/aliquip/ex/ea/commodo/consequat/duis/aute/",info@jfkairport.com,+12125551234
+airport-45,John F. Kennedy International Airport,ABT,INTERNATIONAL,New York,USA,"http://www.lorem-ipsum.org/dolor/sit/amet,/consectetur/adipiscing/elit,/sed/do/eiusmod/tempor/incididunt/ut/labore/et/dolore/magna/aliqua/Ut/enim/ad/minim/veniam/quis/nostrud/exercitation/ullamco/laboris/nisi/ut/aliquip/ex/ea/commodo/consequat/duis/aute/X",info@jfkairport.com,+12125551234
+airport-46,John F. Kennedy International Airport,ABU,INTERNATIONAL,New York,USA,http://example.org/a,info@jfkairport.com,+12125551234
 # email variations
-airport-47,Test Email Variation Airport,ABV,INTERNATIONAL,New York,USA,http://lorem.com/ipsum,contact@example.com,+12125551234
-airport-48,Test Email Variation Airport,ABW,INTERNATIONAL,New York,USA,ftp://a,info@mail.example.com,+12125551234
-airport-49,Test Email Variation Airport,ABX,INTERNATIONAL,New York,USA,ftp://a.b,john.doe+alias@example.com,+12125551234
-airport-50,Test Email Variation Airport,ABY,INTERNATIONAL,New York,USA,"http://www.lorem-ipsum.org/dolor/sit/amet,/consectetur/adipiscing/elit,/sed/do/eiusmod/tempor/incididunt/ut/labore/et/dolore/magna/aliqua/Ut/enim/ad/minim/veniam/quis/nostrud/exercitation/ullamco/laboris/nisi/ut/aliquip/ex/ea/commodo/consequat/duis/aute/",very.long.email.address.with.lots.of.details@example.com,+12125551234
-airport-51,Test Email Variation Airport,ABZ,INTERNATIONAL,New York,USA,"http://www.lorem-ipsum.org/dolor/sit/amet,/consectetur/adipiscing/elit,/sed/do/eiusmod/tempor/incididunt/ut/labore/et/dolore/magna/aliqua/Ut/enim/ad/minim/veniam/quis/nostrud/exercitation/ullamco/laboris/nisi/ut/aliquip/ex/ea/commodo/consequat/duis/aute/X",correo@ejemplo.com,+12125551234
-airport-52,Test Email Variation Airport,ACA,INTERNATIONAL,New York,USA,http://example.org/a,<script>alert('hack')</script>@example.com,+12125551234
+airport-47,John F. Kennedy International Airport,ABV,INTERNATIONAL,New York,USA,https://www.jfkairport.com,acme@lorem-ipsum.org,+12125551234
+airport-48,John F. Kennedy International Airport,ABW,INTERNATIONAL,New York,USA,https://www.jfkairport.com,a@b.e,+12125551234
+airport-49,John F. Kennedy International Airport,ABX,INTERNATIONAL,New York,USA,https://www.jfkairport.com,a@b.es,+12125551234
+airport-50,John F. Kennedy International Airport,ABY,INTERNATIONAL,New York,USA,https://www.jfkairport.com,a@b.esx,+12125551234
+airport-51,John F. Kennedy International Airport,ABZ,INTERNATIONAL,New York,USA,https://www.jfkairport.comhttps://www.jfkairport.com,lorem-ipsum@dolor.sit.amet.consectetur.adipiscing.elit.sed.do.eiusmod.tempor.incididunt.ut.labore.et.dolore.magna.aliqua.Ut.enim.ad.minim.veniam.quis.nostrud.exercitation.ullamco.laboris.nisi.ut.aliquip.ex.ea.commodo.consequat.duis.aute.irure.doloris.edu,+12125551234
+airport-52,John F. Kennedy International Airport,ACA,INTERNATIONAL,New York,USA,https://www.jfkairport.com,lorem-ipsum@dolor.sit.amet.consectetur.adipiscing.elit.sed.do.eiusmod.tempor.incididunt.ut.labore.et.dolore.magna.aliqua.Ut.enim.ad.minim.veniam.quis.nostrud.exercitation.ullamco.laboris.nisi.ut.aliquip.ex.ea.commodo.consequat.duis.aute.irure.dolor.es.org,+12125551234
 # contact-phone variations
-airport-53,Test Phone Variation Airport,ACB,INTERNATIONAL,New York,USA,https://www.example.com,phone@test.com,+123456
-airport-54,Test Phone Variation Airport,ACC,INTERNATIONAL,New York,USA,https://www.example.com,phone@test.com,+1234567
-airport-55,Test Phone Variation Airport,ACD,INTERNATIONAL,New York,USA,https://www.example.com,phone@test.com,+123456789012345
-airport-56,Test Phone Variation Airport,ACE,INTERNATIONAL,New York,USA,https://www.example.com,phone@test.com,+12345678901234
-airport-57,Test Phone Variation Airport,ACF,INTERNATIONAL,New York,USA,https://www.example.com,phone@test.com,987654321
-airport-58,Test Phone Variation Airport,ACG,INTERNATIONAL,New York,USA,https://www.example.com,phone@test.com,""
+airport-53,John F. Kennedy International Airport,ACB,INTERNATIONAL,New York,USA,https://www.jfkairport.com,info@jfkairport.com,+123456
+airport-54,John F. Kennedy International Airport,ACC,INTERNATIONAL,New York,USA,https://www.jfkairport.com,info@jfkairport.com,+1234567
+airport-55,John F. Kennedy International Airport,ACD,INTERNATIONAL,New York,USA,https://www.jfkairport.com,info@jfkairport.com,+123456789012345
+airport-56,John F. Kennedy International Airport,ACE,INTERNATIONAL,New York,USA,https://www.jfkairport.com,info@jfkairport.com,+12345678901234
+airport-57,John F. Kennedy International Airport,ACF,INTERNATIONAL,New York,USA,https://www.jfkairport.com,info@jfkairport.com,987654321
+airport-58,John F. Kennedy International Airport,ACG,INTERNATIONAL,New York,USA,https://www.jfkairport.com,info@jfkairport.com,""
