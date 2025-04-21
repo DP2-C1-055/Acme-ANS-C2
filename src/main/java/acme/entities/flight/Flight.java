@@ -118,6 +118,7 @@ public class Flight extends AbstractEntity {
 		if (legs != null && !legs.isEmpty())
 			layovers = Math.max(legs.size() - 1, 0);
 		return layovers;
+		//TODO: Si un vuelo no tiene legs, ponerlo a null
 	}
 
 	@Transient

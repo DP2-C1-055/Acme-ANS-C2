@@ -51,4 +51,15 @@ acme.validation.assignment.leg-null.message = El tramo no puede ser nulo
 acme.validation.activity-log.assignment-not-published.message = Este registro no puede ser publicado porque la asignación de vuelo seleccionada aún no ha sido publicada
 acme.validation.activity-log.leg-not-finished.message = No puedes guardar el registro porque la escala seleccionada aún no ha finalizado
 acme.validation.activityLog.assignment-published.message = No se puede modificar o eliminar este registro de actividad porque su asignación correspondiente ya está publicada.
+javax.validation.constraints.NotNull.message=Este campo es obligatorio
+acme.validation.airport.invalid-iataCode.message=El código IATA debe estar formado por 3 letras mayúsculas
+acme.validation.airport.duplicated-iataCode.message=Ya existe un aeropuerto con este código IATA
+acme.validation.airport.max-length-name.message=El nombre no puede tener más de 50 caracteres
+acme.validation.airport.max-length-city.message=La ciudad no puede tener más de 50 caracteres
+acme.validation.airport.max-length-country.message=El país no puede tener más de 50 caracteres
+acme.validation.airport.max-length-website.message=La URL del sitio web no puede tener más de 255 caracteres
+acme.validation.airport.max-length-email.message=El email no puede tener más de 255 caracteres
+acme.validation.length=No se cumplen los requisitos de longitud
+acme.validation.flight.leg-required.message = El vuelo debe tener al menos un tramo para ser publicado
+
 validation.lastNibble = Sólo se permiten 4 dígitos
