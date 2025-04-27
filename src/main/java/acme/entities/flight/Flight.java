@@ -126,7 +126,8 @@ public class Flight extends AbstractEntity {
 		String tag = this.getTag();
 		String origin = this.getOriginCity();
 		String destination = this.getDestinationCity();
-		return tag + " - " + origin + " - " + destination;
+		String departure = this.getScheduledDeparture().toString();
+		return tag + " - " + origin + " - " + destination + " - " + departure;
 	}
 
 	// Relationships ----------------------------------------------------------
