@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.models.Dataset;
 import acme.client.components.views.SelectChoices;
+import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.booking.Booking;
@@ -72,6 +73,12 @@ public class CustomerBookingPublishService extends AbstractGuiService<Customer, 
 			super.state(passengers.size() != 0, "*", "customer.booking.error.noPassengers");
 		if (object.getLastNibble().isEmpty())
 			super.state(!object.getLastNibble().isEmpty(), "lastNibble", "customer.booking.error.lastNibble");
+
+		if (object.getFlight() != null)
+			if (object.getFlight().isDraftMode())
+				super.state(false, "*", "customer.booking.error.FlightDraftMode");
+			else
+				super.state(object.getFlight().getScheduledDeparture().after(MomentHelper.getCurrentMoment()), "*", "customer.booking.error.flightTime");
 	}
 
 	@Override
@@ -97,7 +104,7 @@ public class CustomerBookingPublishService extends AbstractGuiService<Customer, 
 		SelectChoices choices = null;
 		Collection<Flight> flights = this.repository.getAllFlightWithDraftModeFalse();
 		dataset = super.unbindObject(object, "locatorCode", "purchaseMoment", "travelClass", "lastNibble", "draftMode");
-		if (object.getFlight() != null) {
+		if (object.getFlight() != null && !object.getFlight().isDraftMode()) {
 			choices = SelectChoices.from(flights, "customFlightText", object.getFlight());
 			dataset.put("flight", object.getFlight().getTag());
 			dataset.put("price", object.getBookingPrice());

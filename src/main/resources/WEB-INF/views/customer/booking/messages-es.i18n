@@ -23,3 +23,5 @@ customer.booking.form.button.publish = Publicar
 customer.booking.form.button.delete = Eliminar
 customer.booking.error.lastNibble = Para confirmar la reserva introduzca su tarjeta de crédito
 customer.booking.error.locatorCodeDuplicate = Código de localización duplicado
+customer.booking.error.FlightDraftMode = No puede seleccionar un vuelo que no se encuentre publicado
+customer.booking.error.flightTime = Debe seleccionar un vuelo con fecha de salida en el futuro

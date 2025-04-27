@@ -14,17 +14,13 @@ import acme.client.services.GuiService;
 import acme.entities.booking.Booking;
 import acme.entities.booking.TravelClass;
 import acme.entities.flight.Flight;
-import acme.features.manager.leg.ManagerLegRepository;
 import acme.realms.Customer.Customer;
 
 @GuiService
 public class CustomerBookingCreateService extends AbstractGuiService<Customer, Booking> {
 
 	@Autowired
-	private CustomerBookingRepository	repository;
-
-	@Autowired
-	private ManagerLegRepository		managerLeyRepository;
+	private CustomerBookingRepository repository;
 
 
 	@Override
@@ -60,6 +56,12 @@ public class CustomerBookingCreateService extends AbstractGuiService<Customer, B
 
 		if (!super.getBuffer().getErrors().hasErrors("allLocatorCode"))
 			super.state(!allLocatorCode.contains(object.getLocatorCode()), "locatorCode", "customer.booking.error.locatorCodeDuplicate");
+
+		if (object.getFlight() != null)
+			if (object.getFlight().isDraftMode())
+				super.state(false, "*", "customer.booking.error.FlightDraftMode");
+			else
+				super.state(object.getFlight().getScheduledDeparture().after(MomentHelper.getCurrentMoment()), "*", "customer.booking.error.flightTime");
 	}
 
 	@Override
@@ -77,8 +79,10 @@ public class CustomerBookingCreateService extends AbstractGuiService<Customer, B
 
 		SelectChoices choices;
 		Collection<Flight> flights = this.repository.getAllFlightWithDraftModeFalse();
-
-		choices = SelectChoices.from(flights, "customFlightText", object.getFlight());
+		if (object.getFlight() != null && object.getFlight().isDraftMode())
+			choices = SelectChoices.from(flights, "customFlightText", null);
+		else
+			choices = SelectChoices.from(flights, "customFlightText", object.getFlight());
 		dataset = super.unbindObject(object, "locatorCode", "purchaseMoment", "travelClass", "lastNibble", "draftMode");
 		dataset.put("travelClassChoices", SelectChoices.from(TravelClass.class, object.getTravelClass()));
 		dataset.put("flight", choices.getSelected().getKey());

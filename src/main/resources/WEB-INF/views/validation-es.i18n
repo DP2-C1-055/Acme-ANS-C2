@@ -52,3 +52,4 @@ acme.validation.activity-log.assignment-not-published.message = Este registro no
 acme.validation.activity-log.leg-not-finished.message = No puedes guardar el registro porque la escala seleccionada aún no ha finalizado
 acme.validation.activityLog.assignment-published.message = No se puede modificar o eliminar este registro de actividad porque su asignación correspondiente ya está publicada.
 validation.lastNibble = Sólo se permiten 4 dígitos
+acme.validation.passportNumber = El número de pasaporte debe contener entre 6 y 9 caracteres alfanuméricos (mayúsculas y números)
