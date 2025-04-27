@@ -34,14 +34,16 @@ public class ManagerFlightShowService extends AbstractGuiService<Manager, Flight
 
 	@Override
 	public void unbind(final Flight flight) {
-		Dataset dataset = super.unbindObject(flight, "tag", "selfTransfer", "cost", "description", "draftMode");
+		// Incluye todos los campos, tanto “simples” como los derivados
+		Dataset dataset = super.unbindObject(flight, "tag", "selfTransfer", "cost", "description", "draftMode", "scheduledDeparture", "scheduledArrival", "originCity", "destinationCity", "numberOfLayovers");
 
+		// Meter el nombre del Manager a mano
 		String managerName = "";
 		if (flight.getManager() != null && flight.getManager().getIdentity() != null)
 			managerName = flight.getManager().getIdentity().getFullName();
 		dataset.put("manager", managerName);
 
-		super.addPayload(dataset, flight, "scheduledDeparture", "scheduledArrival", "originCity", "destinationCity", "numberOfLayovers");
+		// Añadir el Dataset a la Response
 		super.getResponse().addData(dataset);
 	}
 

@@ -26,25 +26,20 @@ public class FlightValidator extends AbstractValidator<ValidFlight, Flight> {
 	@Override
 	public boolean isValid(final Flight flight, final ConstraintValidatorContext context) {
 		assert context != null;
-
 		if (flight == null) {
 			super.state(context, false, "*", "javax.validation.constraints.NotNull.message");
 			return false;
 		}
-
-		// Recuperamos todos los Legs asociados al vuelo.
 		Collection<Leg> legs = this.legRepository.findLegsByFlightId(flight.getId());
-
-		// Validación existente: si el vuelo está publicado (draftMode == false),
-		// ningún leg asociado debe estar en modo borrador.
-		if (!flight.isDraftMode() && legs != null)
-			for (Leg leg : legs)
-				if (leg.isDraftMode()) {
-					super.state(context, false, "draftMode", "acme.validation.flight.leg-published.message");
-					// No es necesario seguir iterando si se encuentra alguno en borrador.
-					break;
-				}
-
+		if (!flight.isDraftMode())
+			if (legs == null || legs.isEmpty())
+				super.state(context, false, "draftMode", "acme.validation.flight.leg-required.message");
+			else
+				for (Leg leg : legs)
+					if (leg.isDraftMode()) {
+						super.state(context, false, "draftMode", "acme.validation.flight.leg-published.message");
+						break;
+					}
 		return !super.hasErrors(context);
 	}
 }
