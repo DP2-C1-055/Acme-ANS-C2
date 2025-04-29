@@ -52,16 +52,12 @@ public class CrewAssignmentPublishService extends AbstractGuiService<Crew, Assig
 	public void bind(final Assignment assignment) {
 		Integer legId;
 		Leg leg;
-		Crew member;
 
 		legId = super.getRequest().getData("leg", int.class);
 		leg = this.repository.findLegById(legId);
-		member = (Crew) super.getRequest().getPrincipal().getActiveRealm();
 
 		super.bindObject(assignment, "duty", "currentStatus", "remarks");
 		assignment.setLeg(leg);
-		assignment.setCrew(member);
-		assignment.setLastUpdate(MomentHelper.getCurrentMoment());
 	}
 
 	@Override

@@ -12,8 +12,9 @@ crew.activityLog.form.button.create = Create
 crew.activityLog.form.button.update = Update
 crew.activityLog.form.button.delete = Delete
 
-crew.activityLog.list.label.registrationMoment = Registration Moment:
-crew.activityLog.list.label.typeIncident = Type Incident:
-crew.activityLog.list.label.severityLevel = Severity Level:
+crew.activityLog.list.label.registrationMoment = Registration Moment
+crew.activityLog.list.label.typeIncident = Type Incident
+crew.activityLog.list.label.severityLevel = Severity Level
+crew.activityLog.list.label.number = Flight Number
 
 crew.activityLog.list.button.create = Create

@@ -11,6 +11,7 @@ import acme.client.repositories.AbstractRepository;
 import acme.entities.activityLog.ActivityLog;
 import acme.entities.assignment.Assignment;
 import acme.entities.leg.Leg;
+import acme.realms.crew.AvailabilityStatus;
 import acme.realms.crew.Crew;
 
 @Repository
@@ -51,5 +52,11 @@ public interface CrewAssignmentRepository extends AbstractRepository {
 
 	@Query("select a from Assignment a where a.leg.id = :id")
 	Collection<Assignment> findAssignmentByLegId(int id);
+
+	@Query("select fcm from Crew fcm where fcm.availability = :available")
+	Collection<Crew> findCrewByAvailability(AvailabilityStatus available);
+
+	@Query("SELECT CASE WHEN COUNT(fcm) > 0 THEN true ELSE false END FROM Crew fcm WHERE fcm.id = :crewId")
+	boolean existsFlightCrewMember(int crewId);
 
 }

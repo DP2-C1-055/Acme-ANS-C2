@@ -87,6 +87,7 @@ public class CrewActivityLogListService extends AbstractGuiService<Crew, Activit
 		dataset.put("flightNumber", activityLog.getAssignment().getLeg().getFlightNumber());
 
 		super.addPayload(dataset, activityLog, "description");
+		super.getResponse().addGlobal("id", activityLog.getAssignment().getId());
 		super.getResponse().addData(dataset);
 	}
 }

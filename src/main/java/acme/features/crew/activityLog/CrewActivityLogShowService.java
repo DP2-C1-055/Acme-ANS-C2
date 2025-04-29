@@ -26,17 +26,19 @@ public class CrewActivityLogShowService extends AbstractGuiService<Crew, Activit
 
 	@Override
 	public void authorise() {
-		boolean status;
+		int activityLogId;
+
 		ActivityLog activityLog;
-		int assignmentId;
-		Crew member;
 
-		assignmentId = super.getRequest().getData("id", int.class);
-		activityLog = this.repository.findActivityLogById(assignmentId);
-		member = activityLog == null ? null : activityLog.getAssignment().getCrew();
-		status = member != null && (!activityLog.isDraftMode() || super.getRequest().getPrincipal().hasRealm(member));
+		activityLogId = super.getRequest().getData("id", int.class);
+		activityLog = this.repository.findActivityLogById(activityLogId);
+		int flightCrewMemberId = super.getRequest().getPrincipal().getActiveRealm().getId();
+		Assignment assignment = this.repository.findAssignmentByActivityLogId(activityLogId);
+		boolean authorised1 = this.repository.existsFlightCrewMember(flightCrewMemberId);
+		boolean authorised = authorised1 && this.repository.thatActivityLogIsOf(activityLogId, flightCrewMemberId);
+		boolean isAuthenticated = assignment.getCrew().getId() == flightCrewMemberId;
 
-		super.getResponse().setAuthorised(status);
+		super.getResponse().setAuthorised(authorised && activityLog != null && isAuthenticated);
 	}
 
 	@Override
