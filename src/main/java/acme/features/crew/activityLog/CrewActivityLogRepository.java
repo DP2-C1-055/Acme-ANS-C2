@@ -2,6 +2,7 @@
 package acme.features.crew.activityLog;
 
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -17,7 +18,7 @@ public interface CrewActivityLogRepository extends AbstractRepository {
 	ActivityLog findActivityLogById(int id);
 
 	@Query("select a from ActivityLog a where a.assignment.crew.id = :flightCrewMemberId")
-	Collection<ActivityLog> findAllActivityLogs(int flightCrewMemberId);
+	Collection<ActivityLog> findAllActivityLogsByCrewId(int flightCrewMemberId);
 
 	@Query("select a from Assignment a where a.id = :assignmentId")
 	Assignment findAssignmentById(int assignmentId);
@@ -34,7 +35,7 @@ public interface CrewActivityLogRepository extends AbstractRepository {
 	@Query("select a from Assignment a where a.crew.id = :crewId or a.draftMode = false")
 	Collection<Assignment> findAssignmentPublishedByCrewId(int crewId);
 
-	@Query("SELECT CASE WHEN COUNT(fcm) > 0 THEN true ELSE false END FROM Crew fcm WHERE fcm.id = :crewId")
+	@Query("select case when count(fcm) > 0 then true else false end from Crew fcm where fcm.id = :crewId")
 	boolean existsFlightCrewMember(int crewId);
 
 	@Query("select case when count(fa) > 0 then true else false end from Assignment fa where fa.id = :id and fa.draftMode = false")
@@ -45,4 +46,7 @@ public interface CrewActivityLogRepository extends AbstractRepository {
 
 	@Query("select al.assignment from ActivityLog al where al.id = :id")
 	Assignment findAssignmentByActivityLogId(int id);
+
+	@Query("select case when count(al) > 0 then true else false end from ActivityLog al where al.id = :activityLogId and al.assignment.leg.scheduledArrival < :activityLogMoment")
+	boolean isAssociatedWithCompletedLeg(int activityLogId, Date activityLogMoment);
 }

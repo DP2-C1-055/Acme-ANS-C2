@@ -16,5 +16,6 @@ crew.activityLog.list.label.registrationMoment = Registration Moment
 crew.activityLog.list.label.typeIncident = Type Incident
 crew.activityLog.list.label.severityLevel = Severity Level
 crew.activityLog.list.label.number = Flight Number
+crew.activityLog.list.label.draftMode = Draft Mode
 
 crew.activityLog.list.button.create = Create

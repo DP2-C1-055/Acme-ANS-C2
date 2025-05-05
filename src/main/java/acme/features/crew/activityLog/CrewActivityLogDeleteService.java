@@ -22,17 +22,22 @@ public class CrewActivityLogDeleteService extends AbstractGuiService<Crew, Activ
 
 	@Override
 	public void authorise() {
-		boolean status;
+		boolean isAuthorised;
+		int activityLogId;
 		ActivityLog activityLog;
-		int id;
-		Crew member;
+		int crewMemberId;
+		boolean isCrewMemberValid;
+		boolean isActivityLogOwnedByCrewMember;
 
-		id = super.getRequest().getData("id", int.class);
-		activityLog = this.repository.findActivityLogById(id);
-		member = activityLog == null ? null : activityLog.getAssignment().getCrew();
-		status = member != null && activityLog.isDraftMode() && super.getRequest().getPrincipal().hasRealm(member);
+		activityLogId = super.getRequest().getData("id", int.class);
+		activityLog = this.repository.findActivityLogById(activityLogId);
+		crewMemberId = super.getRequest().getPrincipal().getActiveRealm().getId();
+		isCrewMemberValid = this.repository.existsFlightCrewMember(crewMemberId);
 
-		super.getResponse().setAuthorised(status);
+		isActivityLogOwnedByCrewMember = isCrewMemberValid && this.repository.thatActivityLogIsOf(activityLogId, crewMemberId);
+		isAuthorised = isActivityLogOwnedByCrewMember && activityLog != null && activityLog.isDraftMode();
+
+		super.getResponse().setAuthorised(isAuthorised);
 	}
 
 	@Override
@@ -48,7 +53,7 @@ public class CrewActivityLogDeleteService extends AbstractGuiService<Crew, Activ
 
 	@Override
 	public void bind(final ActivityLog activityLog) {
-		super.bindObject(activityLog, "typeIncident", "description", "severityLevel");
+		super.bindObject(activityLog, "registrationMoment", "typeIncident", "description", "severityLevel");
 	}
 
 	@Override
@@ -68,6 +73,9 @@ public class CrewActivityLogDeleteService extends AbstractGuiService<Crew, Activ
 		Dataset dataset;
 
 		dataset = super.unbindObject(activityLog, "registrationMoment", "typeIncident", "description", "severityLevel", "draftMode");
+
+		dataset.put("draftMode", activityLog.isDraftMode());
+		dataset.put("readonly", false);
 
 		super.getResponse().addData(dataset);
 	}
