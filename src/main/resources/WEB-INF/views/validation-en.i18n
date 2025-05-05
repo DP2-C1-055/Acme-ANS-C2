@@ -47,3 +47,16 @@ acme.validation.assignment.leg-null.message = The leg cannot be null
 acme.validation.activity-log.assignment-not-published.message = This log cannot be published as the selected flight assignment has not been published yet
 acme.validation.activity-log.leg-not-finished.message = Cannot save the log because the selected leg has not yet been completed 
 acme.validation.activityLog.assignment-published.message = Cannot modify or delete this activity log record because its corresponding assignment has already been published.
+javax.validation.constraints.NotNull.message=This field is required
+acme.validation.airport.invalid-iataCode.message=The IATA code must consist of 3 uppercase letters
+acme.validation.airport.duplicated-iataCode.message=A airport with this IATA code already exists
+acme.validation.airport.max-length-name.message=The name must not exceed 50 characters
+acme.validation.airport.max-length-city.message=The city must not exceed 50 characters
+acme.validation.airport.max-length-country.message=The country must not exceed 50 characters
+acme.validation.airport.max-length-website.message=The website URL must not exceed 255 characters
+acme.validation.airport.max-length-email.message=The email must not exceed 255 characters
+acme.validation.length=Length requirements are not met
+acme.validation.flight.leg-required.message = The flight must have at least one leg to be published
+
+
+validation.lastNibble = Only 4 digits allowed

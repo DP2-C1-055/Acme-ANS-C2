@@ -6,7 +6,6 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import acme.client.components.datatypes.Money;
 import acme.client.components.models.Dataset;
 import acme.client.components.views.SelectChoices;
 import acme.client.helpers.MomentHelper;
@@ -40,12 +39,6 @@ public class CustomerBookingCreateService extends AbstractGuiService<Customer, B
 		booking.setLocatorCode("");
 		booking.setLastNibble("");
 
-		//Inicialize money type
-		Money money = new Money();
-		money.setAmount(0.00);
-		money.setCurrency("EUR");
-		booking.setPrice(money);
-
 		int customerId;
 		customerId = super.getRequest().getPrincipal().getActiveRealm().getId();
 		Customer customer = this.repository.getCustomerById(customerId);
@@ -63,16 +56,16 @@ public class CustomerBookingCreateService extends AbstractGuiService<Customer, B
 
 		if (!super.getBuffer().getErrors().hasErrors("allLocatorCode"))
 			super.state(!allLocatorCode.contains(object.getLocatorCode()), "locatorCode", "customer.booking.error.locatorCodeDuplicate");
+
+		if (object.getFlight() != null)
+			if (object.getFlight().isDraftMode())
+				super.state(false, "*", "customer.booking.error.FlightDraftMode");
+			else
+				super.state(object.getFlight().getScheduledDeparture().after(MomentHelper.getCurrentMoment()), "*", "customer.booking.error.flightTime");
 	}
 
 	@Override
 	public void perform(final Booking booking) {
-
-		Money money = new Money();
-		money.setAmount(0.00);
-		money.setCurrency(booking.getFlight().getCost().getCurrency());
-
-		booking.setPrice(money);
 		booking.setDraftMode(true);
 
 		this.repository.save(booking);
@@ -86,8 +79,11 @@ public class CustomerBookingCreateService extends AbstractGuiService<Customer, B
 
 		SelectChoices choices;
 		Collection<Flight> flights = this.repository.getAllFlightWithDraftModeFalse();
-		choices = SelectChoices.from(flights, "tag", object.getFlight());
-		dataset = super.unbindObject(object, "locatorCode", "purchaseMoment", "travelClass", "price", "lastNibble", "draftMode");
+		if (object.getFlight() != null && object.getFlight().isDraftMode())
+			choices = SelectChoices.from(flights, "customFlightText", null);
+		else
+			choices = SelectChoices.from(flights, "customFlightText", object.getFlight());
+		dataset = super.unbindObject(object, "locatorCode", "purchaseMoment", "travelClass", "lastNibble", "draftMode");
 		dataset.put("travelClassChoices", SelectChoices.from(TravelClass.class, object.getTravelClass()));
 		dataset.put("flight", choices.getSelected().getKey());
 		dataset.put("flights", choices);

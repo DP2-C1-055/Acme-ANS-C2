@@ -118,6 +118,16 @@ public class Flight extends AbstractEntity {
 		if (legs != null && !legs.isEmpty())
 			layovers = Math.max(legs.size() - 1, 0);
 		return layovers;
+		//TODO: Si un vuelo no tiene legs, ponerlo a null
+	}
+
+	@Transient
+	public String getCustomFlightText() {
+		String tag = this.getTag();
+		String origin = this.getOriginCity();
+		String destination = this.getDestinationCity();
+		String departure = this.getScheduledDeparture().toString();
+		return tag + " - " + origin + " - " + destination + " - " + departure;
 	}
 
 	// Relationships ----------------------------------------------------------
@@ -127,5 +137,4 @@ public class Flight extends AbstractEntity {
 	@Valid
 	@ManyToOne(optional = false)
 	private Manager manager;
-
 }

@@ -9,22 +9,17 @@ import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.BookingRecord.BookingRecord;
 import acme.entities.booking.Booking;
-import acme.entities.passenger.Passenger;
-import acme.features.customer.bookingRecord.BookingRecordRepository;
-import acme.features.customer.passenger.CustomerPassengerRepository;
+import acme.features.customer.bookingRecord.CustomerBookingRecordRepository;
 import acme.realms.Customer.Customer;
 
 @GuiService
 public class CustomerBookingDeleteService extends AbstractGuiService<Customer, Booking> {
 
 	@Autowired
-	private CustomerBookingRepository	repository;
+	private CustomerBookingRepository		repository;
 
 	@Autowired
-	private BookingRecordRepository		bookingRecordRepository;
-
-	@Autowired
-	private CustomerPassengerRepository	customerPassengerRepository;
+	private CustomerBookingRecordRepository	bookingRecordRepository;
 
 
 	@Override
@@ -59,10 +54,8 @@ public class CustomerBookingDeleteService extends AbstractGuiService<Customer, B
 	@Override
 	public void perform(final Booking booking) {
 		Collection<BookingRecord> bookingRecord = this.bookingRecordRepository.findBookingRecordByBooking(booking.getId());
-		Collection<Passenger> passengers = this.bookingRecordRepository.findPassengenrsByBooking(booking.getId());
 
 		this.bookingRecordRepository.deleteAll(bookingRecord);
-		this.customerPassengerRepository.deleteAll(passengers);
 
 		this.repository.delete(booking);
 
@@ -77,7 +70,7 @@ public class CustomerBookingDeleteService extends AbstractGuiService<Customer, B
 	public void bind(final Booking object) {
 		assert object != null;
 
-		super.bindObject(object, "locatorCode", "purchaseMoment", "travelClass", "price", "lastNibble");
+		super.bindObject(object, "locatorCode", "purchaseMoment", "travelClass", "lastNibble");
 
 	}
 

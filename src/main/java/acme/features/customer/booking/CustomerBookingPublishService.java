@@ -2,28 +2,30 @@
 package acme.features.customer.booking;
 
 import java.util.Collection;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.models.Dataset;
 import acme.client.components.views.SelectChoices;
+import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.booking.Booking;
 import acme.entities.booking.TravelClass;
 import acme.entities.flight.Flight;
 import acme.entities.passenger.Passenger;
-import acme.features.customer.bookingRecord.BookingRecordRepository;
+import acme.features.customer.bookingRecord.CustomerBookingRecordRepository;
 import acme.realms.Customer.Customer;
 
 @GuiService
 public class CustomerBookingPublishService extends AbstractGuiService<Customer, Booking> {
 
 	@Autowired
-	private CustomerBookingRepository	repository;
+	private CustomerBookingRepository		repository;
 
 	@Autowired
-	private BookingRecordRepository		bookingRecordRepository;
+	private CustomerBookingRecordRepository	bookingRecordRepository;
 
 
 	@Override
@@ -71,6 +73,12 @@ public class CustomerBookingPublishService extends AbstractGuiService<Customer, 
 			super.state(passengers.size() != 0, "*", "customer.booking.error.noPassengers");
 		if (object.getLastNibble().isEmpty())
 			super.state(!object.getLastNibble().isEmpty(), "lastNibble", "customer.booking.error.lastNibble");
+
+		if (object.getFlight() != null)
+			if (object.getFlight().isDraftMode())
+				super.state(false, "*", "customer.booking.error.FlightDraftMode");
+			else
+				super.state(object.getFlight().getScheduledDeparture().after(MomentHelper.getCurrentMoment()), "*", "customer.booking.error.flightTime");
 	}
 
 	@Override
@@ -85,16 +93,28 @@ public class CustomerBookingPublishService extends AbstractGuiService<Customer, 
 	@Override
 	public void unbind(final Booking object) {
 		assert object != null;
+		String errorMessage;
+		final Locale local = super.getRequest().getLocale();
+		if (local.equals(Locale.ENGLISH))
+			errorMessage = "Cost can not be calculated";
+		else
+			errorMessage = "No se puede calcular el precio";
 
 		Dataset dataset;
-
-		SelectChoices choices;
+		SelectChoices choices = null;
 		Collection<Flight> flights = this.repository.getAllFlightWithDraftModeFalse();
-		choices = SelectChoices.from(flights, "tag", object.getFlight());
+		dataset = super.unbindObject(object, "locatorCode", "purchaseMoment", "travelClass", "lastNibble", "draftMode");
+		if (object.getFlight() != null && !object.getFlight().isDraftMode()) {
+			choices = SelectChoices.from(flights, "customFlightText", object.getFlight());
+			dataset.put("flight", object.getFlight().getTag());
+			dataset.put("price", object.getBookingPrice());
+		} else {
+			dataset.put("flight", "");
+			choices = SelectChoices.from(flights, "customFlightText", null);
+			dataset.put("price", errorMessage);
+		}
 
-		dataset = super.unbindObject(object, "locatorCode", "purchaseMoment", "travelClass", "price", "lastNibble", "draftMode");
 		dataset.put("travelClassChoices", SelectChoices.from(TravelClass.class, object.getTravelClass()));
-		dataset.put("flight", object.getFlight().getTag());
 		dataset.put("flights", choices);
 
 		super.getResponse().addData(dataset);

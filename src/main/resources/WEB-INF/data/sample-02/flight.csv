@@ -6,45 +6,40 @@ flight-01,T,TRUE,EUR 500.00,"Lorem ipsum dolor sit amet, consectetur adipiscing"
 flight-02,TA,TRUE,EUR 500.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",true,manager-01
 flight-03,TAG-123456789012345678901234567890123456789012345,TRUE,EUR 500.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",true,manager-01
 flight-04,TAG-1234567890123456789012345678901234567890123456,TRUE,EUR 500.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",true,manager-01
-# tag - textos en otros idiomas
 flight-05,โลเร็ม อิปซัม,TRUE,EUR 500.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",false,manager-01
 flight-06,لوريم إيبسوم,TRUE,EUR 500.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",true,manager-01
 flight-07,洛伦·伊普森,TRUE,EUR 500.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",true,manager-01
-# tag - pruebas de inyección de código
 flight-08,<script>alert('Hacked!');</script>,TRUE,EUR 500.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",true,manager-01
 flight-09,<marquee>Hacked</marquee>,TRUE,EUR 500.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",false,manager-01
 flight-10,' OR 'A' = 'A,TRUE,EUR 500.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",true,manager-01
 flight-11,SELECT * FROM flights;,TRUE,EUR 500.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",true,manager-01
 flight-12,DROP TABLE flights;,TRUE,EUR 500.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",false,manager-01
 flight-13,' or 'A' = 'A,TRUE,EUR 500.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",true,manager-01
-# self-transfer - standard variations
+# self-transfer
 flight-14,TAG-14,FALSE,EUR 500.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",false,manager-01
 flight-15,TAG-15,TRUE,EUR 500.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",true,manager-01
-# cost - standard variations (min,intermedio y max permitidos)
+# cost,intermedio y max permitidos)
 flight-16,TAG-16,TRUE,EUR 0.01,"Lorem ipsum dolor sit amet, consectetur adipiscing",true,manager-01
 flight-17,TAG-17,TRUE,EUR 250000.50,"Lorem ipsum dolor sit amet, consectetur adipiscing",true,manager-01
 flight-18,TAG-18,TRUE,EUR 500.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",false,manager-01
-# cost - diferentes monedas permitidas
 flight-19,TAG-19,TRUE,USD 1000.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",true,manager-01
 flight-20,TAG-20,TRUE,GBP 750.75,"Lorem ipsum dolor sit amet, consectetur adipiscing",true,manager-01
 flight-21,TAG-21,TRUE,JPY 100000,"Lorem ipsum dolor sit amet, consectetur adipiscing",true,manager-01
-# description - standard variations (min,intermedio y max permitidos)
+# description,intermedio y max permitidos)
 flight-22,TAG-22,TRUE,EUR 500.00,L,false,manager-01
 flight-23,TAG-23,TRUE,EUR 500.00,Lo,true,manager-01
 flight-24,TAG-24,TRUE,EUR 500.00,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure",true,manager-01
 flight-25,TAG-25,TRUE,EUR 500.00,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula justo eget consequat tincidunt.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula justo eget consequat tincidunt.Lorem ipsum dolor sit amet, consLorem ipsum dolo",true,manager-01
 flight-26,TAG-26,TRUE,EUR 500.00,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula justo eget consequat tincidunt.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vehicula justo eget consequat tincidunt.Lorem ipsum dolor sit amet, consLorem ipsum dolor",true,manager-01
-# description - otros alfabetos
 flight-27,TAG-27,TRUE,EUR 500.00,โลเร็ม อิปซัม,true,manager-01
 flight-28,TAG-28,TRUE,EUR 500.00,لوريم إيبسوم,true,manager-01
-flight-29,TAG-29,TRUE,EUR 500.00,洛伦·伊普森,false,manager-01
-# description - pruebas de inyección de código
+flight-29,TAG-29,TRUE,EUR 500.00,洛伦·伊普森,true,manager-01
 flight-30,TAG-30,TRUE,EUR 500.00,<script>alert('Hacked!');</script>,true,manager-01
 flight-31,TAG-31,TRUE,EUR 500.00,<marquee>Hacked</marquee>,true,manager-01
 flight-32,TAG-32,TRUE,EUR 500.00,' OR 'A' = 'A,true,manager-01
 flight-33,TAG-33,TRUE,EUR 500.00,SELECT * FROM users;,true,manager-01
-flight-34,TAG-34,TRUE,EUR 500.00,DROP TABLE flights;,false,manager-01
+flight-34,TAG-34,TRUE,EUR 500.00,DROP TABLE flights;,true,manager-01
 flight-35,TAG-35,TRUE,EUR 500.00,' or 'A' = 'A,true,manager-01
 # manager - diferentes valores
 flight-36,TAG-36,TRUE,EUR 500.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",true,manager-02
-flight-37,TAG-37,TRUE,EUR 500.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",false,manager-03
+flight-37,TAG-37,TRUE,EUR 500.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",true,manager-03

@@ -1,0 +1,19 @@
+customer.customer-dashboard.form.title = Customer dashboard
+customer.clientDashboard.form.label.countOfPassengersInBookings = Count Of Passengers In Bookings
+customer.clientDashboard.form.label.minimumPassengersInBookings = Minimum Passengers In Bookings
+customer.clientDashboard.form.label.maximumPassengersInBookings	= Maximum Passengers In Bookings
+customer.clientDashboard.form.label.maximumCostOfBookingsLastFiveYears  = Maximum Cost Of Bookings Last Five Years
+customer.clientDashboard.form.label.averagePassengersInBookings = Average Passengers In Bookings
+customer.clientDashboard.form.label.standardDeviationPassengersInBookings = Standard Deviation Passengers In Bookings
+customer.clientDashboard.form.label.lastFiveDestinations = Last Five Destinations
+
+customer.customer-dashboard.form.label.numberOfBookingsByTravelClass = Number Of Bookings By TravelClass
+customer.customer-dashboard.form.label.numberOfBookingsByTravelClass =Number Of Bookings By TravelClass
+
+customer.customer-dashboard.form.title.Booking  = Bookings Dashboard
+customer.customer-dashboard.form.label.countOfBookingsLastFiveYears = Count Of Bookings Last Five Years
+customer.customer-dashboard.form.label.averageCostOfBookingsLastFiveYears = Average Of Bookings Last Five Years
+customer.customer-dashboard.form.label.minimumCostOfBookingsLastFiveYears = Minimum Cost Of Bookings Last Five Years
+customer.customer-dashboard.form.label.maximumCostOfBookingsLastFiveYears =Maximum Cost Of Bookings Last Five Years
+customer.customer-dashboard.form.label.standardDeviationCostOfBookingsLastFiveYears	= Standard Deviation Of Bookings Last Five Years
+customer.customer-dashboard.form.label.moneySpentInBookingsLastYear	= Money Spent In Bookings Last Five Years

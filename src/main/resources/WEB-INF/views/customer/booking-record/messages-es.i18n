@@ -1,0 +1,11 @@
+# list-bookingRecord ##########################################################
+customer.booking-record.list.title = Registro de reservas
+customer.bookingRecord.list.label.passengerName = Nombre del pasajero
+customer.bookingRecord.list.label.bookingLocator = Número de reserva
+customer.booking-record.form.button.create = Añadir pasajero
+customer.booking-record.list.label.passenger = Pasajero
+customer.booking-record.form.title = Pasajero 
+customer.booking-record.list.label.bookingLocator = Número de reserva
+customer.booking-record.form.button.delete = Eliminar Pasajero
+customer.bookingRecord.error.duplicatePassenger = Pasajero Duplicado
+customer.booking-record.list.label.passengerNew = Añadir Pasajero

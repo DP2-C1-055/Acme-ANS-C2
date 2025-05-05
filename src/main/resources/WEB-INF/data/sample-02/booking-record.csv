@@ -1,17 +1,12 @@
 key,key:booking,key:passenger
 #Base Entity
-booking-record-01,booking-01,passenger-01
-#Booking standard customer 1
-booking-record-02,booking-02,passenger-02
-booking-record-03,booking-03,passenger-03
-booking-record-04,booking-04,passenger-21
+booking-record-01,booking-20,passenger-32
+#Booking standard
+booking-record-02,booking-21,passenger-32
+booking-record-03,booking-22,passenger-32
+booking-record-04,booking-23,passenger-32
 #Passenger standard
-booking-record-05,booking-01,passenger-22
-booking-record-06,booking-01,passenger-23
-booking-record-07,booking-01,passenger-24
-booking-record-08,booking-01,passenger-25
-#Booking standard customer 2
-booking-record-09,booking-16,passenger-09
-booking-record-10,booking-16,passenger-10
-booking-record-11,booking-16,passenger-11
-booking-record-12,booking-16,passenger-12
+booking-record-05,booking-20,passenger-33
+booking-record-06,booking-20,passenger-33
+booking-record-07,booking-20,passenger-34
+booking-record-08,booking-20,passenger-34
