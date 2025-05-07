@@ -4,9 +4,11 @@
 <%@taglib prefix="acme" uri="http://acme-framework.org/"%>
 
 <acme:list>
-	<acme:list-column code="crew.activityLog.list.label.number" path="flightNumber" width="30%"/>
-	<acme:list-column code="crew.activityLog.list.label.typeIncident" path="typeIncident" width="40%"/>
+	<acme:list-column code="crew.activityLog.list.label.number" path="flightNumber" width="25%"/>
+	<acme:list-column code="crew.activityLog.list.label.typeIncident" path="typeIncident" width="30%"/>
 	<acme:list-column code="crew.activityLog.list.label.severityLevel" path="severityLevel" width="30%"/>
+	<acme:list-column code="crew.activityLog.list.label.registrationMoment" path="registrationMoment" width="25%"/>
+	<acme:list-column code="crew.activityLog.list.label.draftMode" path="draftMode" width="25%"/>
 	<acme:list-payload path="payload"/>
 </acme:list>
 

@@ -3,8 +3,6 @@
 <%@taglib prefix="acme" uri="http://acme-framework.org/"%>
 
 <acme:form>
-	<acme:input-moment code="crew.assignment.form.label.lastUpdate" path="lastUpdate" readonly="true"/>
-	<acme:input-textbox code="crew.assignment.form.label.crew" path="member" readonly="true"/>
 	<acme:input-select code="crew.assignment.form.label.duty" path="duty" choices= "${duties}"/>	
 	<acme:input-select code="crew.assignment.form.label.leg" path="leg" choices= "${legs}"/>
 	<acme:input-select code="crew.assignment.form.label.currentStatus" path="currentStatus" choices= "${statuses}"/>

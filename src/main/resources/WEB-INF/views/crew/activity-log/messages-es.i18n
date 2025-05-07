@@ -17,5 +17,6 @@ crew.activityLog.list.label.registrationMoment = Momento de registro
 crew.activityLog.list.label.typeIncident = Tipo de incidente
 crew.activityLog.list.label.severityLevel = Nivel de severidad
 crew.activityLog.list.label.number = Número de vuelo
+crew.activityLog.list.label.draftMode = Modo borrador
 
 crew.activityLog.list.button.create = Crear
