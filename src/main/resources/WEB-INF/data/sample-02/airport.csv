@@ -48,8 +48,8 @@ airport-39,John F. Kennedy International Airport,ABN,INTERNATIONAL,New York,<mar
 airport-40,John F. Kennedy International Airport,ABO,INTERNATIONAL,New York,' OR '1'='1,https://www.jfkairport.com,info@jfkairport.com,+12125551234
 # website variations
 airport-41,John F. Kennedy International Airport,ABP,INTERNATIONAL,New York,USA,http://lorem.com/ipsumhttp://lorem.com/ipsum,info@jfkairport.com,+12125551234
-airport-42,John F. Kennedy International Airport,ABQ,INTERNATIONAL,New York,USA,ftp://a,info@jfkairport.com,+12125551234
-airport-43,John F. Kennedy International Airport,ABR,INTERNATIONAL,New York,USA,ftp://a.b,info@jfkairport.com,+12125551234
+airport-42,John F. Kennedy International Airport,ABQ,INTERNATIONAL,New York,USA,http://example.org/a/b?a&b,info@jfkairport.com,+12125551234
+airport-43,John F. Kennedy International Airport,ABR,INTERNATIONAL,New York,USA,http://example.org/a/b?a&b,info@jfkairport.com,+12125551234
 airport-44,John F. Kennedy International Airport,ABS,INTERNATIONAL,New York,USA,"http://www.lorem-ipsum.org/dolor/sit/amet,/consectetur/adipiscing/elit,/sed/do/eiusmod/tempor/incididunt/ut/labore/et/dolore/magna/aliqua/Ut/enim/ad/minim/veniam/quis/nostrud/exercitation/ullamco/laboris/nisi/ut/aliquip/ex/ea/commodo/consequat/duis/aute/",info@jfkairport.com,+12125551234
 airport-45,John F. Kennedy International Airport,ABT,INTERNATIONAL,New York,USA,"http://www.lorem-ipsum.org/dolor/sit/amet,/consectetur/adipiscing/elit,/sed/do/eiusmod/tempor/incididunt/ut/labore/et/dolore/magna/aliqua/Ut/enim/ad/minim/veniam/quis/nostrud/exercitation/ullamco/laboris/nisi/ut/aliquip/ex/ea/commodo/consequat/duis/aute/X",info@jfkairport.com,+12125551234
 airport-46,John F. Kennedy International Airport,ABU,INTERNATIONAL,New York,USA,http://example.org/a,info@jfkairport.com,+12125551234
