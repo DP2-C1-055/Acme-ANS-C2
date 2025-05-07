@@ -13,8 +13,8 @@ service-08,<script>alert(‘Hacked!’);</script>,https://www.example.com/servic
 service-09,<marquee>Hacked</marquee>,https://www.example.com/service.jpg,50.50,CDEF-25,10.00
 service-10,' or 'A' = 'A,https://www.example.com/service.jpg,50.50,GHIJ-25,10.00
 # Picture-link variations
-service-11,Standard Service,ftp://a,50.50,KLMN-25,10.00
-service-12,Standard Service,ftp://a.b,50.50,OPQR-25,10.00
+service-11,Standard Service,http://example.org/a/b?a&b,50.50,KLMN-25,10.00
+service-12,Standard Service,http://example.org/a/b?a&b,50.50,OPQR-25,10.00
 service-13,Standard Service,"http://www.lorem-ipsum.org/dolor/sit/amet,/consectetur/adipiscing/elit,/sed/do/eiusmod/tempor/incididunt/ut/labore/et/dolore/magna/aliqua/Ut/enim/ad/minim/veniam/quis/nostrud/exercitation/ullamco/laboris/nisi/ut/aliquip/ex/ea/commodo/consequat/duis/aute/",50.50,STUV-25,10.00
 service-14,Standard Service,http://www.lorem-ipsum.org/dolor/sit.html,50.50,WXYZ-25,10.00
 service-15,Standard Service,http://example.org/a/b?a&b,50.50,AAAA-25,10.00
