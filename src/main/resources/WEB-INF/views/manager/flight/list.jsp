@@ -3,9 +3,10 @@
 <%@taglib prefix="acme" uri="http://acme-framework.org/"%>
 
 <acme:list>
-	<acme:list-column code="manager.flight.list.label.tag" path="tag" width="10%"/>
-	<acme:list-column code="manager.flight.list.label.cost" path="cost" width="10%"/>
-	<acme:list-column code="manager.flight.list.label.selfTransfer" path="selfTransfer" width="80%"/>
+	<acme:list-column code="manager.flight.list.label.tag" path="tag" width="40%"/>
+	<acme:list-column code="manager.flight.list.label.cost" path="cost" width="30%"/>
+	<acme:list-column code="manager.flight.list.label.draftMode" path="draftMode" width="20%"/>
+	
 	<acme:list-payload path="payload"/>
 </acme:list>
 

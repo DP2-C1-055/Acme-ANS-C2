@@ -2,6 +2,7 @@
 package acme.features.manager.flight;
 
 import java.util.Collection;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -32,9 +33,22 @@ public class ManagerFlightListService extends AbstractGuiService<Manager, Flight
 
 	@Override
 	public void unbind(final Flight flight) {
-		Dataset dataset = super.unbindObject(flight, "tag", "cost", "selfTransfer");
+		assert flight != null;
 
-		super.addPayload(dataset, flight, "description", "scheduledDeparture", "draftMode",//
+		Dataset dataset = super.unbindObject(flight, "tag", "cost");
+
+		if (flight.isDraftMode()) {
+			final Locale locale = super.getRequest().getLocale();
+			String draftModeText;
+			if (locale.equals(Locale.ENGLISH))
+				draftModeText = "Yes";
+			else
+				draftModeText = "Sí";
+			dataset.put("draftMode", draftModeText);
+		} else
+			dataset.put("draftMode", "No");
+
+		super.addPayload(dataset, flight, "description", "scheduledDeparture",//
 			"scheduledArrival", "originCity", "destinationCity", "numberOfLayovers", "manager.identity.fullName");
 		super.getResponse().addData(dataset);
 	}
