@@ -64,3 +64,5 @@ acme.validation.airport.max-length-email.message=El email no puede tener más de
 acme.validation.length=No se cumplen los requisitos de longitud
 acme.validation.flight.leg-required.message = El vuelo debe tener al menos un tramo para ser publicado
 validation.lastNibble = Sólo se permiten 4 dígitos
+acme.validation.leg.departure-after-current.message = La fecha de salida debe ser posterior al momento actual (2025/01/01 00:00)
+acme.validation.leg.arrival-after-current.message = La fecha de llegada debe ser posterior al momento actual (2025/01/01 00:00)
