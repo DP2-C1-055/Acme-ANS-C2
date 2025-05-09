@@ -59,6 +59,5 @@ acme.validation.airport.max-length-website.message=The website URL must not exce
 acme.validation.airport.max-length-email.message=The email must not exceed 255 characters
 acme.validation.length=Length requirements are not met
 acme.validation.flight.leg-required.message = The flight must have at least one leg to be published
-
-
 validation.lastNibble = Only 4 digits allowed
+acme.validation.leg.aircraft.status.active=The assigned aircraft must be in ACTIVE status when the leg is published

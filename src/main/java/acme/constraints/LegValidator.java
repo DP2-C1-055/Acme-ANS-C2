@@ -8,6 +8,7 @@ import javax.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.validation.AbstractValidator;
+import acme.entities.aircraft.ServiceStatus;
 import acme.entities.leg.Leg;
 import acme.features.administrator.airline.AdministratorAirlineRepository;
 import acme.features.manager.leg.ManagerLegRepository;
@@ -116,6 +117,12 @@ public class LegValidator extends AbstractValidator<ValidLeg, Leg> {
 							break;
 						}
 					}
+			}
+
+			// Si el Leg está publicado (draftMode == false), el Aircraft debe estar ACTIVE
+			if (!leg.isDraftMode() && leg.getAircraft() != null) {
+				boolean active = leg.getAircraft().getStatus() == ServiceStatus.ACTIVE;
+				super.state(context, active, "aircraft", "acme.validation.leg.aircraft.status.active");
 			}
 		}
 

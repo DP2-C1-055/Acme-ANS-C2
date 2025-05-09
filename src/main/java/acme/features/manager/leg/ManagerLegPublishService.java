@@ -12,7 +12,9 @@ import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.aircraft.Aircraft;
+import acme.entities.aircraft.ServiceStatus;
 import acme.entities.airport.Airport;
+import acme.entities.flight.Flight;
 import acme.entities.leg.Leg;
 import acme.entities.leg.LegStatus;
 import acme.realms.Manager;
@@ -28,8 +30,9 @@ public class ManagerLegPublishService extends AbstractGuiService<Manager, Leg> {
 	public void authorise() {
 		int legId = super.getRequest().getData("id", int.class);
 		Leg leg = this.repository.findLegById(legId);
+		Flight flight = this.repository.findFlightById(leg.getFlight().getId());
 		// Se permite publicar solo si la leg existe, está en modo borrador y el manager es el propietario del flight asociado.
-		boolean status = leg != null && leg.isDraftMode() && super.getRequest().getPrincipal().hasRealm(leg.getFlight().getManager());
+		boolean status = flight != null && flight.isDraftMode() && leg != null && leg.isDraftMode() && super.getRequest().getPrincipal().hasRealm(leg.getFlight().getManager());
 		super.getResponse().setAuthorised(status);
 	}
 
@@ -80,6 +83,11 @@ public class ManagerLegPublishService extends AbstractGuiService<Manager, Leg> {
 			super.state(validLeg, "*", "acme.validation.leg.legs-overlap.message");
 		}
 
+		if (leg.getAircraft() != null) {
+			boolean active = leg.getAircraft().getStatus() == ServiceStatus.ACTIVE;
+			super.state(active, "aircraft", "acme.validation.leg.aircraft.status.active");
+		}
+
 	}
 
 	@Override
@@ -90,30 +98,33 @@ public class ManagerLegPublishService extends AbstractGuiService<Manager, Leg> {
 
 	@Override
 	public void unbind(final Leg leg) {
-		Dataset dataset;
-		SelectChoices choicesAircraft;
-		Collection<Aircraft> aircrafts;
-		Collection<Airport> airports;
-		SelectChoices choicesStatus;
-		SelectChoices choicesDepartureAirport;
-		SelectChoices choicesDestinationAirport;
-		aircrafts = this.repository.findAllAircrafts();
-		airports = this.repository.findAllAirports();
-		choicesAircraft = SelectChoices.from(aircrafts, "model", leg.getAircraft());
-		choicesDepartureAirport = SelectChoices.from(airports, "name", leg.getDepartureAirport());
-		choicesDestinationAirport = SelectChoices.from(airports, "name", leg.getArrivalAirport());
-		choicesStatus = SelectChoices.from(LegStatus.class, leg.getStatus());
-		dataset = super.unbindObject(leg, "flightNumber", "status", "scheduledDeparture", "scheduledArrival", "draftMode");
-		dataset.put("aircraft", choicesAircraft.getSelected().getKey());
-		dataset.put("aircraftChoices", choicesAircraft);
-		dataset.put("validLeg", false);
-		dataset.put("validDate", false);
-		dataset.put("departureAirport", choicesDepartureAirport.getSelected().getKey());
-		dataset.put("departureAirports", choicesDepartureAirport);
-		dataset.put("arrivalAirport", choicesDestinationAirport.getSelected().getKey());
-		dataset.put("arrivalAirports", choicesDestinationAirport);
-		dataset.put("statuses", choicesStatus);
+		// 1) Generamos los SelectChoices que necesita el JSP
+		SelectChoices statusChoices = SelectChoices.from(LegStatus.class, leg.getStatus());
 
+		Collection<Airport> airports = this.repository.findAllAirports();
+		SelectChoices departureChoices = SelectChoices.from(airports, "iataCode", leg.getDepartureAirport());
+		SelectChoices arrivalChoices = SelectChoices.from(airports, "iataCode", leg.getArrivalAirport());
+
+		Collection<Aircraft> aircrafts = this.repository.findAllAircrafts();
+		SelectChoices aircraftChoices = SelectChoices.from(aircrafts, "registrationNumber", leg.getAircraft());
+
+		// 2) Desenlazamos los campos básicos del Leg
+		Dataset dataset = super.unbindObject(leg, "flightNumber", "scheduledDeparture", "scheduledArrival", "status", "departureAirport", "arrivalAirport", "aircraft", "draftMode");
+
+		// 3) Añadimos al dataset las claves y colecciones para los selects
+		dataset.put("statuses", statusChoices);
+		dataset.put("status", statusChoices.getSelected().getKey());
+
+		dataset.put("departureAirports", departureChoices);
+		dataset.put("departureAirport", departureChoices.getSelected().getKey());
+
+		dataset.put("arrivalAirports", arrivalChoices);
+		dataset.put("arrivalAirport", arrivalChoices.getSelected().getKey());
+
+		dataset.put("aircraftChoices", aircraftChoices);
+		dataset.put("aircraft", aircraftChoices.getSelected().getKey());
+
+		// 4) Enviamos todo al response
 		super.getResponse().addData(dataset);
 	}
 

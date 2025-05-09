@@ -52,7 +52,7 @@ public class ManagerLegShowService extends AbstractGuiService<Manager, Leg> {
 		dataset.put("arrivalAirports", arrivalAirports);
 
 		Collection<Aircraft> aircrafts = this.repository.findAllAircrafts();
-		SelectChoices aircraftChoices = SelectChoices.from(aircrafts, "model", leg.getAircraft());
+		SelectChoices aircraftChoices = SelectChoices.from(aircrafts, "registrationNumber", leg.getAircraft());
 		dataset.put("aircraftChoices", aircraftChoices);
 
 		// Opciones para el enumerado LegStatus:
