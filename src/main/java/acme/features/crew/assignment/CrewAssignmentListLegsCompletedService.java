@@ -26,24 +26,30 @@ public class CrewAssignmentListLegsCompletedService extends AbstractGuiService<C
 
 	@Override
 	public void authorise() {
-		super.getResponse().setAuthorised(true);
+
+		super.getResponse().setAuthorised(super.getRequest().getPrincipal().hasRealmOfType(Crew.class));
 	}
 
 	@Override
 	public void load() {
-		int crewId = super.getRequest().getPrincipal().getActiveRealm().getId();
-		Date now = MomentHelper.getCurrentMoment();
+		int crewId;
+		Date now;
+		Collection<Assignment> completedAssignments;
 
-		Collection<Assignment> completedAssignments = this.repository.findCompletedAssignmentsByCrewId(now, crewId);
+		crewId = super.getRequest().getPrincipal().getActiveRealm().getId();
+		now = MomentHelper.getCurrentMoment();
+
+		completedAssignments = this.repository.findCompletedAssignmentsByCrewId(now, crewId);
 
 		super.getBuffer().addData(completedAssignments);
 	}
 
 	@Override
 	public void unbind(final Assignment assignment) {
-		Dataset dataset = super.unbindObject(assignment, "duty", "lastUpdate", "currentStatus");
+		Dataset dataset;
 
-		super.addPayload(dataset, assignment, "remarks");
+		dataset = super.unbindObject(assignment, "duty", "lastUpdate", "currentStatus", "remarks", "draftMode", "leg");
+		dataset.put("leg", assignment.getLeg().getFlightNumber());
 
 		super.getResponse().addData(dataset);
 	}
