@@ -1,49 +1,44 @@
-key,name,iata-code,website,airline-type,foundation-moment,email,phone-number,draftMode
+key,name,iata-code,website,airline-type,foundation-moment,email,phone-number
 # Base entity
-airline-01,SkyHigh Airlines,SHA,https://www.skyhigh.com,LUXURY,2002/09/01 10:00,contact@skyhigh.com,+1234567890,true
-airline-02,BlueWings,BWA,https://www.bluewings.com,STANDARD,2012/09/01 10:00,info@bluewings.com,+441234567890,true
-airline-03,Golden Airways,GDA,https://www.goldenairways.com,LOW_COST,2022/09/01 10:00,info@golden.com,+5521998765432,true
+airline-01,SkyHigh Airlines,SHA,https://www.skyhigh.com,LUXURY,2002/09/01 10:00,contact@skyhigh.com,+1234567890
+airline-02,BlueWings,BWA,https://www.bluewings.com,STANDARD,2012/09/01 10:00,info@bluewings.com,+441234567890
+airline-03,Golden Airways,GDA,https://www.goldenairways.com,LOW_COST,2022/09/01 10:00,info@golden.com,+5521998765432
 # Name variation
-airline-04,L,SHA,http://lorem.com/ipsum,LUXURY,2002/09/01 10:00,acme@lorem-ipsum.org,+1234567890,true
-airline-05,Lo,SHA,http://lorem.com/ipsum,LUXURY,2002/09/01 10:00,acme@lorem-ipsum.org,+1234567890,true
-airline-06,Lorem ipsum dolor sit ame,SHA,http://lorem.com/ipsum,LUXURY,2002/09/01 10:00,acme@lorem-ipsum.org,+1234567890,true
-airline-07,"Lorem ipsum dolor sit amet, consectetur adipiscin",SHA,http://lorem.com/ipsum,LUXURY,2002/09/01 10:00,acme@lorem-ipsum.org,+1234567890,true
-airline-08,"Lorem ipsum dolor sit amet, consectetur adipiscing",SHA,http://lorem.com/ipsum,LUXURY,2002/09/01 10:00,acme@lorem-ipsum.org,+1234567890,true
+airline-04,L,SHA,http://lorem.com/ipsum,LUXURY,2002/09/01 10:00,acme@lorem-ipsum.org,+1234567890
+airline-05,Lo,SHA,http://lorem.com/ipsum,LUXURY,2002/09/01 10:00,acme@lorem-ipsum.org,+1234567890
+airline-06,Lorem ipsum dolor sit ame,SHA,http://lorem.com/ipsum,LUXURY,2002/09/01 10:00,acme@lorem-ipsum.org,+1234567890
+airline-07,"Lorem ipsum dolor sit amet, consectetur adipiscin",SHA,http://lorem.com/ipsum,LUXURY,2002/09/01 10:00,acme@lorem-ipsum.org,+1234567890
+airline-08,"Lorem ipsum dolor sit amet, consectetur adipiscing",SHA,http://lorem.com/ipsum,LUXURY,2002/09/01 10:00,acme@lorem-ipsum.org,+1234567890
 # iata-code variation
-airline-09,Lorem ipsum dolor sit ame,ZZZ,http://lorem.com/ipsum,STANDARD,2002/09/01 10:00,acme@lorem-ipsum.org,+1234567890,true
-airline-10,Lorem ipsum dolor sit ame,ZZX,http://lorem.com/ipsum,STANDARD,2002/09/01 10:00,acme@lorem-ipsum.org,+1234567890,true
-airline-11,Lorem ipsum dolor sit ame,ZZY,http://lorem.com/ipsum,STANDARD,2002/09/01 10:00,acme@lorem-ipsum.org,+1234567890,true
-airline-12,Lorem ipsum dolor sit ame,ZZW,http://lorem.com/ipsum,STANDARD,2002/09/01 10:00,acme@lorem-ipsum.org,+1234567890,true
-airline-13,Lorem ipsum dolor sit ame,ZZV,http://lorem.com/ipsum,STANDARD,2002/09/01 10:00,acme@lorem-ipsum.org,+1234567890,true
+airline-09,Lorem ipsum dolor sit ame,ZZZ,http://lorem.com/ipsum,STANDARD,2002/09/01 10:00,acme@lorem-ipsum.org,+1234567890
+airline-10,Lorem ipsum dolor sit ame,ZZX,http://lorem.com/ipsum,STANDARD,2002/09/01 10:00,acme@lorem-ipsum.org,+1234567890
+airline-11,Lorem ipsum dolor sit ame,ZZY,http://lorem.com/ipsum,STANDARD,2002/09/01 10:00,acme@lorem-ipsum.org,+1234567890
+airline-12,Lorem ipsum dolor sit ame,ZZW,http://lorem.com/ipsum,STANDARD,2002/09/01 10:00,acme@lorem-ipsum.org,+1234567890
+airline-13,Lorem ipsum dolor sit ame,ZZV,http://lorem.com/ipsum,STANDARD,2002/09/01 10:00,acme@lorem-ipsum.org,+1234567890
 # web-site variation
-airline-14,Lorem ipsum dolor sit ame,AAA,http://example.org/a/b?a&b,STANDARD,2002/09/01 10:00,http://example.org/a/b?a&b,+1234567890,true
-airline-15,Lorem ipsum dolor sit ame,AAB,http://example.org/a/b?a&b,STANDARD,2002/09/01 10:00,http://example.org/a/b?a&b,+1234567890,true
-airline-16,Lorem ipsum dolor sit ame,AAC,"http://www.lorem-ipsum.org/dolor/sit/amet,/consectetur/adipiscing/elit,/sed/do/eiusmod/tempor/incididunt/ut/labore/et/dolore/magna/aliqua/Ut/enim/ad/minim/veniam/quis/nostrud/exercitation/ullamco/laboris/nisi/ut/aliquip/ex/ea/commodo/consequat/duis/aute/",STANDARD,2002/09/01 10:00,acme@lorem-ipsum.org,+1234567890,true
-airline-17,Lorem ipsum dolor sit ame,AAD,"http://www.lorem-ipsum.org/dolor/sit/amet,/consectetur/adipiscing/elit,/sed/do/eiusmod/tempor/incididunt/ut/labore/et/dolore/magna/aliqua/Ut/enim/ad/minim/veniam/quis/nostrud/exercitation/ullamco/laboris/nisi/ut/aliquip/ex/ea/commodo/consequat/duis/aute/X",STANDARD,2002/09/01 10:00,acme@lorem-ipsum.org,+1234567890,true
-airline-18,Lorem ipsum dolor sit ame,AAE,https://www.lorem-ipsum.org,STANDARD,2002/09/01 10:00,acme@lorem-ipsum.org,+1234567890,true
-airline-19,Lorem ipsum dolor sit ame,AAF,http://example.org/a/b?a&b,STANDARD,2002/09/01 10:00,http://example.org/a/b?a&b,+1234567890,true
-airline-20,Lorem ipsum dolor sit ame,AAG,http://www.lorem-ipsum.org/dolor/sit.html,STANDARD,2002/09/01 10:00,acme@lorem-ipsum.org,+1234567890,true
+airline-14,Lorem ipsum dolor sit ame,AAA,http://example.org/a/b?a&b,STANDARD,2002/09/01 10:00,http://example.org/a/b?a&b,+1234567890
+airline-15,Lorem ipsum dolor sit ame,AAB,http://example.org/a/b?a&b,STANDARD,2002/09/01 10:00,http://example.org/a/b?a&b,+1234567890
+airline-16,Lorem ipsum dolor sit ame,AAC,"http://www.lorem-ipsum.org/dolor/sit/amet,/consectetur/adipiscing/elit,/sed/do/eiusmod/tempor/incididunt/ut/labore/et/dolore/magna/aliqua/Ut/enim/ad/minim/veniam/quis/nostrud/exercitation/ullamco/laboris/nisi/ut/aliquip/ex/ea/commodo/consequat/duis/aute/",STANDARD,2002/09/01 10:00,acme@lorem-ipsum.org,+1234567890
+airline-17,Lorem ipsum dolor sit ame,AAD,"http://www.lorem-ipsum.org/dolor/sit/amet,/consectetur/adipiscing/elit,/sed/do/eiusmod/tempor/incididunt/ut/labore/et/dolore/magna/aliqua/Ut/enim/ad/minim/veniam/quis/nostrud/exercitation/ullamco/laboris/nisi/ut/aliquip/ex/ea/commodo/consequat/duis/aute/X",STANDARD,2002/09/01 10:00,acme@lorem-ipsum.org,+1234567890
+airline-18,Lorem ipsum dolor sit ame,AAE,https://www.lorem-ipsum.org,STANDARD,2002/09/01 10:00,acme@lorem-ipsum.org,+1234567890
+airline-19,Lorem ipsum dolor sit ame,AAF,http://example.org/a/b?a&b,STANDARD,2002/09/01 10:00,http://example.org/a/b?a&b,+1234567890
+airline-20,Lorem ipsum dolor sit ame,AAG,http://www.lorem-ipsum.org/dolor/sit.html,STANDARD,2002/09/01 10:00,acme@lorem-ipsum.org,+1234567890
 # airline-type variation
-airline-21,Lorem ipsum dolor sit ame,AAI,http://lorem.com/ipsum,LOW_COST,2002/09/01 10:00,acme@lorem-ipsum.org,+1234567890,true
-airline-22,Lorem ipsum dolor sit ame,AAJ,http://lorem.com/ipsum,STANDARD,2002/09/01 10:00,acme@lorem-ipsum.org,+1234567890,true
-airline-23,Lorem ipsum dolor sit ame,AAK,http://lorem.com/ipsum,LUXURY,2002/09/01 10:00,acme@lorem-ipsum.org,+1234567890,true
+airline-21,Lorem ipsum dolor sit ame,AAI,http://lorem.com/ipsum,LOW_COST,2002/09/01 10:00,acme@lorem-ipsum.org,+1234567890
+airline-22,Lorem ipsum dolor sit ame,AAJ,http://lorem.com/ipsum,STANDARD,2002/09/01 10:00,acme@lorem-ipsum.org,+1234567890
+airline-23,Lorem ipsum dolor sit ame,AAK,http://lorem.com/ipsum,LUXURY,2002/09/01 10:00,acme@lorem-ipsum.org,+1234567890
 # foundation-moment variation
-airline-24,Lorem ipsum dolor sit ame,AAL,http://lorem.com/ipsum,STANDARD,2000/01/01 0:00,acme@lorem-ipsum.org,+1234567890,true
-airline-25,Lorem ipsum dolor sit ame,AAM,http://lorem.com/ipsum,STANDARD,2000/01/01 0:01,acme@lorem-ipsum.org,+1234567890,true
-airline-26,Lorem ipsum dolor sit ame,AAN,http://lorem.com/ipsum,STANDARD,2012/07/02 0:00,acme@lorem-ipsum.org,+1234567890,true
-airline-27,Lorem ipsum dolor sit ame,AAO,http://lorem.com/ipsum,STANDARD,2024/12/31 23:59,acme@lorem-ipsum.org,+1234567890,true
-airline-28,Lorem ipsum dolor sit ame,AAP,http://lorem.com/ipsum,STANDARD,2025/01/01 0:00,acme@lorem-ipsum.org,+1234567890,true
+airline-24,Lorem ipsum dolor sit ame,AAL,http://lorem.com/ipsum,STANDARD,2000/01/01 0:00,acme@lorem-ipsum.org,+1234567890
+airline-25,Lorem ipsum dolor sit ame,AAM,http://lorem.com/ipsum,STANDARD,2000/01/01 0:01,acme@lorem-ipsum.org,+1234567890
+airline-26,Lorem ipsum dolor sit ame,AAN,http://lorem.com/ipsum,STANDARD,2012/07/02 0:00,acme@lorem-ipsum.org,+1234567890
+airline-27,Lorem ipsum dolor sit ame,AAO,http://lorem.com/ipsum,STANDARD,2024/12/31 23:59,acme@lorem-ipsum.org,+1234567890
+airline-28,Lorem ipsum dolor sit ame,AAP,http://lorem.com/ipsum,STANDARD,2025/01/01 0:00,acme@lorem-ipsum.org,+1234567890
 # email variation
-airline-29,Lorem ipsum dolor sit ame,AAQ,http://lorem.com/ipsum,STANDARD,2002/09/01 10:00,acme:password@lorem-ipsum.org,+1234567890,true
-airline-30,Lorem ipsum dolor sit ame,AAR,http://lorem.com/ipsum,STANDARD,2002/09/01 10:00,a@b.e,+1234567890,true
-airline-31,Lorem ipsum dolor sit ame,AAS,http://lorem.com/ipsum,STANDARD,2002/09/01 10:00,a@b.es,+1234567890,true
-airline-32,Lorem ipsum dolor sit ame,AAT,http://lorem.com/ipsum,STANDARD,2002/09/01 10:00,a@b.esx,+1234567890,true
+airline-29,Lorem ipsum dolor sit ame,AAQ,http://lorem.com/ipsum,STANDARD,2002/09/01 10:00,acme:password@lorem-ipsum.org,+1234567890
+airline-30,Lorem ipsum dolor sit ame,AAR,http://lorem.com/ipsum,STANDARD,2002/09/01 10:00,a@b.e,+1234567890
+airline-31,Lorem ipsum dolor sit ame,AAS,http://lorem.com/ipsum,STANDARD,2002/09/01 10:00,a@b.es,+1234567890
+airline-32,Lorem ipsum dolor sit ame,AAT,http://lorem.com/ipsum,STANDARD,2002/09/01 10:00,a@b.esx,+1234567890
 # phone-number
-airline-33,Lorem ipsum dolor sit ame,ABA,http://lorem.com/ipsum,STANDARD,2002/09/01 10:00,acme@lorem-ipsum.org,+123456,true
-airline-34,Lorem ipsum dolor sit ame,ABB,http://lorem.com/ipsum,STANDARD,2002/09/01 10:00,acme@lorem-ipsum.org,+1234567,true
-airline-35,Lorem ipsum dolor sit ame,ABC,http://lorem.com/ipsum,STANDARD,2002/09/01 10:00,acme@lorem-ipsum.org,+123456789012345,true
-# draftMode
-airline-36,SkyHigh Airlines 1,HJA,https://www.skyhigh.com,LUXURY,2002/09/01 10:00,contact@skyhigh.com,+1234567890,false
-airline-37,SkyHigh Airlines 2,OIP,https://www.skyhigh.com,LUXURY,2002/09/01 10:00,contact@skyhigh.com,+1234567890,false
-airline-38,SkyHigh Airlines 3,JUY,https://www.skyhigh.com,LUXURY,2002/09/01 10:00,contact@skyhigh.com,+1234567890,false
-airline-39,SkyHigh Airlines4,IYN,https://www.skyhigh.com,LUXURY,2002/09/01 10:00,contact@skyhigh.com,+1234567890,false
+airline-33,Lorem ipsum dolor sit ame,ABA,http://lorem.com/ipsum,STANDARD,2002/09/01 10:00,acme@lorem-ipsum.org,+123456
+airline-34,Lorem ipsum dolor sit ame,ABB,http://lorem.com/ipsum,STANDARD,2002/09/01 10:00,acme@lorem-ipsum.org,+1234567
+airline-35,Lorem ipsum dolor sit ame,ABC,http://lorem.com/ipsum,STANDARD,2002/09/01 10:00,acme@lorem-ipsum.org,+123456789012345
