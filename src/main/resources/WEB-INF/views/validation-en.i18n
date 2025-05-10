@@ -60,3 +60,4 @@ acme.validation.flight.leg-required.message = The flight must have at least one 
 
 
 validation.lastNibble = Only 4 digits allowed
+acme.validation.iataCode = Invalid IATA code format It must consist of 3 uppercase letters

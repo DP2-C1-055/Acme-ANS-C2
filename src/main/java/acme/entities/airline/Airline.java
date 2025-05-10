@@ -61,6 +61,4 @@ public class Airline extends AbstractEntity {
 	@Automapped
 	private String				phoneNumber;
 
-	private Boolean				draftMode;
-
 }
