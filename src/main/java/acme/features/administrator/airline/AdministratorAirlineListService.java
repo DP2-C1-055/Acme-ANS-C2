@@ -2,7 +2,6 @@
 package acme.features.administrator.airline;
 
 import java.util.Collection;
-import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -42,19 +41,7 @@ public class AdministratorAirlineListService extends AbstractGuiService<Administ
 		assert object != null;
 
 		Dataset dataset;
-		dataset = super.unbindObject(object, "name", "iataCode", "website", "airlineType", "foundationMoment", "email", "phoneNumber", "draftMode");
-
-		if (object.getDraftMode()) {
-			final Locale local = super.getRequest().getLocale();
-			String draftmodeText;
-			if (local.equals(Locale.ENGLISH))
-				draftmodeText = "Yes";
-			else
-				draftmodeText = "Sí";
-			dataset.put("draftMode", draftmodeText);
-		} else
-			dataset.put("draftMode", "No");
-
+		dataset = super.unbindObject(object, "name", "iataCode", "website", "airlineType", "foundationMoment", "email", "phoneNumber");
 		super.getResponse().addData(dataset);
 	}
 

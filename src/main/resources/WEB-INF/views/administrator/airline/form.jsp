@@ -7,8 +7,17 @@
 	<acme:input-textbox code="administrator.airline.form.label.name" path="name"/>
 	<acme:input-textbox code="administrator.airline.form.label.iataCode" path="iataCode" readonly="iataCode"/>
 	<acme:input-textbox code="administrator.airline.form.label.website" path="website"/>
-	<acme:input-select code="administrator.airline.form.label.airlineType" path="	" choices="${airlineClassChoices}"/>
+	<acme:input-select code="administrator.airline.form.label.airlineType" path="airlineType" choices="${airlineTypeChoices}"/>
     <acme:input-moment code="administrator.airline.form.label.foundationMoment" path="foundationMoment" readonly = "foundationMoment"/>
     <acme:input-textbox code="administrator.airline.form.label.email" path="email" readonly = "email"/>
     <acme:input-textbox code="administrator.airline.form.label.phoneNumber" path="phoneNumber" readonly = "phoneNumber"/>
+	<acme:input-checkbox code="administrator.airline.form.label.confirmation" path="confirmation"/>
+	<jstl:choose>
+		<jstl:when test="${acme:anyOf(_command, 'show|update')}">
+			<acme:submit code="administrator.airline.form.button.update" action="/administrator/airline/update"/>
+		</jstl:when>
+		<jstl:when test="${_command == 'create'}">
+			<acme:submit code="administrator.airline.form.button.create" action="/administrator/airline/create"/>
+		</jstl:when>		
+	</jstl:choose>	
 </acme:form>
