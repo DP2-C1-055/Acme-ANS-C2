@@ -8,6 +8,7 @@ crew.assignment.list.label.remarks = Remarks
 crew.assignment.list.label.duty = Duty
 crew.assignment.list.button.create = Create Assignment
 
+crew.assignment.form.label.crewMember = Crew Member
 crew.assignment.form.label.duty = Duty
 crew.assignment.form.label.lastUpdate = Last Update
 crew.assignment.form.label.currentStatus = Current Status
@@ -21,3 +22,5 @@ crew.assignment.form.button.delete = Delete
 crew.assignment.form.button.publish = Publish
 crew.assignment.form.button.create = Create
 crew.assignment.form.button.activityLog = Activity Logs
+
+crew.assignment.form.label.other-members = Other crew members assigned to this flight

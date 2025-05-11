@@ -15,6 +15,7 @@ import acme.entities.assignment.Assignment;
 import acme.entities.assignment.CurrentStatus;
 import acme.entities.assignment.DutyCrew;
 import acme.entities.leg.Leg;
+import acme.realms.crew.AvailabilityStatus;
 import acme.realms.crew.Crew;
 
 @GuiService
@@ -31,24 +32,31 @@ public class CrewAssignmentCreateService extends AbstractGuiService<Crew, Assign
 
 	@Override
 	public void authorise() {
+		int crewId;
+		boolean isAuthorised;
 
-		int crewId = super.getRequest().getPrincipal().getActiveRealm().getId();
-		boolean authorised = this.repository.existsFlightCrewMember(crewId);
+		crewId = super.getRequest().getPrincipal().getActiveRealm().getId();
+		isAuthorised = this.repository.existsCrewMember(crewId);
 
-		super.getResponse().setAuthorised(authorised);
+		super.getResponse().setAuthorised(isAuthorised);
 	}
 
 	@Override
 	public void load() {
 		Assignment assignment;
+		int crewId;
+
+		crewId = super.getRequest().getPrincipal().getActiveRealm().getId();
 
 		assignment = new Assignment();
 
 		assignment.setDraftMode(true);
-
-		assignment.setCrew(this.repository.findCrewById(super.getRequest().getPrincipal().getActiveRealm().getId()));
+		assignment.setCrew(this.repository.findCrewById(crewId));
 		assignment.setLastUpdate(MomentHelper.getCurrentMoment());
 		assignment.setRemarks("");
+		assignment.setCurrentStatus(CurrentStatus.PENDING);
+		assignment.setDuty(DutyCrew.CABIN_ATTENDANT);
+
 		super.getBuffer().addData(assignment);
 	}
 
@@ -57,65 +65,65 @@ public class CrewAssignmentCreateService extends AbstractGuiService<Crew, Assign
 		Integer legId;
 		Leg leg;
 		Crew member;
+		Integer crewId;
 
 		legId = super.getRequest().getData("leg", int.class);
 		leg = this.repository.findLegById(legId);
-		member = (Crew) super.getRequest().getPrincipal().getActiveRealm();
+
+		crewId = super.getRequest().getData("crewMember", int.class);
+		member = this.repository.findCrewById(crewId);
 
 		super.bindObject(assignment, "duty", "currentStatus", "remarks");
 		assignment.setLeg(leg);
 		assignment.setCrew(member);
-		assignment.setLastUpdate(MomentHelper.getCurrentMoment());
 	}
 
 	@Override
 	public void validate(final Assignment assignment) {
+		// Extracting necessary data
+		Crew crew = assignment.getCrew();
+		Leg leg = assignment.getLeg();
+
+		// Check if crew and leg are assigned and if leg is compatible
+		if (crew != null && leg != null)
+			if (this.isLegIncompatible(assignment)) {
+				super.state(false, "leg", "acme.validation.assignment.legIncompatible.message");
+				return;
+			}
+
+		// Check if the duty assignment is valid (Pilot, Co-pilot)
+		if (leg != null)
+			this.checkPilotAndCopilotAssignment(assignment);
+
+		// Check if the leg is already completed
+		boolean legCompleted = this.repository.areLegsCompletedByAssignment(assignment.getId(), MomentHelper.getCurrentMoment());
+
+		if (legCompleted)
+			super.state(false, "leg", "acme.validation.assignment.LegAlreadyCompleted.message");
 	}
 
-	//	@Override
-	//	public void validate(final Assignment assignment) {
-	//
-	//		// Validación si la asignación ya ha sido publicada
-	//		if (!assignment.isDraftMode())
-	//			super.state(false, "*", "acme.validation.assignment.already-published.message"); // La asignación ya ha sido publicada.
-	//
-	//		// Validación si el Leg ha ocurrido
-	//		Date now = MomentHelper.getCurrentMoment();
-	//		boolean hasOccurred = now.after(assignment.getLeg().getScheduledArrival());
-	//		if (hasOccurred)
-	//			super.state(false, "*", "acme.validation.assignment.leg-has-occurred.message"); // El leg ya ha ocurrido.
-	//
-	//		// Validación de disponibilidad del miembro
-	//		boolean available = assignment.getCrew().getAvailability().equals(AvailabilityStatus.AVAILABLE);
-	//		if (!available)
-	//			super.state(false, "*", "acme.validation.assignment.member-not-available.message"); // El miembro no está disponible.
-	//
-	//		// Validación de compatibilidad del Leg
-	//		Collection<Leg> existingLegs = this.repository.findLegsByCrewId(assignment.getCrew().getId());
-	//		boolean hasIncompatibleLeg = existingLegs.stream().anyMatch(existingLeg -> this.legIsNotOverlapping(assignment.getLeg(), existingLeg));
-	//		if (hasIncompatibleLeg)
-	//			super.state(false, "*", "acme.validation.assignment.member-with-overlapping-legs.message"); // El miembro ya está asignado a otro leg.
-	//
-	//		// Validación de Duty Assignment
-	//		// Primero asegurarse de que el duty no sea null
-	//		if (assignment.getDuty() != null) {
-	//			Collection<Assignment> assignedDuties = this.repository.findAssignmentByLegId(assignment.getLeg().getId());
-	//
-	//			boolean legWithCopilot = assignedDuties.stream().map(Assignment::getDuty).anyMatch(duty -> duty.equals(DutyCrew.CO_PILOT));
-	//			boolean legWithPilot = assignedDuties.stream().map(Assignment::getDuty).anyMatch(duty -> duty.equals(DutyCrew.PILOT));
-	//
-	//			super.state(!(assignment.getDuty().equals(DutyCrew.PILOT) && legWithPilot), "*", "acme.validation.assignment.leg-has-pilot.message");
-	//			super.state(!(assignment.getDuty().equals(DutyCrew.CO_PILOT) && legWithCopilot), "*", "acme.validation.assignment.leg-has-copilot.message");
-	//		} else
-	//			// Si el duty es null, marcar un error
-	//			super.state(false, "*", "acme.validation.assignment.duty-null.message"); // El duty es nulo y no puede ser asignado.
-	//	}
-	//
-	//	private boolean legIsNotOverlapping(final Leg newLeg, final Leg existingLeg) {
-	//		return MomentHelper.isInRange(newLeg.getScheduledDeparture(), existingLeg.getScheduledDeparture(), existingLeg.getScheduledArrival())
-	//			|| MomentHelper.isInRange(newLeg.getScheduledArrival(), existingLeg.getScheduledDeparture(), existingLeg.getScheduledArrival())
-	//			|| newLeg.getScheduledDeparture().before(existingLeg.getScheduledDeparture()) && newLeg.getScheduledArrival().after(existingLeg.getScheduledArrival());
-	//	}
+	private boolean isLegIncompatible(final Assignment assignment) {
+		// Retrieve all legs for the assigned crew member
+		Collection<Leg> legsByCrew = this.repository.findLegsByCrewId(assignment.getCrew().getId());
+		Leg newLeg = assignment.getLeg();
+
+		// Check if any of the legs overlap with the new leg
+		return legsByCrew.stream()
+			.anyMatch(existingLeg -> MomentHelper.isInRange(newLeg.getScheduledDeparture(), existingLeg.getScheduledDeparture(), existingLeg.getScheduledArrival())
+				|| MomentHelper.isInRange(newLeg.getScheduledArrival(), existingLeg.getScheduledDeparture(), existingLeg.getScheduledArrival())
+				|| newLeg.getScheduledDeparture().before(existingLeg.getScheduledDeparture()) && newLeg.getScheduledArrival().after(existingLeg.getScheduledArrival()));
+	}
+
+	private void checkPilotAndCopilotAssignment(final Assignment assignment) {
+		boolean havePilot = this.repository.existsCrewWithDutyInLeg(assignment.getLeg().getId(), DutyCrew.PILOT);
+		boolean haveCopilot = this.repository.existsCrewWithDutyInLeg(assignment.getLeg().getId(), DutyCrew.CO_PILOT);
+
+		if (DutyCrew.PILOT.equals(assignment.getDuty()))
+			super.state(!havePilot, "duty", "acme.validation.assignment.havePilot.message");
+
+		if (DutyCrew.CO_PILOT.equals(assignment.getDuty()))
+			super.state(!haveCopilot, "duty", "acme.validation.assignment.haveCopilot.message");
+	}
 
 	@Override
 	public void perform(final Assignment assignment) {
@@ -126,27 +134,32 @@ public class CrewAssignmentCreateService extends AbstractGuiService<Crew, Assign
 	@Override
 	public void unbind(final Assignment assignment) {
 		Dataset dataset;
+		Collection<Leg> legs;
+		Collection<Crew> crewMembers;
+		SelectChoices legChoices;
+		SelectChoices crewMembersChoices;
 		SelectChoices statuses;
 		SelectChoices duties;
-		Collection<Leg> legs;
-		SelectChoices selectedLegs;
-		Crew member;
 
 		legs = this.repository.findAllLegs();
-		member = assignment.getCrew();
+		crewMembers = this.repository.findCrewByAvailability(AvailabilityStatus.AVAILABLE);
 
+		legChoices = SelectChoices.from(legs, "flightNumber", assignment.getLeg());
+		crewMembersChoices = SelectChoices.from(crewMembers, "code", assignment.getCrew());
 		statuses = SelectChoices.from(CurrentStatus.class, assignment.getCurrentStatus());
 		duties = SelectChoices.from(DutyCrew.class, assignment.getDuty());
-		selectedLegs = SelectChoices.from(legs, "flightNumber", assignment.getLeg());
 
 		dataset = super.unbindObject(assignment, "duty", "lastUpdate", "currentStatus", "remarks", "draftMode");
-		dataset.put("statuses", statuses);
-		dataset.put("duties", duties);
-		dataset.put("leg", selectedLegs.getSelected().getKey());
-		dataset.put("legs", selectedLegs);
-		dataset.put("member", member);
+		dataset.put("confirmation", false);
+		dataset.put("readonly", false);
+		dataset.put("lastUpdate", MomentHelper.getBaseMoment());
+		dataset.put("currentStatus", statuses);
+		dataset.put("duty", duties);
+		dataset.put("leg", legChoices.getSelected().getKey());
+		dataset.put("legs", legChoices);
+		dataset.put("crewMember", crewMembersChoices.getSelected().getKey());
+		dataset.put("crewMembers", crewMembersChoices);
 
 		super.getResponse().addData(dataset);
 	}
-
 }
