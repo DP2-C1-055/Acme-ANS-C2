@@ -37,6 +37,8 @@ validation.locatorCode = The location code must be between 6 and 8 uppercase alp
 validation.phoneNumber = The phone number must contain between 6 and 15 digits, optionally starting with '+'
 acme.validation.airport.invalid-iataCode.message = Invalid IATA code format. It must consist of 3 uppercase letters
 acme.validation.airport.duplicated-iataCode.message = Duplicate IATA code. The IATA code must be unique
+acme.validation.leg.departure-after-current.message = Departure date must be after current time (2025/01/01 00:00)
+acme.validation.leg.arrival-after-current.message = Arrival date must be after current time (2025/01/01 00:00)
 acme.validation.assignment.leg-has-occurred.message = The selected leg has already occurred
 acme.validation.assignment.member-not-available.message = The selected member is not available
 acme.validation.assignment.member-with-overlapping-legs.message = The selected member has overlapping legs
@@ -58,7 +60,6 @@ acme.validation.airport.max-length-website.message=The website URL must not exce
 acme.validation.airport.max-length-email.message=The email must not exceed 255 characters
 acme.validation.length=Length requirements are not met
 acme.validation.flight.leg-required.message = The flight must have at least one leg to be published
-
-
 validation.lastNibble = Only 4 digits allowed
+acme.validation.leg.aircraft.status.active=The assigned aircraft must be in ACTIVE status when the leg is published
 acme.validation.iataCode = Invalid IATA code format It must consist of 3 uppercase letters

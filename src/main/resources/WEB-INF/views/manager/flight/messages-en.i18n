@@ -3,6 +3,7 @@ manager.flight.list.title = Flights
 manager.flight.list.label.tag = Tag
 manager.flight.list.label.cost = Cost
 manager.flight.list.label.selfTransfer = Self Transfer
+manager.flight.list.label.draftMode = Draft Mode
 manager.flight.list.button.create = Create Flight
 
 manager.flight.publish.no-leg = The flight must have at least one leg to be published

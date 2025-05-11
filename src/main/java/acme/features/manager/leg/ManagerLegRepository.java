@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import acme.client.repositories.AbstractRepository;
 import acme.entities.aircraft.Aircraft;
 import acme.entities.airport.Airport;
+import acme.entities.flight.Flight;
 import acme.entities.leg.Leg;
 
 @Repository
@@ -43,5 +44,8 @@ public interface ManagerLegRepository extends AbstractRepository {
 
 	@Query("select l from Leg l where l.aircraft.id = :id")
 	Collection<Leg> findLegsByAircraftId(int id);
+
+	@Query("select f from Flight f where f.id = :id")
+	Flight findFlightById(Integer id);
 
 }
