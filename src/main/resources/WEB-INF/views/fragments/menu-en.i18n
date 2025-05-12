@@ -65,4 +65,6 @@ master.menu.customer = Customer
 master.menu.customer.list-bookings = List Bookings
 master.menu.customer.list-passenger = List Passengers
 master.menu.customer.customer-dashboard = Dashboard
+master.menu.user-account.become-customer = Become a Customer
+master.menu.user-account.customer-profile = Customer Profile
 
