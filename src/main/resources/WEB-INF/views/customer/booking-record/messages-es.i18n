@@ -9,3 +9,4 @@ customer.booking-record.list.label.bookingLocator = Número de reserva
 customer.booking-record.form.button.delete = Eliminar Pasajero
 customer.bookingRecord.error.duplicatePassenger = Pasajero Duplicado
 customer.booking-record.list.label.passengerNew = Añadir Pasajero
+customer.bookingRecord.error.passengerDraftMode = El pasajero debe estar publicado

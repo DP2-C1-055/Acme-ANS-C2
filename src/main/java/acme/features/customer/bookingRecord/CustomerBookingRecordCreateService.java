@@ -71,6 +71,8 @@ public class CustomerBookingRecordCreateService extends AbstractGuiService<Custo
 
 		if (allPassenger.contains(object.getPassenger()))
 			super.state(!allPassenger.contains(object.getPassenger()), "*", "customer.bookingRecord.error.duplicatePassenger");
+		if (object.getPassenger() != null && object.getPassenger().getDraftMode())
+			super.state(false, "*", "customer.bookingRecord.error.passengerDraftMode");
 	}
 
 	@Override
@@ -87,7 +89,10 @@ public class CustomerBookingRecordCreateService extends AbstractGuiService<Custo
 		int customerId = super.getRequest().getPrincipal().getActiveRealm().getId();
 		Collection<Passenger> passengers = this.customerPassengerRepository.findPassengenrsDraftModeByCustomerId(customerId);
 
-		passengerChoices = SelectChoices.from(passengers, "completeNamePassport", bookingRecord.getPassenger());
+		if (bookingRecord.getPassenger() != null && bookingRecord.getPassenger().getDraftMode())
+			passengerChoices = SelectChoices.from(passengers, "completeNamePassport", null);
+		else
+			passengerChoices = SelectChoices.from(passengers, "completeNamePassport", bookingRecord.getPassenger());
 
 		dataset = super.unbindObject(bookingRecord);
 		dataset.put("passenger", passengerChoices.getSelected().getKey());

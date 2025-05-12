@@ -9,3 +9,4 @@ customer.booking-record.list.label.bookingLocator = Booking Locator
 customer.booking-record.form.button.delete = Delete Passenger
 customer.bookingRecord.error.duplicatePassenger = Passenger Duplicated
 customer.booking-record.list.label.passengerNew = Add Passenger
+customer.bookingRecord.error.passengerDraftMode = Passenger must be published

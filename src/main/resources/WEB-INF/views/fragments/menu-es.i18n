@@ -65,3 +65,5 @@ master.menu.customer = Cliente
 master.menu.customer.list-bookings = Lista de reserva
 master.menu.customer.list-passenger = Lista de pasajeros
 master.menu.customer.customer-dashboard = Panel de cliente
+master.menu.user-account.become-customer = Hazte Cliente
+master.menu.user-account.customer-profile = Perfil de Cliente
