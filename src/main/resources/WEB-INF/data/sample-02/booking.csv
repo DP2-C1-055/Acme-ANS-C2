@@ -26,3 +26,6 @@ booking-21,AB20CD,2012/07/02 00:00,ECONOMY,0000,customer-01,flight-05,false
 booking-22,AB21CD,2012/07/02 00:00,ECONOMY,0000,customer-01,flight-05,false
 booking-23,AB22CD,2012/07/02 00:00,ECONOMY,0000,customer-01,flight-05,false
 booking-24,AB23CD,2012/07/02 00:00,ECONOMY,0000,customer-01,flight-05,false
+#customer standard
+booking-25,AB24CD,2012/07/02 00:00,ECONOMY,0000,customer-02,flight-05,true
+booking-26,AB25CD,2012/07/02 00:00,ECONOMY,0000,customer-02,flight-05,false

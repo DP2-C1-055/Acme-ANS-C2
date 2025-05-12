@@ -40,7 +40,5 @@ passenger-32,"Lorem ipsum dolor sit amet, consectetur adipiscing","acme@lorem-ip
 passenger-33,"Lorem ipsum dolor sit amet, consectetur adipiscing","acme@lorem-ipsum.org","AAAAAA33",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing",false,customer-01
 passenger-34,"Lorem ipsum dolor sit amet, consectetur adipiscing","acme@lorem-ipsum.org","AAAAAA34",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing",false,customer-01
 #customer standard
-passenger-35,"Lorem ipsum dolor sit amet, consectetur adipiscing","acme@lorem-ipsum.org","AAAAAA35",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing",true,customer-02
-passenger-36,"Lorem ipsum dolor sit amet, consectetur adipiscing","acme@lorem-ipsum.org","AAAAAA36",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing",true,customer-02
-passenger-37,"Lorem ipsum dolor sit amet, consectetur adipiscing","acme@lorem-ipsum.org","AAAAAA37",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing",true,customer-03
-passenger-38,"Lorem ipsum dolor sit amet, consectetur adipiscing","acme@lorem-ipsum.org","AAAAAA38",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing",true,customer-03
+passenger-35,"Lorem ipsum dolor sit amet, consectetur adipiscing","acme@lorem-ipsum.org","AAAAAA35",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing",false,customer-02
+passenger-36,"Lorem ipsum dolor sit amet, consectetur adipiscing","acme@lorem-ipsum.org","AAAAAA36",2012/07/02 00:00,"Lorem ipsum dolor sit amet, consectetur adipiscing",false,customer-02
