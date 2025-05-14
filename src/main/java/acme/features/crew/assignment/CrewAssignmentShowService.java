@@ -97,7 +97,7 @@ public class CrewAssignmentShowService extends AbstractGuiService<Crew, Assignme
 		dataset.put("crewMember", crewMemberChoices.getSelected().getKey());
 		dataset.put("crewMembers", crewMemberChoices);
 		dataset.put("isCompleted", isCompleted);
-		dataset.put("otherCrewMembers", crewDetails);  // 👈 Añadido
+		dataset.put("otherCrewMembers", crewDetails);
 
 		super.getResponse().addData(dataset);
 	}

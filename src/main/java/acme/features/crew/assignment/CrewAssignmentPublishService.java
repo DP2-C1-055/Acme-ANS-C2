@@ -40,7 +40,6 @@ public class CrewAssignmentPublishService extends AbstractGuiService<Crew, Assig
 		boolean isDraftMode;
 		boolean isFutureScheduledArrival;
 		boolean isAssignmentOwnedByCurrentCrewMember;
-		boolean isLeadAttendant;
 
 		crewMemberId = super.getRequest().getPrincipal().getActiveRealm().getId();
 		assignmentId = super.getRequest().getData("id", int.class);
@@ -51,11 +50,10 @@ public class CrewAssignmentPublishService extends AbstractGuiService<Crew, Assig
 		isDraftMode = assignment != null && assignment.isDraftMode();
 		isFutureScheduledArrival = assignment != null && MomentHelper.isFuture(assignment.getLeg().getScheduledArrival());
 		isAssignmentOwnedByCurrentCrewMember = assignment != null && assignment.getCrew().getId() == crewMemberId;
-		isLeadAttendant = this.repository.existsAssignmentWithDuty(crewMemberId, DutyCrew.LEAD_ATTENDANT);
 
 		status = isCrewMemberValid && isAssignmentOwnedByCrewMember && isDraftMode && isFutureScheduledArrival;
 
-		super.getResponse().setAuthorised(status && isAssignmentOwnedByCurrentCrewMember && isLeadAttendant);
+		super.getResponse().setAuthorised(status && isAssignmentOwnedByCurrentCrewMember);
 	}
 
 	@Override

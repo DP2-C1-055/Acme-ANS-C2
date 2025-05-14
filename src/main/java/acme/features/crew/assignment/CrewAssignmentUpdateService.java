@@ -33,22 +33,19 @@ public class CrewAssignmentUpdateService extends AbstractGuiService<Crew, Assign
 		boolean crewMemberExists;
 		boolean assignmentBelongsToCrewMember;
 		boolean isAssignmentOwner;
-		boolean isLeadAttendant;
+		boolean isAssignmentPublished;
 
 		currentCrewMemberId = super.getRequest().getPrincipal().getActiveRealm().getId();
-
 		assignmentId = super.getRequest().getData("id", int.class);
 		assignment = this.repository.findAssignmentById(assignmentId);
 
 		crewMemberExists = this.repository.existsCrewMember(currentCrewMemberId);
-
 		assignmentBelongsToCrewMember = crewMemberExists && this.repository.isAssignmentOwnedByCrewMember(assignmentId, currentCrewMemberId);
-
 		isAssignmentOwner = assignment.getCrew().getId() == currentCrewMemberId;
+		isAssignmentPublished = assignment.isDraftMode();
 
-		isLeadAttendant = this.repository.existsAssignmentWithDuty(currentCrewMemberId, DutyCrew.LEAD_ATTENDANT);
-
-		super.getResponse().setAuthorised(assignmentBelongsToCrewMember && isAssignmentOwner && isLeadAttendant);
+		// Se autoriza si el usuario es el dueño y la asignación no está publicada
+		super.getResponse().setAuthorised(assignmentBelongsToCrewMember && isAssignmentOwner && isAssignmentPublished);
 	}
 
 	@Override
