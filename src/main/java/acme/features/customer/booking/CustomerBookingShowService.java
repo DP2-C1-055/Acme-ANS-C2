@@ -1,12 +1,16 @@
 
 package acme.features.customer.booking;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.models.Dataset;
 import acme.client.components.views.SelectChoices;
+import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.booking.Booking;
@@ -27,13 +31,14 @@ public class CustomerBookingShowService extends AbstractGuiService<Customer, Boo
 
 	@Override
 	public void authorise() {
-		boolean status;
+		boolean status = false;
 		int bookingId;
 		Booking booking;
 
 		bookingId = super.getRequest().getData("id", int.class);
 		booking = this.repository.findBookingById(bookingId);
-		status = super.getRequest().getPrincipal().hasRealm(booking.getCustomer());
+		if (booking != null)
+			status = super.getRequest().getPrincipal().hasRealm(booking.getCustomer());
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -53,24 +58,40 @@ public class CustomerBookingShowService extends AbstractGuiService<Customer, Boo
 	public void unbind(final Booking object) {
 		assert object != null;
 
-		Dataset dataset;
-		Collection<Flight> flights;
+		Date currentMoment = MomentHelper.getCurrentMoment();
+		Collection<Flight> availableFlights;
+		SelectChoices flightChoices;
 
-		SelectChoices choices;
 		if (object.getDraftMode())
-			flights = this.repository.getAllFlightWithDraftModeFalse();
+			availableFlights = this.getFutureFlightsIncludingCurrent(object, currentMoment);
 		else
-			flights = this.repository.getOneFlightByBookingId(object.getId());
+			availableFlights = this.repository.getOneFlightByBookingId(object.getId());
 
-		choices = SelectChoices.from(flights, "customFlightText", object.getFlight());
+		flightChoices = SelectChoices.from(availableFlights, "customFlightText", object.getFlight());
 
-		dataset = super.unbindObject(object, "locatorCode", "purchaseMoment", "travelClass", "lastNibble", "draftMode");
+		Dataset dataset = super.unbindObject(object, "locatorCode", "purchaseMoment", "travelClass", "lastNibble", "draftMode");
+
 		dataset.put("travelClassChoices", SelectChoices.from(TravelClass.class, object.getTravelClass()));
 		dataset.put("flight", object.getFlight().getTag());
-		dataset.put("flights", choices);
+		dataset.put("flights", flightChoices);
 		dataset.put("price", object.getBookingPrice());
 
 		super.getResponse().addData(dataset);
-
 	}
+
+	private Collection<Flight> getFutureFlightsIncludingCurrent(final Booking object, final Date currentMoment) {
+		Collection<Flight> allFlights = this.repository.getAllFlightWithDraftModeFalse();
+		List<Flight> flightsInTheFuture = new ArrayList<>();
+
+		for (Flight flight : allFlights)
+			if (flight.getScheduledDeparture().after(currentMoment))
+				flightsInTheFuture.add(flight);
+
+		Flight currentFlight = object.getFlight();
+		if (!flightsInTheFuture.contains(currentFlight))
+			flightsInTheFuture.add(currentFlight);
+
+		return flightsInTheFuture;
+	}
+
 }

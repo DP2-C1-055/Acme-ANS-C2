@@ -31,18 +31,18 @@ public class CustomerBookingRecordCreateService extends AbstractGuiService<Custo
 
 	@Override
 	public void authorise() {
-		boolean isCustomer = super.getRequest().getPrincipal().hasRealmOfType(Customer.class);
-		super.getResponse().setAuthorised(isCustomer);
-
 		Booking booking;
+		boolean status = false;
 		int customerId;
 		customerId = super.getRequest().getPrincipal().getActiveRealm().getId();
 		int bookingId = super.getRequest().getData("bookingId", int.class);
 		booking = this.customerBookingRepository.findBookingById(bookingId);
 
-		Collection<Booking> bookings = this.customerBookingRepository.findBookingByCustomer(customerId);
-
-		super.getResponse().setAuthorised(booking.getDraftMode() && bookings.contains(booking));
+		if (booking != null) {
+			Collection<Booking> bookings = this.customerBookingRepository.findBookingByCustomer(customerId);
+			status = booking.getDraftMode() && bookings.contains(booking);
+		}
+		super.getResponse().setAuthorised(status);
 
 	}
 
@@ -67,12 +67,19 @@ public class CustomerBookingRecordCreateService extends AbstractGuiService<Custo
 
 	@Override
 	public void validate(final BookingRecord object) {
+		int customerId;
+		customerId = super.getRequest().getPrincipal().getActiveRealm().getId();
 		Collection<Passenger> allPassenger = this.repository.findPassengenrsByBooking(object.getBooking().getId());
+		Collection<Passenger> myPassenger = this.customerPassengerRepository.findPassengenrsByCustomerId(customerId);
 
 		if (allPassenger.contains(object.getPassenger()))
 			super.state(!allPassenger.contains(object.getPassenger()), "*", "customer.bookingRecord.error.duplicatePassenger");
-		if (object.getPassenger() != null && object.getPassenger().getDraftMode())
+
+		if (!myPassenger.contains(object.getPassenger()))
+			super.state(false, "*", "customer.bookingRecord.error.myPassenger");
+		else if (object.getPassenger() != null && object.getPassenger().getDraftMode())
 			super.state(false, "*", "customer.bookingRecord.error.passengerDraftMode");
+
 	}
 
 	@Override
@@ -90,6 +97,8 @@ public class CustomerBookingRecordCreateService extends AbstractGuiService<Custo
 		Collection<Passenger> passengers = this.customerPassengerRepository.findPassengenrsDraftModeByCustomerId(customerId);
 
 		if (bookingRecord.getPassenger() != null && bookingRecord.getPassenger().getDraftMode())
+			passengerChoices = SelectChoices.from(passengers, "completeNamePassport", null);
+		else if (!passengers.contains(bookingRecord.getPassenger()))
 			passengerChoices = SelectChoices.from(passengers, "completeNamePassport", null);
 		else
 			passengerChoices = SelectChoices.from(passengers, "completeNamePassport", bookingRecord.getPassenger());

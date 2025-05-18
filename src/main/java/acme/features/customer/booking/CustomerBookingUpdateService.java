@@ -1,7 +1,10 @@
 
 package acme.features.customer.booking;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +29,14 @@ public class CustomerBookingUpdateService extends AbstractGuiService<Customer, B
 
 	@Override
 	public void authorise() {
-		boolean status;
+		boolean status = false;
 		int bookingId;
 		Booking booking;
 
 		bookingId = super.getRequest().getData("id", int.class);
 		booking = this.repository.findBookingById(bookingId);
-		status = super.getRequest().getPrincipal().hasRealm(booking.getCustomer()) && booking.getDraftMode();
+		if (booking != null)
+			status = super.getRequest().getPrincipal().hasRealm(booking.getCustomer()) && booking.getDraftMode();
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -59,11 +63,12 @@ public class CustomerBookingUpdateService extends AbstractGuiService<Customer, B
 			super.state(!isBookingCodeChange || !allLocatorCode.contains(object.getLocatorCode()), "locatorCode", "customer.booking.error.locatorCodeDuplicate");
 		}
 
-		if (object.getFlight() != null)
+		if (object.getFlight() != null) {
 			if (object.getFlight().isDraftMode())
 				super.state(false, "*", "customer.booking.error.FlightDraftMode");
-			else
+			if (object.getFlight() != booking.getFlight() && object.getDraftMode() && !object.getFlight().isDraftMode())
 				super.state(object.getFlight().getScheduledDeparture().after(MomentHelper.getCurrentMoment()), "*", "customer.booking.error.flightTime");
+		}
 
 	}
 
@@ -86,15 +91,23 @@ public class CustomerBookingUpdateService extends AbstractGuiService<Customer, B
 
 		Dataset dataset;
 		SelectChoices choices = null;
-		Collection<Flight> flights = this.repository.getAllFlightWithDraftModeFalse();
+
+		Collection<Flight> availableFlights;
 		dataset = super.unbindObject(object, "locatorCode", "purchaseMoment", "travelClass", "lastNibble", "draftMode");
+
+		Booking booking = this.repository.findBookingById(object.getId());
+
+		Date currentMoment = MomentHelper.getCurrentMoment();
+		availableFlights = this.getFutureFlightsIncludingCurrent(booking, currentMoment);
+
 		if (object.getFlight() != null && !object.getFlight().isDraftMode()) {
-			choices = SelectChoices.from(flights, "customFlightText", object.getFlight());
+			choices = SelectChoices.from(availableFlights, "customFlightText", booking.getFlight());
 			dataset.put("flight", object.getFlight().getTag());
 			dataset.put("price", object.getBookingPrice());
 		} else {
+
 			dataset.put("flight", "");
-			choices = SelectChoices.from(flights, "customFlightText", null);
+			choices = SelectChoices.from(availableFlights, "customFlightText", booking.getFlight());
 			dataset.put("price", errorMessage);
 		}
 
@@ -103,6 +116,21 @@ public class CustomerBookingUpdateService extends AbstractGuiService<Customer, B
 
 		super.getResponse().addData(dataset);
 
+	}
+
+	private Collection<Flight> getFutureFlightsIncludingCurrent(final Booking object, final Date currentMoment) {
+		Collection<Flight> allFlights = this.repository.getAllFlightWithDraftModeFalse();
+		List<Flight> flightsInTheFuture = new ArrayList<>();
+
+		for (Flight flight : allFlights)
+			if (flight.getScheduledDeparture().after(currentMoment))
+				flightsInTheFuture.add(flight);
+
+		Flight currentFlight = object.getFlight();
+		if (!flightsInTheFuture.contains(currentFlight))
+			flightsInTheFuture.add(currentFlight);
+
+		return flightsInTheFuture;
 	}
 
 	@Override

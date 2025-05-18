@@ -10,3 +10,4 @@ customer.booking-record.form.button.delete = Delete Passenger
 customer.bookingRecord.error.duplicatePassenger = Passenger Duplicated
 customer.booking-record.list.label.passengerNew = Add Passenger
 customer.bookingRecord.error.passengerDraftMode = Passenger must be published
+customer.bookingRecord.error.myPassenger =  The selected passenger is not associated with the currently authenticated customer

@@ -10,3 +10,4 @@ customer.booking-record.form.button.delete = Eliminar Pasajero
 customer.bookingRecord.error.duplicatePassenger = Pasajero Duplicado
 customer.booking-record.list.label.passengerNew = Añadir Pasajero
 customer.bookingRecord.error.passengerDraftMode = El pasajero debe estar publicado
+customer.bookingRecord.error.myPassenger = Este pasajero no pertenece al cliente logeado
