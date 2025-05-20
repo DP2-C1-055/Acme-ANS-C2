@@ -7,6 +7,7 @@ crew.assignment.list.label.currentStatus = Current Status
 crew.assignment.list.label.remarks = Remarks
 crew.assignment.list.label.duty = Duty
 crew.assignment.list.button.create = Create Assignment
+crew.assignment.list.label.draftMode = Draft Mode
 
 crew.assignment.form.label.crewMember = Crew Member
 crew.assignment.form.label.duty = Duty

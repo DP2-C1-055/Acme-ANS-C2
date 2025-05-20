@@ -14,9 +14,9 @@ assignment-09,PILOT,2025/01/01 00:00,CONFIRMED,"Lorem ipsum dolor sit amet, cons
 # Current Status - Cobertura completa
 assignment-10,PILOT,2012/07/02 00:00,CONFIRMED,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",false,crew-01,leg-04
 assignment-11,PILOT,2012/07/02 00:00,PENDING,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",true,crew-01,leg-04
-assignment-12,PILOT,2012/07/02 00:00,CANCELLED,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",false,crew-02,leg-04
+assignment-12,PILOT,2012/07/02 00:00,CANCELLED,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",false,crew-02,leg-03
 # Remarks - Variaciones estandar (minimo,intermedio,maximo)
-assignment-13,PILOT,2012/07/02 00:00,CONFIRMED,L,false,crew-01,leg-04
+assignment-13,PILOT,2012/07/02 00:00,CONFIRMED,L,false,crew-01,leg-03
 assignment-14,PILOT,2012/07/02 00:00,CONFIRMED,Lo,true,crew-01,leg-04
 assignment-15,PILOT,2012/07/02 00:00,CONFIRMED,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",true,crew-02,leg-04
 assignment-16,PILOT,2012/07/02 00:00,CONFIRMED,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut enim ad minim veniam? Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor",true,crew-01,leg-04

@@ -7,9 +7,10 @@
 	<acme:list-column code="crew.assignment.list.label.lastUpdate" path="lastUpdate" width="30%"/>
 	<acme:list-column code="crew.assignment.list.label.currentStatus" path="currentStatus" width="30%"/>
 	<acme:list-column code="crew.assignment.list.label.duty" path="duty" width="40%"/>
+	<acme:list-column code="crew.assignment.list.label.draftMode" path="draftMode" width="20%"/>
 	<acme:list-payload path="payload"/>
 </acme:list>
 
-<jstl:if test="${acme:anyOf(_command, 'list-planned|list-completed')}">
+<jstl:if test="${_command == 'list-planned'}">
 	<acme:button code="crew.assignment.list.button.create" action="/crew/assignment/create"/>
 </jstl:if>

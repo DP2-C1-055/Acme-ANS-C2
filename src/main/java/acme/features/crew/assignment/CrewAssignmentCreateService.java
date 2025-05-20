@@ -15,7 +15,6 @@ import acme.entities.assignment.Assignment;
 import acme.entities.assignment.CurrentStatus;
 import acme.entities.assignment.DutyCrew;
 import acme.entities.leg.Leg;
-import acme.realms.crew.AvailabilityStatus;
 import acme.realms.crew.Crew;
 
 @GuiService
@@ -44,58 +43,34 @@ public class CrewAssignmentCreateService extends AbstractGuiService<Crew, Assign
 	@Override
 	public void load() {
 		Assignment assignment;
-		int crewId;
-
-		crewId = super.getRequest().getPrincipal().getActiveRealm().getId();
+		Crew crew = (Crew) super.getRequest().getPrincipal().getActiveRealm();
 
 		assignment = new Assignment();
-
+		assignment.setCrew(crew);
 		assignment.setDraftMode(true);
-		assignment.setCrew(this.repository.findCrewById(crewId));
 		assignment.setLastUpdate(MomentHelper.getCurrentMoment());
-		assignment.setRemarks("");
-		assignment.setCurrentStatus(CurrentStatus.PENDING);
-		assignment.setDuty(DutyCrew.CABIN_ATTENDANT);
-
 		super.getBuffer().addData(assignment);
 	}
 
 	@Override
 	public void bind(final Assignment assignment) {
-		Integer legId;
-		Leg leg;
-		Crew member;
-		Integer crewId;
-
-		legId = super.getRequest().getData("leg", int.class);
-		leg = this.repository.findLegById(legId);
-
-		crewId = super.getRequest().getData("crewMember", int.class);
-		member = this.repository.findCrewById(crewId);
-
-		super.bindObject(assignment, "duty", "currentStatus", "remarks");
-		assignment.setLeg(leg);
-		assignment.setCrew(member);
+		super.bindObject(assignment, "duty", "lastUpdate", "currentStatus", "remarks", "leg");
 	}
 
 	@Override
 	public void validate(final Assignment assignment) {
-		// Extracting necessary data
 		Crew crew = assignment.getCrew();
 		Leg leg = assignment.getLeg();
 
-		// Check if crew and leg are assigned and if leg is compatible
 		if (crew != null && leg != null)
 			if (this.isLegIncompatible(assignment)) {
 				super.state(false, "leg", "acme.validation.assignment.legIncompatible.message");
 				return;
 			}
 
-		// Check if the duty assignment is valid (Pilot, Co-pilot)
 		if (leg != null)
 			this.checkPilotAndCopilotAssignment(assignment);
 
-		// Check if the leg is already completed
 		boolean legCompleted = this.repository.areLegsCompletedByAssignment(assignment.getId(), MomentHelper.getCurrentMoment());
 
 		if (legCompleted)
@@ -103,11 +78,9 @@ public class CrewAssignmentCreateService extends AbstractGuiService<Crew, Assign
 	}
 
 	private boolean isLegIncompatible(final Assignment assignment) {
-		// Retrieve all legs for the assigned crew member
 		Collection<Leg> legsByCrew = this.repository.findLegsByCrewId(assignment.getCrew().getId());
 		Leg newLeg = assignment.getLeg();
 
-		// Check if any of the legs overlap with the new leg
 		return legsByCrew.stream()
 			.anyMatch(existingLeg -> MomentHelper.isInRange(newLeg.getScheduledDeparture(), existingLeg.getScheduledDeparture(), existingLeg.getScheduledArrival())
 				|| MomentHelper.isInRange(newLeg.getScheduledArrival(), existingLeg.getScheduledDeparture(), existingLeg.getScheduledArrival())
@@ -135,21 +108,17 @@ public class CrewAssignmentCreateService extends AbstractGuiService<Crew, Assign
 	public void unbind(final Assignment assignment) {
 		Dataset dataset;
 		Collection<Leg> legs;
-		Collection<Crew> crewMembers;
 		SelectChoices legChoices;
-		SelectChoices crewMembersChoices;
 		SelectChoices statuses;
 		SelectChoices duties;
 
 		legs = this.repository.findAllLegs();
-		crewMembers = this.repository.findCrewByAvailability(AvailabilityStatus.AVAILABLE);
 
 		legChoices = SelectChoices.from(legs, "flightNumber", assignment.getLeg());
-		crewMembersChoices = SelectChoices.from(crewMembers, "code", assignment.getCrew());
 		statuses = SelectChoices.from(CurrentStatus.class, assignment.getCurrentStatus());
 		duties = SelectChoices.from(DutyCrew.class, assignment.getDuty());
 
-		dataset = super.unbindObject(assignment, "duty", "lastUpdate", "currentStatus", "remarks", "draftMode");
+		dataset = super.unbindObject(assignment, "duty", "lastUpdate", "currentStatus", "remarks", "crew", "leg");
 		dataset.put("confirmation", false);
 		dataset.put("readonly", false);
 		dataset.put("lastUpdate", MomentHelper.getBaseMoment());
@@ -157,8 +126,6 @@ public class CrewAssignmentCreateService extends AbstractGuiService<Crew, Assign
 		dataset.put("duty", duties);
 		dataset.put("leg", legChoices.getSelected().getKey());
 		dataset.put("legs", legChoices);
-		dataset.put("crewMember", crewMembersChoices.getSelected().getKey());
-		dataset.put("crewMembers", crewMembersChoices);
 
 		super.getResponse().addData(dataset);
 	}

@@ -24,10 +24,10 @@ public interface CrewAssignmentRepository extends AbstractRepository {
 	@Query("select a from Assignment a")
 	Collection<Assignment> findAllAssignments();
 
-	@Query("SELECT a FROM Assignment a WHERE a.leg.scheduledArrival < :now AND a.crew.id = :crewId")
+	@Query("select a from Assignment a where a.leg.scheduledArrival < :now and a.crew.id = :crewId")
 	Collection<Assignment> findCompletedAssignmentsByCrewId(Date now, int crewId);
 
-	@Query("SELECT a FROM Assignment a WHERE a.leg.scheduledDeparture > :now AND a.crew.id = :crewId")
+	@Query("select a from Assignment a where a.leg.scheduledArrival >= :now and a.crew.id = :crewId")
 	Collection<Assignment> findPlannedAssignmentsByCrewId(Date now, int crewId);
 
 	@Query("select a from Assignment a where a.crew.id = :crewId")
