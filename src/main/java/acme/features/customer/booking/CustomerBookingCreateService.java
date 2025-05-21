@@ -2,6 +2,7 @@
 package acme.features.customer.booking;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -31,15 +32,21 @@ public class CustomerBookingCreateService extends AbstractGuiService<Customer, B
 
 		status = super.getRequest().getPrincipal().hasRealmOfType(Customer.class);
 
-		int flightId = super.getRequest().getData("flight", int.class);
-		Flight flight = this.repository.getFlightById(flightId);
-		if (flightId != 0 && flight == null)
-			status = false;
-		if (flight != null)
-			if (flight.isDraftMode())
+		if (super.getRequest().getMethod().equals("POST")) {
+			String travelClass = super.getRequest().getData("travelClass", String.class);
+			if (!travelClass.equals("0"))
+				status = Arrays.stream(TravelClass.values()).anyMatch(tc -> tc.name().equalsIgnoreCase(travelClass));
+
+			int flightId = super.getRequest().getData("flight", int.class);
+			Flight flight = this.repository.getFlightById(flightId);
+			if (flightId != 0 && flight == null)
 				status = false;
-			else if (!flight.getScheduledDeparture().after(MomentHelper.getCurrentMoment()))
-				status = false;
+			if (flight != null)
+				if (flight.isDraftMode())
+					status = false;
+				else if (!flight.getScheduledDeparture().after(MomentHelper.getCurrentMoment()))
+					status = false;
+		}
 
 		super.getResponse().setAuthorised(status);
 	}

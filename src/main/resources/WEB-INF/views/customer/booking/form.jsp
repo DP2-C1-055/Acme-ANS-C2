@@ -12,8 +12,9 @@
 
 	<jstl:choose>
 		<jstl:when test="${acme:anyOf(_command, 'show') && datePast == true && draftMode == true}">
+			<div class= "text-red">
 			<acme:print code="customer.booking.selectedFlightPassed"/>
-			<br/>
+			</div>
 		    <acme:submit code="customer.booking.form.button.delete" action="/customer/booking/delete" />
 		</jstl:when>
 		<jstl:when test="${acme:anyOf(_command, 'show|update|delete|publish') && draftMode == false}">
@@ -33,3 +34,9 @@
 	</jstl:choose>
 
 </acme:form>
+
+<style>
+    .text-red {
+        color: red;
+    }
+</style>

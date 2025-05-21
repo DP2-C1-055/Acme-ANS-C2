@@ -2,6 +2,7 @@
 package acme.features.customer.booking;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -48,6 +49,9 @@ public class CustomerBookingPublishService extends AbstractGuiService<Customer, 
 		}
 
 		if (super.getRequest().getMethod().equals("POST")) {
+			String travelClass = super.getRequest().getData("travelClass", String.class);
+			if (!travelClass.equals("0"))
+				status = Arrays.stream(TravelClass.values()).anyMatch(tc -> tc.name().equalsIgnoreCase(travelClass));
 			int flightId = super.getRequest().getData("flight", int.class);
 			Flight flight = this.repository.getFlightById(flightId);
 			if (flightId != 0 && flight == null)
