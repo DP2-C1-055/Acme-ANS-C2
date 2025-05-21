@@ -35,8 +35,26 @@ public class CustomerBookingUpdateService extends AbstractGuiService<Customer, B
 
 		bookingId = super.getRequest().getData("id", int.class);
 		booking = this.repository.findBookingById(bookingId);
-		if (booking != null)
+		if (booking != null) {
 			status = super.getRequest().getPrincipal().hasRealm(booking.getCustomer()) && booking.getDraftMode();
+			Date currentMoment = MomentHelper.getCurrentMoment();
+			boolean datePast = currentMoment.after(booking.getFlight().getScheduledDeparture());
+			if (datePast == true)
+				status = false;
+		}
+
+		if (super.getRequest().getMethod().equals("POST")) {
+			int flightId = super.getRequest().getData("flight", int.class);
+			Flight flight = this.repository.getFlightById(flightId);
+			if (flightId != 0 && flight == null)
+				status = false;
+			if (flight != null)
+				if (flight.isDraftMode())
+					status = false;
+				else if (!flight.getScheduledDeparture().after(MomentHelper.getCurrentMoment()))
+					status = false;
+
+		}
 
 		super.getResponse().setAuthorised(status);
 	}

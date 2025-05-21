@@ -2,10 +2,12 @@
 package acme.features.customer.bookingRecord;
 
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.models.Dataset;
+import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.BookingRecord.BookingRecord;
@@ -31,9 +33,13 @@ public class CustomerBookingRecordListService extends AbstractGuiService<Custome
 
 		bookingId = super.getRequest().getData("bookingId", int.class);
 		booking = this.customerBookingRepository.findBookingById(bookingId);
-		if (booking != null)
+		if (booking != null) {
 			status = super.getRequest().getPrincipal().hasRealm(booking.getCustomer());
-
+			Date currentMoment = MomentHelper.getCurrentMoment();
+			boolean datePast = currentMoment.after(booking.getFlight().getScheduledDeparture());
+			if (datePast == true)
+				status = false;
+		}
 		super.getResponse().setAuthorised(status);
 	}
 

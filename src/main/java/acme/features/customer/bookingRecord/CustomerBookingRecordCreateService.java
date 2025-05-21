@@ -1,12 +1,16 @@
 
 package acme.features.customer.bookingRecord;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.models.Dataset;
 import acme.client.components.views.SelectChoices;
+import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.BookingRecord.BookingRecord;
@@ -41,6 +45,31 @@ public class CustomerBookingRecordCreateService extends AbstractGuiService<Custo
 		if (booking != null) {
 			Collection<Booking> bookings = this.customerBookingRepository.findBookingByCustomer(customerId);
 			status = booking.getDraftMode() && bookings.contains(booking);
+			Date currentMoment = MomentHelper.getCurrentMoment();
+			boolean datePast = currentMoment.after(booking.getFlight().getScheduledDeparture());
+			if (datePast == true)
+				status = false;
+		}
+		if (super.getRequest().getMethod().equals("POST")) {
+			int passengerId = super.getRequest().getData("passenger", int.class);
+
+			if (passengerId != 0) {
+				Passenger passenger = this.customerPassengerRepository.findPassengerById(passengerId);
+
+				if (passenger == null)
+					status = false;
+				else {
+					if (passenger.getDraftMode())
+						status = false;
+					Collection<Passenger> myPassengers = this.customerPassengerRepository.findPassengenrsByCustomerId(customerId);
+					if (!myPassengers.contains(passenger))
+						status = false;
+					Collection<Passenger> allPassengersIncluded = this.repository.findPassengenrsByBooking(bookingId);
+					if (allPassengersIncluded.contains(passenger))
+						status = false;
+				}
+
+			}
 		}
 		super.getResponse().setAuthorised(status);
 
@@ -67,17 +96,11 @@ public class CustomerBookingRecordCreateService extends AbstractGuiService<Custo
 
 	@Override
 	public void validate(final BookingRecord object) {
-		int customerId;
-		customerId = super.getRequest().getPrincipal().getActiveRealm().getId();
 		Collection<Passenger> allPassenger = this.repository.findPassengenrsByBooking(object.getBooking().getId());
-		Collection<Passenger> myPassenger = this.customerPassengerRepository.findPassengenrsByCustomerId(customerId);
 
 		if (allPassenger.contains(object.getPassenger()))
 			super.state(!allPassenger.contains(object.getPassenger()), "*", "customer.bookingRecord.error.duplicatePassenger");
-
-		if (!myPassenger.contains(object.getPassenger()))
-			super.state(false, "*", "customer.bookingRecord.error.myPassenger");
-		else if (object.getPassenger() != null && object.getPassenger().getDraftMode())
+		if (object.getPassenger() != null && object.getPassenger().getDraftMode())
 			super.state(false, "*", "customer.bookingRecord.error.passengerDraftMode");
 
 	}
@@ -95,13 +118,13 @@ public class CustomerBookingRecordCreateService extends AbstractGuiService<Custo
 
 		int customerId = super.getRequest().getPrincipal().getActiveRealm().getId();
 		Collection<Passenger> passengers = this.customerPassengerRepository.findPassengenrsDraftModeByCustomerId(customerId);
+		Collection<Passenger> allPassengerIncluded = this.repository.findPassengenrsByBooking(bookingId);
+		List<Passenger> passengerToDisplay = new ArrayList<>();
+		for (Passenger passenger : passengers)
+			if (!allPassengerIncluded.contains(passenger))
+				passengerToDisplay.add(passenger);
 
-		if (bookingRecord.getPassenger() != null && bookingRecord.getPassenger().getDraftMode())
-			passengerChoices = SelectChoices.from(passengers, "completeNamePassport", null);
-		else if (!passengers.contains(bookingRecord.getPassenger()))
-			passengerChoices = SelectChoices.from(passengers, "completeNamePassport", null);
-		else
-			passengerChoices = SelectChoices.from(passengers, "completeNamePassport", bookingRecord.getPassenger());
+		passengerChoices = SelectChoices.from(passengerToDisplay, "completeNamePassport", null);
 
 		dataset = super.unbindObject(bookingRecord);
 		dataset.put("passenger", passengerChoices.getSelected().getKey());
