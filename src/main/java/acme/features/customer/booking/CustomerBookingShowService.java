@@ -69,12 +69,21 @@ public class CustomerBookingShowService extends AbstractGuiService<Customer, Boo
 
 		flightChoices = SelectChoices.from(availableFlights, "customFlightText", object.getFlight());
 
+		boolean datePast = currentMoment.after(object.getFlight().getScheduledDeparture());
+
+		if (datePast) {
+			List<Flight> oneFlight = new ArrayList<>();
+			oneFlight.add(object.getFlight());
+			flightChoices = SelectChoices.from(oneFlight, "customFlightText", object.getFlight());
+		}
+
 		Dataset dataset = super.unbindObject(object, "locatorCode", "purchaseMoment", "travelClass", "lastNibble", "draftMode");
 
 		dataset.put("travelClassChoices", SelectChoices.from(TravelClass.class, object.getTravelClass()));
 		dataset.put("flight", object.getFlight().getTag());
 		dataset.put("flights", flightChoices);
 		dataset.put("price", object.getBookingPrice());
+		dataset.put("datePast", datePast);
 
 		super.getResponse().addData(dataset);
 	}

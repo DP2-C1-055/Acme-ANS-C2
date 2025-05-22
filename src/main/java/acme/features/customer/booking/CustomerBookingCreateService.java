@@ -2,6 +2,7 @@
 package acme.features.customer.booking;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -31,6 +32,22 @@ public class CustomerBookingCreateService extends AbstractGuiService<Customer, B
 
 		status = super.getRequest().getPrincipal().hasRealmOfType(Customer.class);
 
+		if (super.getRequest().getMethod().equals("POST")) {
+			String travelClass = super.getRequest().getData("travelClass", String.class);
+			if (!travelClass.equals("0"))
+				status = Arrays.stream(TravelClass.values()).anyMatch(tc -> tc.name().equalsIgnoreCase(travelClass));
+
+			int flightId = super.getRequest().getData("flight", int.class);
+			Flight flight = this.repository.getFlightById(flightId);
+			if (flightId != 0 && flight == null)
+				status = false;
+			if (flight != null)
+				if (flight.isDraftMode())
+					status = false;
+				else if (!flight.getScheduledDeparture().after(MomentHelper.getCurrentMoment()))
+					status = false;
+		}
+
 		super.getResponse().setAuthorised(status);
 	}
 
@@ -56,14 +73,8 @@ public class CustomerBookingCreateService extends AbstractGuiService<Customer, B
 	public void validate(final Booking object) {
 		Collection<String> allLocatorCode = this.repository.getAllLocatorCode();
 
-		if (!super.getBuffer().getErrors().hasErrors("allLocatorCode"))
+		if (!super.getBuffer().getErrors().hasErrors("locatorCode"))
 			super.state(!allLocatorCode.contains(object.getLocatorCode()), "locatorCode", "customer.booking.error.locatorCodeDuplicate");
-
-		if (object.getFlight() != null)
-			if (object.getFlight().isDraftMode())
-				super.state(false, "*", "customer.booking.error.FlightDraftMode");
-			else
-				super.state(object.getFlight().getScheduledDeparture().after(MomentHelper.getCurrentMoment()), "*", "customer.booking.error.flightTime");
 	}
 
 	@Override
@@ -86,10 +97,11 @@ public class CustomerBookingCreateService extends AbstractGuiService<Customer, B
 		for (Flight flight : flights)
 			if (flight.getScheduledDeparture().after(currentMoment))
 				flightsInTheFuture.add(flight);
-		if (object.getFlight() != null && object.getFlight().isDraftMode() || !flightsInTheFuture.contains(object.getFlight()))
-			choices = SelectChoices.from(flightsInTheFuture, "customFlightText", null);
-		else
+		if (object.getFlight() != null)
 			choices = SelectChoices.from(flightsInTheFuture, "customFlightText", object.getFlight());
+		else
+			choices = SelectChoices.from(flightsInTheFuture, "customFlightText", null);
+
 		dataset = super.unbindObject(object, "locatorCode", "purchaseMoment", "travelClass", "lastNibble", "draftMode");
 		dataset.put("travelClassChoices", SelectChoices.from(TravelClass.class, object.getTravelClass()));
 		dataset.put("flight", choices.getSelected().getKey());

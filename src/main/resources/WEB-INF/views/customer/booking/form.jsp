@@ -11,6 +11,12 @@
 	<acme:input-select code="customer.booking.form.label.flight" path="flight" choices="${flights}" />
 
 	<jstl:choose>
+		<jstl:when test="${acme:anyOf(_command, 'show') && datePast == true && draftMode == true}">
+			<div class= "text-red">
+			<acme:print code="customer.booking.selectedFlightPassed"/>
+			</div>
+		    <acme:submit code="customer.booking.form.button.delete" action="/customer/booking/delete" />
+		</jstl:when>
 		<jstl:when test="${acme:anyOf(_command, 'show|update|delete|publish') && draftMode == false}">
 			<acme:input-money code="customer.booking.form.label.price" path="price" readonly="true" />
 			<acme:button code="customer.booking.form.button.passenger" action="/customer/booking-record/list?bookingId=${id}" />
@@ -28,3 +34,9 @@
 	</jstl:choose>
 
 </acme:form>
+
+<style>
+    .text-red {
+        color: red;
+    }
+</style>
