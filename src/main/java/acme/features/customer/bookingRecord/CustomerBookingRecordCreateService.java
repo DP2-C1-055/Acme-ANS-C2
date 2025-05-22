@@ -132,7 +132,6 @@ public class CustomerBookingRecordCreateService extends AbstractGuiService<Custo
 		dataset.put("bookingId", bookingId);
 
 		super.getResponse().addData(dataset);
-		System.out.println(super.getResponse());
 	}
 
 }

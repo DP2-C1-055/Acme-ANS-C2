@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -85,27 +84,15 @@ public class CustomerBookingPublishService extends AbstractGuiService<Customer, 
 		Booking booking = this.repository.findBookingById(object.getId());
 
 		Collection<Passenger> passengers = this.bookingRecordRepository.findPassengenrsByBooking(object.getId());
-		boolean allDraftMode = passengers.stream().allMatch(passenger -> !passenger.getDraftMode());
+		isBookingCodeChange = !booking.getLocatorCode().equals(object.getLocatorCode());
 
-		if (!super.getBuffer().getErrors().hasErrors("passportNumber")) {
-			isBookingCodeChange = !booking.getLocatorCode().equals(object.getLocatorCode());
-			super.state(!isBookingCodeChange || !allLocatorCode.contains(object.getLocatorCode()), "locatorCode", "customer.booking.error.locatorCodeDuplicate");
-		}
-
-		if (!allDraftMode)
-			super.state(allDraftMode, "*", "customer.booking.error.draftMode");
+		if (isBookingCodeChange)
+			super.state(!allLocatorCode.contains(object.getLocatorCode()), "locatorCode", "customer.booking.error.locatorCodeDuplicate");
 
 		if (passengers.size() == 0)
-			super.state(passengers.size() != 0, "*", "customer.booking.error.noPassengers");
+			super.state(false, "*", "customer.booking.error.noPassengers");
 		if (object.getLastNibble().isEmpty())
-			super.state(!object.getLastNibble().isEmpty(), "lastNibble", "customer.booking.error.lastNibble");
-
-		if (object.getFlight() != null) {
-			if (object.getFlight().isDraftMode())
-				super.state(false, "*", "customer.booking.error.FlightDraftMode");
-			if (!object.getFlight().isDraftMode())
-				super.state(object.getFlight().getScheduledDeparture().after(MomentHelper.getCurrentMoment()), "*", "customer.booking.error.flightTime");
-		}
+			super.state(false, "lastNibble", "customer.booking.error.lastNibble");
 	}
 
 	@Override
@@ -120,12 +107,6 @@ public class CustomerBookingPublishService extends AbstractGuiService<Customer, 
 	@Override
 	public void unbind(final Booking object) {
 		assert object != null;
-		String errorMessage;
-		final Locale local = super.getRequest().getLocale();
-		if (local.equals(Locale.ENGLISH))
-			errorMessage = "Cost can not be calculated";
-		else
-			errorMessage = "No se puede calcular el precio";
 
 		Dataset dataset;
 		SelectChoices choices = null;
@@ -137,16 +118,12 @@ public class CustomerBookingPublishService extends AbstractGuiService<Customer, 
 
 		Date currentMoment = MomentHelper.getCurrentMoment();
 		availableFlights = this.getFutureFlightsIncludingCurrent(booking, currentMoment);
-
-		if (object.getFlight() != null && !object.getFlight().isDraftMode()) {
+		if (object.getFlight() == null) {
 			choices = SelectChoices.from(availableFlights, "customFlightText", booking.getFlight());
-			dataset.put("flight", object.getFlight().getTag());
-			dataset.put("price", errorMessage);
+			dataset.put("price", booking.getBookingPrice());
 		} else {
-
-			dataset.put("flight", "");
-			choices = SelectChoices.from(availableFlights, "customFlightText", booking.getFlight());
-			dataset.put("price", errorMessage);
+			choices = SelectChoices.from(availableFlights, "customFlightText", object.getFlight());
+			dataset.put("price", object.getBookingPrice());
 		}
 
 		dataset.put("travelClassChoices", SelectChoices.from(TravelClass.class, object.getTravelClass()));
@@ -163,10 +140,6 @@ public class CustomerBookingPublishService extends AbstractGuiService<Customer, 
 		for (Flight flight : allFlights)
 			if (flight.getScheduledDeparture().after(currentMoment))
 				flightsInTheFuture.add(flight);
-
-		Flight currentFlight = object.getFlight();
-		if (!flightsInTheFuture.contains(currentFlight))
-			flightsInTheFuture.add(currentFlight);
 
 		return flightsInTheFuture;
 	}
