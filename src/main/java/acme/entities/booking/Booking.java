@@ -58,6 +58,7 @@ public class Booking extends AbstractEntity {
 	@Automapped
 	protected String			lastNibble;
 
+	@Automapped
 	protected Boolean			draftMode;
 
 	// Relationships ----------------------------------------------------------
