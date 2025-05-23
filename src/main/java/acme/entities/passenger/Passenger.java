@@ -59,6 +59,7 @@ public class Passenger extends AbstractEntity {
 	@Automapped
 	protected String			specialNeeds;
 
+	@Automapped
 	protected Boolean			draftMode;
 
 	@Mandatory

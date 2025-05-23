@@ -96,13 +96,7 @@ public class CustomerBookingRecordCreateService extends AbstractGuiService<Custo
 
 	@Override
 	public void validate(final BookingRecord object) {
-		Collection<Passenger> allPassenger = this.repository.findPassengenrsByBooking(object.getBooking().getId());
-
-		if (allPassenger.contains(object.getPassenger()))
-			super.state(!allPassenger.contains(object.getPassenger()), "*", "customer.bookingRecord.error.duplicatePassenger");
-		if (object.getPassenger() != null && object.getPassenger().getDraftMode())
-			super.state(false, "*", "customer.bookingRecord.error.passengerDraftMode");
-
+		;
 	}
 
 	@Override
