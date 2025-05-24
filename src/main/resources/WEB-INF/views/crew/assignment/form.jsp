@@ -14,24 +14,24 @@
 		<jstl:when test="${_command == 'create'}">
 			<acme:submit code="crew.assignment.form.button.create" action="/crew/assignment/create"/>
 		</jstl:when>
-		
-		<jstl:when test="${acme:anyOf(_command, 'show|update|publish') && draftMode == true && isCompleted == false}">
+
+		<jstl:when test="${acme:anyOf(_command, 'show|update|delete|publish') && draftMode == true && isCompleted == false}">
 			<acme:submit code="crew.assignment.form.button.publish" action="/crew/assignment/publish"/>
 			<acme:submit code="crew.assignment.form.button.update" action="/crew/assignment/update"/>
 			<acme:submit code="crew.assignment.form.button.delete" action="/crew/assignment/delete"/>
 		</jstl:when>
 		
-		<jstl:when test="${acme:anyOf(_command, 'show|update|publish') && draftMode == true && isCompleted == true}">
+		<jstl:when test="${acme:anyOf(_command, 'show|update|delete|publish') && draftMode == true && isCompleted == true}">
 			<acme:button code="crew.assignment.form.button.activityLog" action="/crew/activity-log/list?assignmentId=${id}"/>
 			<acme:submit code="crew.assignment.form.button.update" action="/crew/assignment/update"/>
 			<acme:submit code="crew.assignment.form.button.delete" action="/crew/assignment/delete"/>
 		</jstl:when>
 		
-		<jstl:when test="${acme:anyOf(_command, 'show|update|publish') && draftMode == false && isCompleted == true}">
+		<jstl:when test="${acme:anyOf(_command, 'show|update|delete|publish') && draftMode == false && isCompleted == true}">
 			<acme:button code="crew.assignment.form.button.activityLog" action="/crew/activity-log/list?assignmentId=${id}"/>
 		</jstl:when>
 		
-		<jstl:when test="${acme:anyOf(_command, 'show|update|publish') && draftMode == false && isCompleted == false}">
+		<jstl:when test="${acme:anyOf(_command, 'show|update|delete|publish') && draftMode == false && isCompleted == false}">
 		</jstl:when>
 	</jstl:choose>
 </acme:form>

@@ -39,7 +39,7 @@ public class CrewActivityLogUpdateService extends AbstractGuiService<Crew, Activ
 		activityLog = this.repository.findActivityLogById(activityLogId);
 		crewMemberId = super.getRequest().getPrincipal().getActiveRealm().getId();
 
-		isCrewMemberValid = this.repository.existsFlightCrewMember(crewMemberId);
+		isCrewMemberValid = this.repository.existsCrewMember(crewMemberId);
 		isActivityLogOwnedByCrewMember = isCrewMemberValid && this.repository.thatActivityLogIsOf(activityLogId, crewMemberId);
 
 		status = isActivityLogOwnedByCrewMember && activityLog != null && activityLog.isDraftMode();

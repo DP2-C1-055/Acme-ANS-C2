@@ -31,13 +31,18 @@ public class CrewAssignmentCreateService extends AbstractGuiService<Crew, Assign
 
 	@Override
 	public void authorise() {
-		int crewId;
-		boolean isAuthorised;
+		int crewMemberId = super.getRequest().getPrincipal().getActiveRealm().getId();
+		boolean authorised1 = this.repository.existsCrewMember(crewMemberId);
 
-		crewId = super.getRequest().getPrincipal().getActiveRealm().getId();
-		isAuthorised = this.repository.existsCrewMember(crewId);
+		boolean authorised2 = true;
+		if (super.getRequest().hasData("leg", int.class)) {
+			int legId = super.getRequest().getData("leg", int.class);
+			if (legId != 0)
+				authorised2 = this.repository.existsByIdAndPublishedTrue(legId);
+		}
 
-		super.getResponse().setAuthorised(isAuthorised);
+		boolean authorised = authorised1 && authorised2;
+		super.getResponse().setAuthorised(authorised);
 	}
 
 	@Override

@@ -15,7 +15,6 @@ import acme.entities.assignment.Assignment;
 import acme.entities.assignment.CurrentStatus;
 import acme.entities.assignment.DutyCrew;
 import acme.entities.leg.Leg;
-import acme.realms.crew.AvailabilityStatus;
 import acme.realms.crew.Crew;
 
 @GuiService
@@ -31,75 +30,43 @@ public class CrewAssignmentShowService extends AbstractGuiService<Crew, Assignme
 
 	@Override
 	public void authorise() {
-		int currentCrewMemberId;
-		int assignmentId;
-		Assignment assignment;
-		boolean crewMemberExists;
-		boolean assignmentBelongsToCrewMember;
-		boolean isAssignmentOwner;
+		int currentCrewMemberId = super.getRequest().getPrincipal().getActiveRealm().getId();
+		int assignmentId = super.getRequest().getData("id", int.class);
+		Assignment assignment = this.repository.findAssignmentById(assignmentId);
 
-		currentCrewMemberId = super.getRequest().getPrincipal().getActiveRealm().getId();
-		assignmentId = super.getRequest().getData("id", int.class);
-		assignment = this.repository.findAssignmentById(assignmentId);
-
-		crewMemberExists = this.repository.existsCrewMember(currentCrewMemberId);
-		assignmentBelongsToCrewMember = crewMemberExists && this.repository.isAssignmentOwnedByCrewMember(assignmentId, currentCrewMemberId);
-		isAssignmentOwner = assignment.getCrew().getId() == currentCrewMemberId;
-
-		super.getResponse().setAuthorised(assignmentBelongsToCrewMember && isAssignmentOwner);
+		boolean isAuthorised = assignment != null && assignment.getCrew().getId() == currentCrewMemberId;
+		super.getResponse().setAuthorised(isAuthorised);
 	}
 
 	@Override
 	public void load() {
-		Assignment assignment;
-		int assignmentId;
-
-		assignmentId = super.getRequest().getData("id", int.class);
-		assignment = this.repository.findAssignmentById(assignmentId);
-
+		int assignmentId = super.getRequest().getData("id", int.class);
+		Assignment assignment = this.repository.findAssignmentById(assignmentId);
 		super.getBuffer().addData(assignment);
 	}
 
 	@Override
 	public void unbind(final Assignment assignment) {
-		Collection<Leg> legs;
-		SelectChoices legChoices;
-		Collection<Crew> crewMembers;
-		SelectChoices crewMemberChoices;
-		Dataset dataset;
-		SelectChoices currentStatus;
-		int assignmentId;
-		SelectChoices duties;
-		boolean isCompleted;
-		Date currentMoment;
+		Collection<Leg> legs = this.repository.findAllLegs();
+		SelectChoices legChoices = SelectChoices.from(legs, "flightNumber", assignment.getLeg());
+		SelectChoices currentStatus = SelectChoices.from(CurrentStatus.class, assignment.getCurrentStatus());
+		SelectChoices duty = SelectChoices.from(DutyCrew.class, assignment.getDuty());
 
-		assignmentId = super.getRequest().getData("id", int.class);
-		legs = this.repository.findAllLegs();
-		crewMembers = this.repository.findCrewByAvailability(AvailabilityStatus.AVAILABLE);
-		currentStatus = SelectChoices.from(CurrentStatus.class, assignment.getCurrentStatus());
-		duties = SelectChoices.from(DutyCrew.class, assignment.getDuty());
-		legChoices = SelectChoices.from(legs, "flightNumber", assignment.getLeg());
-		crewMemberChoices = SelectChoices.from(crewMembers, "code", assignment.getCrew());
-		currentMoment = MomentHelper.getCurrentMoment();
-		isCompleted = this.repository.areLegsCompletedByAssignment(assignmentId, currentMoment);
+		int assignmentId = super.getRequest().getData("id", int.class);
+		int crewMemberId = super.getRequest().getPrincipal().getActiveRealm().getId();
+		Crew crewMember = this.repository.findCrewById(crewMemberId);
 
-		Collection<Assignment> otherAssignments;
-		Collection<String> crewDetails;
+		Date currentMoment = MomentHelper.getCurrentMoment();
+		boolean isCompleted = this.repository.areLegsCompletedByAssignment(assignmentId, currentMoment);
 
-		otherAssignments = this.repository.findAssignmentByLegId(assignment.getLeg().getId());
-		crewDetails = otherAssignments.stream().map(a -> String.format("%s (%s)", a.getCrew().getIdentity().getFullName(), a.getDuty())).toList();
-
-		dataset = super.unbindObject(assignment, "duty", "lastUpdate", "currentStatus", "remarks", "draftMode");
+		Dataset dataset = super.unbindObject(assignment, "duty", "lastUpdate", "currentStatus", "remarks", "draftMode");
 		dataset.put("currentStatus", currentStatus);
-		dataset.put("duty", duties);
-		dataset.put("leg", legChoices.getSelected().getKey());
+		dataset.put("duty", duty);
 		dataset.put("legs", legChoices);
-		dataset.put("crewMember", crewMemberChoices.getSelected().getKey());
-		dataset.put("crewMembers", crewMemberChoices);
+		dataset.put("leg", legChoices.getSelected().getKey());
+		dataset.put("crewMember", crewMember.getCode());
 		dataset.put("isCompleted", isCompleted);
-		dataset.put("otherCrewMembers", crewDetails);
 
 		super.getResponse().addData(dataset);
 	}
-
 }
