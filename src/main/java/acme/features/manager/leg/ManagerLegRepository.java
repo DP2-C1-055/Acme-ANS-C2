@@ -48,4 +48,10 @@ public interface ManagerLegRepository extends AbstractRepository {
 	@Query("select f from Flight f where f.id = :id")
 	Flight findFlightById(Integer id);
 
+	@Query("select a from Airport a where a.id = :id")
+	Airport findAirportById(Integer id);
+
+	@Query("select a from Aircraft a where a.id = :id")
+	Aircraft findAircraftById(Integer id);
+
 }

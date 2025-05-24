@@ -31,18 +31,36 @@ public class ManagerLegCreateService extends AbstractGuiService<Manager, Leg> {
 
 	@Override
 	public void authorise() {
-		int flightId = super.getRequest().getData("masterId", int.class);
-		Flight flight = this.flightRepository.findFlightById(flightId);
-		boolean status = flight != null && super.getRequest().getPrincipal().hasRealm(flight.getManager());
+		boolean status = super.getRequest().getPrincipal().hasRealmOfType(Manager.class);
+
+		int masterId = super.getRequest().getData("masterId", int.class);
+		Flight flight = this.repository.findFlightById(masterId);
+		if (masterId != 0)
+			if (flight == null)
+				status = false;
+			else if (!flight.isDraftMode() || !super.getRequest().getPrincipal().hasRealm(flight.getManager()))
+				status = false;
+
+		if ("POST".equals(super.getRequest().getMethod())) {
+			int aircraftId = super.getRequest().getData("aircraft", int.class);
+			if (aircraftId != 0 && this.repository.findAircraftById(aircraftId) == null)
+				status = false;
+
+			int departureAirportId = super.getRequest().getData("departureAirport", int.class);
+			if (departureAirportId != 0 && this.repository.findAirportById(departureAirportId) == null)
+				status = false;
+			int arrivalAirportId = super.getRequest().getData("arrivalAirport", int.class);
+			if (arrivalAirportId != 0 && this.repository.findAirportById(arrivalAirportId) == null)
+				status = false;
+		}
+
 		super.getResponse().setAuthorised(status);
 	}
 
 	@Override
 	public void load() {
 		int flightId = super.getRequest().getData("masterId", int.class);
-		// Se añade el masterId como dato global
 		super.getResponse().addGlobal("masterId", flightId);
-		// Se obtiene el Flight real desde el repositorio
 		Flight flight = this.flightRepository.findFlightById(flightId);
 		Leg leg = new Leg();
 		leg.setFlight(flight);
@@ -58,16 +76,11 @@ public class ManagerLegCreateService extends AbstractGuiService<Manager, Leg> {
 
 	@Override
 	public void validate(final Leg leg) {
-		boolean validDate;
-		Date currentMoment = MomentHelper.getCurrentMoment();
-		if (leg.getScheduledDeparture() != null) {
-			validDate = MomentHelper.isAfterOrEqual(leg.getScheduledDeparture(), currentMoment);
-			super.state(validDate, "scheduledDeparture", "acme.validation.leg.departure-after-current.message");
-		}
-		if (leg.getScheduledArrival() != null) {
-			validDate = MomentHelper.isAfterOrEqual(leg.getScheduledArrival(), currentMoment);
-			super.state(validDate, "scheduledArrival", "acme.validation.leg.arrival-after-current.message");
-		}
+		Date now = MomentHelper.getCurrentMoment();
+		if (leg.getScheduledDeparture() != null)
+			super.state(MomentHelper.isAfterOrEqual(leg.getScheduledDeparture(), now), "scheduledDeparture", "acme.validation.leg.departure-after-current.message");
+		if (leg.getScheduledArrival() != null)
+			super.state(MomentHelper.isAfterOrEqual(leg.getScheduledArrival(), now), "scheduledArrival", "acme.validation.leg.arrival-after-current.message");
 	}
 
 	@Override
@@ -79,20 +92,25 @@ public class ManagerLegCreateService extends AbstractGuiService<Manager, Leg> {
 	public void unbind(final Leg leg) {
 		Dataset dataset = super.unbindObject(leg, "flightNumber", "scheduledDeparture", "scheduledArrival", "status", "draftMode");
 
-		// Opciones para el enumerado LegStatus:
 		SelectChoices statusChoices = SelectChoices.from(LegStatus.class, leg.getStatus());
 		dataset.put("statuses", statusChoices);
 
-		// Opciones para las relaciones: departureAirport y arrivalAirport:
 		Collection<Airport> airports = this.repository.findAllAirports();
 		SelectChoices departureChoices = SelectChoices.from(airports, "iataCode", leg.getDepartureAirport());
 		SelectChoices arrivalChoices = SelectChoices.from(airports, "iataCode", leg.getArrivalAirport());
+
+		dataset.put("masterId", super.getRequest().getData("masterId", int.class));
+
+		dataset.put("departureAirport", departureChoices.getSelected().getKey());
+		dataset.put("arrivalAirport", arrivalChoices.getSelected().getKey());
+
 		dataset.put("departureAirports", departureChoices);
 		dataset.put("arrivalAirports", arrivalChoices);
 
-		// Opciones para la relación Aircraft:
 		Collection<Aircraft> aircrafts = this.repository.findAllAircrafts();
-		SelectChoices aircraftChoices = SelectChoices.from(aircrafts, "model", leg.getAircraft());
+		SelectChoices aircraftChoices = SelectChoices.from(aircrafts, "registrationNumber", leg.getAircraft());
+
+		dataset.put("aircraft", aircraftChoices.getSelected().getKey());
 		dataset.put("aircraftChoices", aircraftChoices);
 
 		super.getResponse().addData(dataset);
