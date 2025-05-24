@@ -35,10 +35,10 @@ public interface CrewActivityLogRepository extends AbstractRepository {
 	@Query("select a from Assignment a where a.crew.id = :crewId or a.draftMode = false")
 	Collection<Assignment> findAssignmentPublishedByCrewId(int crewId);
 
-	@Query("select case when count(fcm) > 0 then true else false end from Crew fcm where fcm.id = :crewId")
-	boolean existsFlightCrewMember(int crewId);
+	@Query("select case when count(cm) > 0 then true else false end from Crew cm where cm.id = :crewId")
+	boolean existsCrewMember(int crewId);
 
-	@Query("select case when count(fa) > 0 then true else false end from Assignment fa where fa.id = :id and fa.draftMode = false")
+	@Query("select case when count(a) > 0 then true else false end from Assignment a where a.id = :id and a.draftMode = false")
 	boolean isAssignmentAlreadyPublishedById(int id);
 
 	@Query("select count(al) > 0 from ActivityLog al where al.id = :activityLogId and al.assignment.crew.id = :flightCrewMemberId")
