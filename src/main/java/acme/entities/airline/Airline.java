@@ -4,6 +4,8 @@ package acme.entities.airline;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.Index;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
@@ -22,6 +24,9 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+@Table(indexes = {
+	@Index(columnList = "iataCode")
+})
 public class Airline extends AbstractEntity {
 
 	private static final long	serialVersionUID	= 1L;
