@@ -91,7 +91,6 @@ public class CrewAssignmentPublishService extends AbstractGuiService<Crew, Assig
 		Crew crew = assignment.getCrew();
 		Leg leg = assignment.getLeg();
 
-		boolean cambioCrew = !original.getCrew().equals(crew);
 		boolean cambioDuty = !original.getDuty().equals(assignment.getDuty());
 		boolean cambioLeg = !original.getLeg().equals(assignment.getLeg());
 		boolean cambioMoment = !original.getLastUpdate().equals(assignment.getLastUpdate());
@@ -100,34 +99,40 @@ public class CrewAssignmentPublishService extends AbstractGuiService<Crew, Assig
 		if (!(cambioDuty || cambioLeg || cambioMoment || cambioStatus))
 			return;
 
-		if (crew != null && leg != null && cambioLeg) {
-			Collection<Leg> legsByCrew = this.repository.findLegsByCrewId(crew.getId());
-			Leg newLeg = assignment.getLeg();
+		if (crew != null && leg != null && cambioLeg && !this.isLegCompatible(assignment))
+			super.state(false, "crew", "acme.validation.assignment.CrewIncompatibleLegs.message");
 
-			boolean hasIncompatibleLeg = legsByCrew.stream()
-				.anyMatch(existingLeg -> MomentHelper.isInRange(newLeg.getScheduledDeparture(), existingLeg.getScheduledDeparture(), existingLeg.getScheduledArrival())
-					|| MomentHelper.isInRange(newLeg.getScheduledArrival(), existingLeg.getScheduledDeparture(), existingLeg.getScheduledArrival())
-					|| newLeg.getScheduledDeparture().before(existingLeg.getScheduledDeparture()) && newLeg.getScheduledArrival().after(existingLeg.getScheduledArrival()));
+		if (leg != null && (cambioDuty || cambioLeg))
+			this.checkPilotAndCopilotAssignment(assignment);
 
-			if (hasIncompatibleLeg) {
-				super.state(false, "crew", "acme.validation.assignment.CrewIncompatibleLegs.message");
-				return;
-			}
+		if (leg != null && cambioLeg) {
+			boolean legCompleted = this.repository.areLegsCompletedByAssignment(assignment.getId(), MomentHelper.getCurrentMoment());
+			if (legCompleted)
+				super.state(false, "leg", "acme.validation.assignment.LegAlreadyCompleted.message");
 		}
+	}
 
-		if (leg != null && (cambioDuty || cambioLeg || cambioCrew)) {
-			boolean havePilot = this.repository.existsCrewWithDutyInLeg(leg.getId(), DutyCrew.PILOT);
-			boolean haveCopilot = this.repository.existsCrewWithDutyInLeg(leg.getId(), DutyCrew.CO_PILOT);
+	private boolean isLegCompatible(final Assignment assignment) {
+		Collection<Leg> legsByCrew = this.repository.findLegsByCrewId(assignment.getCrew().getId());
+		Leg newLeg = assignment.getLeg();
 
-			if (DutyCrew.PILOT.equals(assignment.getDuty()))
-				super.state(!havePilot, "duty", "acme.validation.assignment.havePilot.message");
-			if (DutyCrew.CO_PILOT.equals(assignment.getDuty()))
-				super.state(!haveCopilot, "duty", "acme.validation.assignment.haveCopilot.message");
-		}
+		return legsByCrew.stream().allMatch(existingLeg -> this.areLegsCompatible(newLeg, existingLeg));
+	}
 
-		boolean legCompleted = this.repository.areLegsCompletedByAssignment(assignment.getId(), MomentHelper.getCurrentMoment());
-		if (legCompleted)
-			super.state(false, "leg", "acme.validation.assignment.LegAlreadyCompleted.message");
+	private boolean areLegsCompatible(final Leg newLeg, final Leg oldLeg) {
+		return !(MomentHelper.isInRange(newLeg.getScheduledDeparture(), oldLeg.getScheduledDeparture(), oldLeg.getScheduledArrival()) || MomentHelper.isInRange(newLeg.getScheduledArrival(), oldLeg.getScheduledDeparture(), oldLeg.getScheduledArrival())
+			|| newLeg.getScheduledDeparture().before(oldLeg.getScheduledDeparture()) && newLeg.getScheduledArrival().after(oldLeg.getScheduledArrival()));
+	}
+
+	private void checkPilotAndCopilotAssignment(final Assignment assignment) {
+		boolean havePilot = this.repository.existsCrewWithDutyInLeg(assignment.getLeg().getId(), DutyCrew.PILOT);
+		boolean haveCopilot = this.repository.existsCrewWithDutyInLeg(assignment.getLeg().getId(), DutyCrew.CO_PILOT);
+
+		if (DutyCrew.PILOT.equals(assignment.getDuty()))
+			super.state(!havePilot, "duty", "acme.validation.assignment.havePilot.message");
+
+		if (DutyCrew.CO_PILOT.equals(assignment.getDuty()))
+			super.state(!haveCopilot, "duty", "acme.validation.assignment.haveCopilot.message");
 	}
 
 	@Override
