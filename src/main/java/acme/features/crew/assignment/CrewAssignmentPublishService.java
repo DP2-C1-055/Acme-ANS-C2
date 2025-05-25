@@ -21,46 +21,55 @@ import acme.realms.crew.Crew;
 @GuiService
 public class CrewAssignmentPublishService extends AbstractGuiService<Crew, Assignment> {
 
-	// Internal state ---------------------------------------------------------
-
 	@Autowired
 	private CrewAssignmentRepository repository;
-
-	// AbstractGuiService interface -------------------------------------------
 
 
 	@Override
 	public void authorise() {
-		boolean status;
+		boolean status = false;
 		int assignmentId;
-		Assignment assignment;
+		Assignment assignment = null;
 		int crewMemberId;
-		boolean isAssignmentOwnedByCrewMember;
-		boolean isCrewMemberValid;
-		boolean isDraftMode;
-		boolean isFutureScheduledArrival;
-		boolean isAssignmentOwnedByCurrentCrewMember;
+		String method;
 
 		crewMemberId = super.getRequest().getPrincipal().getActiveRealm().getId();
 		assignmentId = super.getRequest().getData("id", int.class);
 		assignment = this.repository.findAssignmentById(assignmentId);
 
-		isCrewMemberValid = this.repository.existsCrewMember(crewMemberId);
-		isAssignmentOwnedByCrewMember = this.repository.isAssignmentOwnedByCrewMember(assignmentId, crewMemberId);
-		isDraftMode = assignment != null && assignment.isDraftMode();
-		isFutureScheduledArrival = assignment != null && MomentHelper.isFuture(assignment.getLeg().getScheduledArrival());
-		isAssignmentOwnedByCurrentCrewMember = assignment != null && assignment.getCrew().getId() == crewMemberId;
+		if (assignment != null) {
+			boolean legExists = assignment.getLeg() != null;
 
-		status = isCrewMemberValid && isAssignmentOwnedByCrewMember && isDraftMode && isFutureScheduledArrival;
+			boolean isCrewMemberValid = this.repository.existsCrewMember(crewMemberId);
+			boolean isAssignmentOwnedByCrewMember = this.repository.isAssignmentOwnedByCrewMember(assignmentId, crewMemberId);
+			boolean isDraftMode = assignment.isDraftMode();
+			boolean isFutureScheduledArrival = legExists && MomentHelper.isFuture(assignment.getLeg().getScheduledArrival());
+			boolean isAssignmentOwnedByCurrentCrewMember = assignment.getCrew() != null && assignment.getCrew().getId() == crewMemberId;
 
-		super.getResponse().setAuthorised(status && isAssignmentOwnedByCurrentCrewMember);
+			status = isCrewMemberValid && isAssignmentOwnedByCrewMember && isDraftMode && isFutureScheduledArrival && isAssignmentOwnedByCurrentCrewMember;
+
+			method = super.getRequest().getMethod();
+			if (method.equals("POST") && status) {
+				int legId = super.getRequest().getData("leg", int.class);
+				Leg leg = this.repository.findLegById(legId);
+				if (legId != 0 && leg == null)
+					status = false;
+
+				Date lastUpdateClient = super.getRequest().getData("lastUpdate", Date.class);
+				Date lastUpdateServer = assignment.getLastUpdate();
+				if (lastUpdateClient == null || !lastUpdateClient.equals(lastUpdateServer))
+					status = false;
+			}
+
+		}
+
+		super.getResponse().setAuthorised(status);
 	}
 
 	@Override
 	public void load() {
 		int assignmentId = super.getRequest().getData("id", int.class);
 		Assignment assignment = this.repository.findAssignmentById(assignmentId);
-
 		super.getBuffer().addData(assignment);
 	}
 
@@ -81,6 +90,7 @@ public class CrewAssignmentPublishService extends AbstractGuiService<Crew, Assig
 		Assignment original = this.repository.findAssignmentById(assignment.getId());
 		Crew crew = assignment.getCrew();
 		Leg leg = assignment.getLeg();
+
 		boolean cambioCrew = !original.getCrew().equals(crew);
 		boolean cambioDuty = !original.getDuty().equals(assignment.getDuty());
 		boolean cambioLeg = !original.getLeg().equals(assignment.getLeg());
@@ -90,7 +100,6 @@ public class CrewAssignmentPublishService extends AbstractGuiService<Crew, Assig
 		if (!(cambioDuty || cambioLeg || cambioMoment || cambioStatus))
 			return;
 
-		// Validación de compatibilidad del Leg
 		if (crew != null && leg != null && cambioLeg) {
 			Collection<Leg> legsByCrew = this.repository.findLegsByCrewId(crew.getId());
 			Leg newLeg = assignment.getLeg();
@@ -106,7 +115,6 @@ public class CrewAssignmentPublishService extends AbstractGuiService<Crew, Assig
 			}
 		}
 
-		// Validación de Asignación de Piloto y Copiloto
 		if (leg != null && (cambioDuty || cambioLeg || cambioCrew)) {
 			boolean havePilot = this.repository.existsCrewWithDutyInLeg(leg.getId(), DutyCrew.PILOT);
 			boolean haveCopilot = this.repository.existsCrewWithDutyInLeg(leg.getId(), DutyCrew.CO_PILOT);
@@ -117,27 +125,23 @@ public class CrewAssignmentPublishService extends AbstractGuiService<Crew, Assig
 				super.state(!haveCopilot, "duty", "acme.validation.assignment.haveCopilot.message");
 		}
 
-		// Verificación de leg completado
 		boolean legCompleted = this.repository.areLegsCompletedByAssignment(assignment.getId(), MomentHelper.getCurrentMoment());
-
 		if (legCompleted)
 			super.state(false, "leg", "acme.validation.assignment.LegAlreadyCompleted.message");
 	}
 
 	@Override
 	public void perform(final Assignment assignment) {
-		boolean change = false;
 		Assignment original = this.repository.findAssignmentById(assignment.getId());
-		Crew crewMember = assignment.getCrew();
-		boolean changeCrewMember = !original.getCrew().equals(crewMember);
+		boolean change = false;
+
+		boolean changeCrewMember = !original.getCrew().equals(assignment.getCrew());
 		boolean changeDuty = !original.getDuty().equals(assignment.getDuty());
 		boolean changeLeg = !original.getLeg().equals(assignment.getLeg());
 		boolean changeStatus = !original.getCurrentStatus().equals(assignment.getCurrentStatus());
-		boolean changeRemarks = false;
-		if (original.getRemarks() != null)
-			changeRemarks = !original.getRemarks().equals(assignment.getRemarks());
-		else if (assignment.getRemarks() != null)
-			changeRemarks = !assignment.getRemarks().equals(original.getRemarks());
+
+		boolean changeRemarks = original.getRemarks() != null ? !original.getRemarks().equals(assignment.getRemarks()) : assignment.getRemarks() != null;
+
 		change = changeDuty || changeCrewMember || changeLeg || changeStatus || changeRemarks;
 
 		if (change)
@@ -158,25 +162,21 @@ public class CrewAssignmentPublishService extends AbstractGuiService<Crew, Assig
 		int assignmentId;
 
 		assignmentId = super.getRequest().getData("id", int.class);
-
-		Date currentMoment;
-		currentMoment = MomentHelper.getCurrentMoment();
+		Date currentMoment = MomentHelper.getCurrentMoment();
 		isCompleted = this.repository.areLegsCompletedByAssignment(assignmentId, currentMoment);
-		Collection<Crew> crewMembers;
-		SelectChoices crewMemberChoices;
+
+		Collection<Crew> crewMembers = this.repository.findCrewByAvailability(AvailabilityStatus.AVAILABLE);
+		SelectChoices crewMemberChoices = SelectChoices.from(crewMembers, "code", assignment.getCrew());
 
 		legs = this.repository.findAllLegs();
-		crewMembers = this.repository.findCrewByAvailability(AvailabilityStatus.AVAILABLE);
-
 		legChoices = SelectChoices.from(legs, "flightNumber", assignment.getLeg());
-		crewMemberChoices = SelectChoices.from(crewMembers, "code", assignment.getCrew());
 
 		statuses = SelectChoices.from(CurrentStatus.class, assignment.getCurrentStatus());
 		duties = SelectChoices.from(DutyCrew.class, assignment.getDuty());
 
 		dataset = super.unbindObject(assignment, "duty", "lastUpdate", "currentStatus", "remarks", "draftMode");
 		dataset.put("readonly", false);
-		dataset.put("lastUpdate", MomentHelper.getCurrentMoment());
+		dataset.put("lastUpdate", assignment.getLastUpdate());
 		dataset.put("currentStatus", statuses);
 		dataset.put("duty", duties);
 		dataset.put("leg", legChoices.getSelected().getKey());

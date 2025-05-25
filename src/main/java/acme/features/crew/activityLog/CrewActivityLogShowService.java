@@ -38,7 +38,7 @@ public class CrewActivityLogShowService extends AbstractGuiService<Crew, Activit
 
 		crewId = super.getRequest().getPrincipal().getActiveRealm().getId();
 		assignment = this.repository.findAssignmentByActivityLogId(activityLogId);
-		existCrewMember = this.repository.existsFlightCrewMember(crewId);
+		existCrewMember = this.repository.existsCrewMember(crewId);
 
 		isAuthorised = existCrewMember && this.repository.thatActivityLogIsOf(activityLogId, crewId);
 		isLogged = assignment.getCrew().getId() == crewId;

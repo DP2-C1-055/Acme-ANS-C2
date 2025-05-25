@@ -2,6 +2,7 @@
 package acme.features.crew.activityLog;
 
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -23,25 +24,30 @@ public class CrewActivityLogCreateService extends AbstractGuiService<Crew, Activ
 
 	@Override
 	public void authorise() {
-		boolean isAuthorised;
-		int assignmentId;
-		int crewMemberId;
-		Assignment assignment;
+		boolean status = false;
+		int assignmentId = super.getRequest().getData("assignmentId", int.class);
+		int crewMemberId = super.getRequest().getPrincipal().getActiveRealm().getId();
 
-		boolean isCrewMemberAuthorised;
-		boolean isAssignmentOwnedByCrewMember;
+		Assignment assignment = this.repository.findAssignmentById(assignmentId);
 
-		assignmentId = super.getRequest().getData("assignmentId", int.class);
-		crewMemberId = super.getRequest().getPrincipal().getActiveRealm().getId();
-		isCrewMemberAuthorised = this.repository.existsFlightCrewMember(crewMemberId);
+		if (assignment != null) {
+			boolean isDraftMode = assignment.isDraftMode();
+			boolean isCrewMemberAuthorised = this.repository.existsCrewMember(crewMemberId);
+			boolean isOwnedByCrewMember = assignment.getCrew().getId() == crewMemberId;
+			boolean hasRealmAccess = super.getRequest().getPrincipal().hasRealm(assignment.getCrew());
 
-		assignment = this.repository.findAssignmentById(assignmentId);
-		Crew crew = assignment == null ? null : assignment.getCrew();
-		isAuthorised = assignment != null && assignment.isDraftMode() && super.getRequest().getPrincipal().hasRealm(crew);
+			status = isDraftMode && isCrewMemberAuthorised && isOwnedByCrewMember && hasRealmAccess;
 
-		isAssignmentOwnedByCrewMember = assignment != null && assignment.getCrew().getId() == crewMemberId;
+			if (status && super.getRequest().getMethod().equals("POST")) {
+				Date lastUpdateClient = super.getRequest().getData("registrationMoment", Date.class);
+				Date lastUpdateServer = MomentHelper.getCurrentMoment();
 
-		super.getResponse().setAuthorised(isAuthorised && isCrewMemberAuthorised && isAssignmentOwnedByCrewMember);
+				if (lastUpdateClient == null || !lastUpdateClient.equals(lastUpdateServer))
+					status = false;
+			}
+		}
+
+		super.getResponse().setAuthorised(status);
 	}
 
 	@Override

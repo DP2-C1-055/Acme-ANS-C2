@@ -72,4 +72,7 @@ public interface CrewAssignmentRepository extends AbstractRepository {
 	@Query("select count(a) > 0 from Assignment a where a.crew.id = :crewId and a.duty = :duty")
 	boolean existsAssignmentWithDuty(int crewId, DutyCrew duty);
 
+	@Query("select case when count(l) > 0 then true else false end from Leg l where l.id = :legId and l.draftMode = false")
+	boolean existsByIdAndPublishedTrue(int legId);
+
 }

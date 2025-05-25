@@ -32,7 +32,7 @@ public class CrewActivityLogDeleteService extends AbstractGuiService<Crew, Activ
 		activityLogId = super.getRequest().getData("id", int.class);
 		activityLog = this.repository.findActivityLogById(activityLogId);
 		crewMemberId = super.getRequest().getPrincipal().getActiveRealm().getId();
-		isCrewMemberValid = this.repository.existsFlightCrewMember(crewMemberId);
+		isCrewMemberValid = this.repository.existsCrewMember(crewMemberId);
 
 		isActivityLogOwnedByCrewMember = isCrewMemberValid && this.repository.thatActivityLogIsOf(activityLogId, crewMemberId);
 		isAuthorised = isActivityLogOwnedByCrewMember && activityLog != null && activityLog.isDraftMode();
