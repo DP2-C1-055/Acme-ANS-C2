@@ -39,7 +39,7 @@ flight-31,TAG-31,TRUE,EUR 500.00,<marquee>Hacked</marquee>,true,manager-01
 flight-32,TAG-32,TRUE,EUR 500.00,' OR 'A' = 'A,true,manager-01
 flight-33,TAG-33,TRUE,EUR 500.00,SELECT * FROM users;,true,manager-01
 flight-34,TAG-34,TRUE,EUR 500.00,DROP TABLE flights;,true,manager-01
-flight-35,TAG-35,TRUE,EUR 500.00,' or 'A' = 'A,true,manager-01
+flight-35,TAG-35,TRUE,EUR 500.00,"",true,manager-01
 # manager - diferentes valores
 flight-36,TAG-36,TRUE,EUR 500.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",true,manager-02
 flight-37,TAG-37,TRUE,EUR 500.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",true,manager-03

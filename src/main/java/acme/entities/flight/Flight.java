@@ -5,7 +5,9 @@ import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.Valid;
 
@@ -28,6 +30,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @ValidFlight
+@Table(indexes = {
+	@Index(columnList = "draftmode"), @Index(columnList = "cost_currency")
+})
 public class Flight extends AbstractEntity {
 
 	// Serialisation version --------------------------------------------------

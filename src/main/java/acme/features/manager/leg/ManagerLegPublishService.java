@@ -105,23 +105,19 @@ public class ManagerLegPublishService extends AbstractGuiService<Manager, Leg> {
 	public void unbind(final Leg leg) {
 		Dataset dataset = super.unbindObject(leg, "flightNumber", "scheduledDeparture", "scheduledArrival", "status", "departureAirport", "arrivalAirport", "aircraft", "draftMode");
 
-		// Status
 		SelectChoices statusChoices = SelectChoices.from(LegStatus.class, leg.getStatus());
 		dataset.put("status", statusChoices.getSelected().getKey());
 		dataset.put("statuses", statusChoices);
 
-		// Departure Airport
 		Collection<Airport> airports = this.repository.findAllAirports();
 		SelectChoices departureChoices = SelectChoices.from(airports, "iataCode", leg.getDepartureAirport());
 		dataset.put("departureAirport", departureChoices.getSelected().getKey());
 		dataset.put("departureAirports", departureChoices);
 
-		// Arrival Airport
 		SelectChoices arrivalChoices = SelectChoices.from(airports, "iataCode", leg.getArrivalAirport());
 		dataset.put("arrivalAirport", arrivalChoices.getSelected().getKey());
 		dataset.put("arrivalAirports", arrivalChoices);
 
-		// Aircraft
 		Collection<Aircraft> aircrafts = this.repository.findAllAircrafts();
 		SelectChoices aircraftChoices = SelectChoices.from(aircrafts, "registrationNumber", leg.getAircraft());
 		dataset.put("aircraft", aircraftChoices.getSelected().getKey());
