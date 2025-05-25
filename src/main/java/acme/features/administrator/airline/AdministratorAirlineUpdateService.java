@@ -1,6 +1,7 @@
 
 package acme.features.administrator.airline;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 
@@ -28,9 +29,20 @@ public class AdministratorAirlineUpdateService extends AbstractGuiService<Admini
 
 	@Override
 	public void authorise() {
-		boolean status;
+		boolean status = false;
+		int airlineId;
+		airlineId = super.getRequest().getData("id", int.class);
+		Airline airline;
 
-		status = super.getRequest().getPrincipal().hasRealmOfType(Administrator.class);
+		airline = this.repository.findAirlineById(airlineId);
+
+		if (airline != null)
+			status = super.getRequest().getPrincipal().hasRealmOfType(Administrator.class);
+		if (super.getRequest().getMethod().equals("POST")) {
+			String airlineType = super.getRequest().getData("airlineType", String.class);
+			if (!airlineType.equals("0"))
+				status = Arrays.stream(AirLineType.values()).anyMatch(tc -> tc.name().equalsIgnoreCase(airlineType));
+		}
 
 		super.getResponse().setAuthorised(status);
 	}
