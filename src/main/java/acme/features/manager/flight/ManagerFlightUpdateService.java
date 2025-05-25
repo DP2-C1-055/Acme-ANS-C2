@@ -50,7 +50,11 @@ public class ManagerFlightUpdateService extends AbstractGuiService<Manager, Flig
 
 	@Override
 	public void unbind(final Flight flight) {
-		Dataset dataset = super.unbindObject(flight, "tag", "selfTransfer", "cost", "description", "draftMode");
+		Dataset dataset = super.unbindObject(flight, "tag", "selfTransfer", "cost", "description", "draftMode", "scheduledDeparture", "scheduledArrival", "originCity", "destinationCity", "numberOfLayovers");
+		String managerName = "";
+		if (flight.getManager() != null && flight.getManager().getIdentity() != null)
+			managerName = flight.getManager().getIdentity().getFullName();
+		dataset.put("manager", managerName);
 		super.getResponse().addData(dataset);
 	}
 }

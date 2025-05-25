@@ -38,7 +38,7 @@ public class ManagerFlightPublishService extends AbstractGuiService<Manager, Fli
 
 	@Override
 	public void bind(final Flight flight) {
-		// No es necesaria la vinculación de atributos adicionales para la publicación.
+		super.bindObject(flight, "tag", "selfTransfer", "cost", "description");
 	}
 
 	@Override
@@ -59,14 +59,12 @@ public class ManagerFlightPublishService extends AbstractGuiService<Manager, Fli
 
 	@Override
 	public void unbind(final Flight flight) {
-	    Dataset dataset = super.unbindObject(flight, "tag", "selfTransfer", "cost", "description", "draftMode");
-	    // Extraer manualmente el nombre del Manager
-	    String managerName = "";
-	    if (flight.getManager() != null && flight.getManager().getIdentity() != null) {
-	        managerName = flight.getManager().getIdentity().getFullName();
-	    }
-	    dataset.put("manager", managerName);
-	    super.getResponse().addData(dataset);
+		Dataset dataset = super.unbindObject(flight, "tag", "selfTransfer", "cost", "description", "draftMode", "scheduledDeparture", "scheduledArrival", "originCity", "destinationCity", "numberOfLayovers");
+		String managerName = "";
+		if (flight.getManager() != null && flight.getManager().getIdentity() != null)
+			managerName = flight.getManager().getIdentity().getFullName();
+		dataset.put("manager", managerName);
+		super.getResponse().addData(dataset);
 	}
 
 }

@@ -24,7 +24,7 @@ flight-17,TAG-17,TRUE,EUR 250000.50,"Lorem ipsum dolor sit amet, consectetur adi
 flight-18,TAG-18,TRUE,EUR 500.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",false,manager-01
 flight-19,TAG-19,TRUE,USD 1000.00,"Lorem ipsum dolor sit amet, consectetur adipiscing",true,manager-01
 flight-20,TAG-20,TRUE,GBP 750.75,"Lorem ipsum dolor sit amet, consectetur adipiscing",true,manager-01
-flight-21,TAG-21,TRUE,JPY 100000,"Lorem ipsum dolor sit amet, consectetur adipiscing",true,manager-01
+flight-21,TAG-21,TRUE,EUR 999999.99,"Lorem ipsum dolor sit amet, consectetur adipiscing",true,manager-01
 # description,intermedio y max permitidos)
 flight-22,TAG-22,TRUE,EUR 500.00,L,false,manager-01
 flight-23,TAG-23,TRUE,EUR 500.00,Lo,true,manager-01

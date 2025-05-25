@@ -1,6 +1,7 @@
 
 package acme.features.manager.leg;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 
@@ -28,14 +29,16 @@ public class ManagerLegPublishService extends AbstractGuiService<Manager, Leg> {
 
 	@Override
 	public void authorise() {
-		// Base: leg and flight exist, both in draft, and principal is manager
 		int legId = super.getRequest().getData("id", int.class);
 		Leg leg = this.repository.findLegById(legId);
 		Flight flight = leg != null ? this.repository.findFlightById(leg.getFlight().getId()) : null;
 		boolean status = leg != null && leg.isDraftMode() && flight != null && flight.isDraftMode() && super.getRequest().getPrincipal().hasRealm(leg.getFlight().getManager());
 
-		// Only on POST: anti-tampering for related IDs
 		if ("POST".equals(super.getRequest().getMethod())) {
+			String legStatus = super.getRequest().getData("status", String.class);
+			if (!legStatus.equals("0"))
+				status = Arrays.stream(LegStatus.values()).anyMatch(tc -> tc.name().equalsIgnoreCase(legStatus));
+
 			int departureId = super.getRequest().getData("departureAirport", int.class);
 			if (departureId != 0 && this.repository.findAirportById(departureId) == null)
 				status = false;
