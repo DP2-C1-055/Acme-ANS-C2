@@ -7,7 +7,7 @@ administrator.aircraft.list.label.capacity = Capacity
 administrator.aircraft.list.label.cargoWeight = CargoWeight
 administrator.aircraft.list.label.status = Status
 
-administrator.aircraft.list.button.create = Create
+administrator.aicraft.list.button.create = Create
 
 administrator.aircraft.form.title = aircraft information
 
@@ -25,3 +25,4 @@ administrator.aircraft.form.button.create = Create
 administrator.aircraft.form.button.duties = Duties
 administrator.aircraft.form.button.update = Update
 administrator.aircraft.form.button.delete = Delete
+administrator.aircraft.error.registrationNumber = Registration Number must not be duplicated
