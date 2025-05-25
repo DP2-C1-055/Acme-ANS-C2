@@ -1,6 +1,7 @@
 
 package acme.features.administrator.aircraft;
 
+import java.util.Arrays;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,26 @@ public class AdministratorAircraftUpdateService extends AbstractGuiService<Admin
 
 	@Override
 	public void authorise() {
-		super.getResponse().setAuthorised(true);
+		boolean status = false;
+		int aircraftId;
+		aircraftId = super.getRequest().getData("id", int.class);
+		Aircraft aircraft;
+
+		aircraft = this.repository.findAircraftById(aircraftId);
+		if (aircraft != null)
+			status = super.getRequest().getPrincipal().hasRealmOfType(Administrator.class);
+		if (super.getRequest().getMethod().equals("POST")) {
+			String statusForm = super.getRequest().getData("status", String.class);
+			if (!statusForm.equals("0"))
+				status = Arrays.stream(ServiceStatus.values()).anyMatch(tc -> tc.name().equalsIgnoreCase(statusForm));
+			int airlineId = super.getRequest().getData("airline", int.class);
+			Airline airline = this.repository.findAirlineById(airlineId);
+			if (airlineId != 0 && airline == null)
+				status = false;
+
+		}
+
+		super.getResponse().setAuthorised(status);
 	}
 
 	@Override
@@ -44,8 +64,15 @@ public class AdministratorAircraftUpdateService extends AbstractGuiService<Admin
 	}
 
 	@Override
-	public void validate(final Aircraft aircraft) {
+	public void validate(final Aircraft object) {
 		boolean confirmation;
+		boolean isRegistrationNumberChange;
+		Collection<String> allRegistrationNumber = this.repository.getAllRegistrationNumber();
+		Aircraft aircraft = this.repository.findAircraftById(object.getId());
+		isRegistrationNumberChange = !aircraft.getRegistrationNumber().equals(object.getRegistrationNumber());
+
+		if (isRegistrationNumberChange)
+			super.state(!allRegistrationNumber.contains(object.getRegistrationNumber()), "registrationNumber", "administrator.aircraft.error.registrationNumber");
 
 		confirmation = super.getRequest().getData("confirmation", boolean.class);
 		super.state(confirmation, "confirmation", "acme.validation.confirmation.message");

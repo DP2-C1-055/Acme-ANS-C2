@@ -49,10 +49,10 @@ public class CrewActivityLogShowService extends AbstractGuiService<Crew, Activit
 	@Override
 	public void load() {
 		ActivityLog activityLog;
-		int assignmentId;
+		int activityLogId;
 
-		assignmentId = super.getRequest().getData("id", int.class);
-		activityLog = this.repository.findActivityLogById(assignmentId);
+		activityLogId = super.getRequest().getData("id", int.class);
+		activityLog = this.repository.findActivityLogById(activityLogId);
 
 		super.getBuffer().addData(activityLog);
 	}

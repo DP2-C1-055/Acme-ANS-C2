@@ -1,8 +1,8 @@
 
 package acme.features.administrator.airline;
 
+import java.util.Arrays;
 import java.util.Date;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -24,9 +24,13 @@ public class AdministratorAirlineCreateService extends AbstractGuiService<Admini
 
 	@Override
 	public void authorise() {
-		boolean status;
-
+		boolean status = false;
 		status = super.getRequest().getPrincipal().hasRealmOfType(Administrator.class);
+		if (super.getRequest().getMethod().equals("POST")) {
+			String airlineType = super.getRequest().getData("airlineType", String.class);
+			if (!airlineType.equals("0"))
+				status = Arrays.stream(AirLineType.values()).anyMatch(tc -> tc.name().equalsIgnoreCase(airlineType));
+		}
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -46,14 +50,14 @@ public class AdministratorAirlineCreateService extends AbstractGuiService<Admini
 
 		confirmation = super.getRequest().getData("confirmation", boolean.class);
 		String newIataCode = super.getRequest().getData("iataCode", String.class);
-		Optional<Airline> currentAirlineWithIataCode = this.repository.findAirlineByIataCode(newIataCode);
+		boolean existIataCode = this.repository.existsByIataCode(newIataCode);
 
 		Date newDate = super.getRequest().getData("foundationMoment", Date.class);
 
 		if (newDate != null && MomentHelper.isFuture(newDate))
 			super.state(false, "foundationMoment", "administrator.airline.update.dateInTheFuture");
 
-		if (currentAirlineWithIataCode.isPresent())
+		if (existIataCode)
 			super.state(false, "iataCode", "acme.validation.airport.duplicated-iataCode.message");
 
 		if (!confirmation)
