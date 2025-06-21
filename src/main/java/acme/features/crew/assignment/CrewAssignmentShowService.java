@@ -59,6 +59,8 @@ public class CrewAssignmentShowService extends AbstractGuiService<Crew, Assignme
 		Date currentMoment = MomentHelper.getCurrentMoment();
 		boolean isCompleted = this.repository.areLegsCompletedByAssignment(assignmentId, currentMoment);
 
+		Collection<Crew> crewMembers = this.repository.findCrewMembersByLegId(assignment.getLeg().getId());
+
 		Dataset dataset = super.unbindObject(assignment, "duty", "lastUpdate", "currentStatus", "remarks", "draftMode");
 		dataset.put("currentStatus", currentStatus);
 		dataset.put("duty", duty);
@@ -66,7 +68,11 @@ public class CrewAssignmentShowService extends AbstractGuiService<Crew, Assignme
 		dataset.put("leg", legChoices.getSelected().getKey());
 		dataset.put("crewMember", crewMember.getCode());
 		dataset.put("isCompleted", isCompleted);
+		String crewCodes = crewMembers.stream().map(Crew::getCode).distinct().reduce((a, b) -> a + ", " + b).orElse("-");
+
+		dataset.put("crewMembers", crewCodes);
 
 		super.getResponse().addData(dataset);
 	}
+
 }

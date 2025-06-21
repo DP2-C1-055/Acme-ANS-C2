@@ -15,51 +15,62 @@ import acme.entities.assignment.Assignment;
 import acme.entities.assignment.CurrentStatus;
 import acme.entities.assignment.DutyCrew;
 import acme.entities.leg.Leg;
+import acme.realms.crew.AvailabilityStatus;
 import acme.realms.crew.Crew;
 
 @GuiService
 @Service
 public class CrewAssignmentCreateService extends AbstractGuiService<Crew, Assignment> {
 
-	// Internal state ---------------------------------------------------------
+	// ------------------------------------------------------------------------
+	// Internal state
+	// ------------------------------------------------------------------------
 
 	@Autowired
 	private CrewAssignmentRepository repository;
 
-	// AbstractGuiService interface -------------------------------------------
+	// ------------------------------------------------------------------------
+	// AbstractGuiService interface
+	// ------------------------------------------------------------------------
 
 
 	@Override
 	public void authorise() {
-		int crewMemberId = super.getRequest().getPrincipal().getActiveRealm().getId();
-		boolean authorised1 = this.repository.existsCrewMember(crewMemberId);
+		boolean status = super.getRequest().getPrincipal().hasRealmOfType(Crew.class);
 
-		boolean authorised2 = true;
-		if (super.getRequest().hasData("leg", int.class)) {
-			int legId = super.getRequest().getData("leg", int.class);
-			if (legId != 0)
-				authorised2 = this.repository.existsByIdAndPublishedTrue(legId);
+		if (status && "POST".equals(super.getRequest().getMethod()) && super.getRequest().hasData("leg", Integer.class)) {
+
+			Integer legId = super.getRequest().getData("leg", Integer.class);
+
+			if (legId != null && legId > 0) {
+				Leg leg = this.repository.findLegById(legId);
+				status = leg != null && !leg.isDraftMode() && leg.getScheduledDeparture().after(MomentHelper.getCurrentMoment());
+			}
 		}
 
-		boolean authorised = authorised1 && authorised2;
-		super.getResponse().setAuthorised(authorised);
+		super.getResponse().setAuthorised(status);
 	}
 
 	@Override
 	public void load() {
-		Assignment assignment;
 		Crew crew = (Crew) super.getRequest().getPrincipal().getActiveRealm();
+		Assignment assignment = new Assignment();
 
-		assignment = new Assignment();
 		assignment.setCrew(crew);
 		assignment.setDraftMode(true);
 		assignment.setLastUpdate(MomentHelper.getCurrentMoment());
+
 		super.getBuffer().addData(assignment);
 	}
 
 	@Override
 	public void bind(final Assignment assignment) {
-		super.bindObject(assignment, "duty", "lastUpdate", "currentStatus", "remarks", "leg");
+		Integer legId = super.getRequest().getData("leg", int.class);
+		Leg leg = this.repository.findLegById(legId);
+
+		super.bindObject(assignment, "duty", "currentStatus", "remarks");
+
+		assignment.setLeg(leg);
 	}
 
 	@Override
@@ -67,20 +78,26 @@ public class CrewAssignmentCreateService extends AbstractGuiService<Crew, Assign
 		Crew crew = assignment.getCrew();
 		Leg leg = assignment.getLeg();
 
-		if (crew != null && leg != null)
-			if (this.isLegIncompatible(assignment)) {
-				super.state(false, "leg", "acme.validation.assignment.legIncompatible.message");
-				return;
-			}
+		/* Crew debe estar AVAILABLE */
+		if (crew != null && crew.getAvailability() != AvailabilityStatus.AVAILABLE)
+			super.state(false, "crew", "acme.validation.assignment.crewUnavailable.message");
 
+		/* La leg no puede estar en el pasado */
+		if (leg != null && leg.getScheduledDeparture().before(MomentHelper.getCurrentMoment()))
+			super.state(false, "leg", "acme.validation.assignment.LegAlreadyCompleted.message");
+
+		/* No puede solaparse con otras legs del mismo crew */
+		if (crew != null && leg != null && this.isLegIncompatible(assignment))
+			super.state(false, "leg", "acme.validation.assignment.legIncompatible.message");
+
+		/* Regla piloto / copiloto únicos */
 		if (leg != null)
 			this.checkPilotAndCopilotAssignment(assignment);
-
-		boolean legCompleted = this.repository.areLegsCompletedByAssignment(assignment.getId(), MomentHelper.getCurrentMoment());
-
-		if (legCompleted)
-			super.state(false, "leg", "acme.validation.assignment.LegAlreadyCompleted.message");
 	}
+
+	// ------------------------------------------------------------------------
+	// Helper methods
+	// ------------------------------------------------------------------------
 
 	private boolean isLegIncompatible(final Assignment assignment) {
 		Collection<Leg> legsByCrew = this.repository.findLegsByCrewId(assignment.getCrew().getId());
@@ -111,24 +128,17 @@ public class CrewAssignmentCreateService extends AbstractGuiService<Crew, Assign
 
 	@Override
 	public void unbind(final Assignment assignment) {
-		Dataset dataset;
-		Collection<Leg> legs;
-		SelectChoices legChoices;
-		SelectChoices statuses;
-		SelectChoices duties;
+		Collection<Leg> legs = this.repository.findAllPublishedFutureLegs(MomentHelper.getCurrentMoment());
+		SelectChoices legChoices = SelectChoices.from(legs, "flightNumber", assignment.getLeg());
+		SelectChoices statusChoices = SelectChoices.from(CurrentStatus.class, assignment.getCurrentStatus());
+		SelectChoices dutyChoices = SelectChoices.from(DutyCrew.class, assignment.getDuty());
+		Dataset dataset = super.unbindObject(assignment, "duty", "lastUpdate", "currentStatus", "remarks", "crew", "leg");
 
-		legs = this.repository.findAllLegs();
-
-		legChoices = SelectChoices.from(legs, "flightNumber", assignment.getLeg());
-		statuses = SelectChoices.from(CurrentStatus.class, assignment.getCurrentStatus());
-		duties = SelectChoices.from(DutyCrew.class, assignment.getDuty());
-
-		dataset = super.unbindObject(assignment, "duty", "lastUpdate", "currentStatus", "remarks", "crew", "leg");
 		dataset.put("confirmation", false);
 		dataset.put("readonly", false);
 		dataset.put("lastUpdate", MomentHelper.getBaseMoment());
-		dataset.put("currentStatus", statuses);
-		dataset.put("duty", duties);
+		dataset.put("currentStatus", statusChoices);
+		dataset.put("duty", dutyChoices);
 		dataset.put("leg", legChoices.getSelected().getKey());
 		dataset.put("legs", legChoices);
 

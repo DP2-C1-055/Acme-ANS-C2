@@ -8,3 +8,5 @@ user-account-manager-03,true,"UserIdentity{name: 'Manager', surname: 'Three', em
 user-account-crew-01,true,"UserIdentity{name: 'Crew', surname: 'One', email: 'crew1@mail.com'}",member1,member1
 user-account-crew-02,true,"UserIdentity{name: 'Crew', surname: 'Two', email: 'crew2@mail.com'}",member2,member2
 user-account-crew-03,true,"UserIdentity{name: 'Crew', surname: 'Three', email: 'crew3@mail.com'}",member3,member3
+user-account-crew-04,true,"UserIdentity{name: 'Crew', surname: 'Member', email: 'crew4@mail.com'}",member4,member4
+user-account-crew-05,true,"UserIdentity{name: 'Crew', surname: 'Member', email: 'crew5@mail.com'}",member,member

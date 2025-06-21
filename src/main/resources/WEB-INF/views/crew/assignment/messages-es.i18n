@@ -8,6 +8,7 @@ crew.assignment.list.label.remarks = Observaciones
 crew.assignment.list.label.duty = Tarea
 crew.assignment.list.button.create = Crear
 crew.assignment.list.label.draftMode = Modo Borrador
+crew.assignment.list.label.crewMembers = Miembros de la Tripulación
 
 crew.assignment.form.label.crewMember = Miembro de la Tripulación
 crew.assignment.form.label.duty = Tarea

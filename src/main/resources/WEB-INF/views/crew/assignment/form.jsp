@@ -9,7 +9,11 @@
 	<acme:input-select code="crew.assignment.form.label.currentStatus" path="currentStatus" choices="${currentStatus}"/>
 	<acme:input-textbox code="crew.assignment.form.label.remarks" path="remarks"/>
 	<acme:input-moment code="crew.assignment.form.label.lastUpdate" path="lastUpdate" readonly="true"/>
-
+	
+	<jstl:if test="${_command != 'create'}">
+        <acme:input-textbox code="crew.assignment.list.label.crewMembers" path="crewMembers" readonly="true"/>
+    </jstl:if>
+    
 	<jstl:choose>
 		<jstl:when test="${_command == 'create'}">
 			<acme:submit code="crew.assignment.form.button.create" action="/crew/assignment/create"/>

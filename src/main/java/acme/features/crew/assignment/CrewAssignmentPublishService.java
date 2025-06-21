@@ -49,7 +49,7 @@ public class CrewAssignmentPublishService extends AbstractGuiService<Crew, Assig
 			status = isCrewMemberValid && isAssignmentOwnedByCrewMember && isDraftMode && isFutureScheduledArrival && isAssignmentOwnedByCurrentCrewMember;
 
 			method = super.getRequest().getMethod();
-			if (method.equals("POST") && status) {
+			if ("POST".equals(method) && status) {
 				int legId = super.getRequest().getData("leg", int.class);
 				Leg leg = this.repository.findLegById(legId);
 				if (legId != 0 && leg == null)
@@ -173,7 +173,11 @@ public class CrewAssignmentPublishService extends AbstractGuiService<Crew, Assig
 		Collection<Crew> crewMembers = this.repository.findCrewByAvailability(AvailabilityStatus.AVAILABLE);
 		SelectChoices crewMemberChoices = SelectChoices.from(crewMembers, "code", assignment.getCrew());
 
-		legs = this.repository.findAllLegs();
+		legs = this.repository.findAllPublishedFutureLegs(currentMoment);
+
+		if (assignment.getLeg() != null && !legs.contains(assignment.getLeg()))
+			legs.add(assignment.getLeg());
+
 		legChoices = SelectChoices.from(legs, "flightNumber", assignment.getLeg());
 
 		statuses = SelectChoices.from(CurrentStatus.class, assignment.getCurrentStatus());

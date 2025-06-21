@@ -169,9 +169,12 @@ public class CrewAssignmentUpdateService extends AbstractGuiService<Crew, Assign
 		currentMoment = MomentHelper.getCurrentMoment();
 		isCompleted = this.repository.areLegsCompletedByAssignment(assignmentId, currentMoment);
 
-		legs = this.repository.findAllLegs();
-		legChoices = SelectChoices.from(legs, "flightNumber", assignment.getLeg());
+		legs = this.repository.findAllPublishedFutureLegs(currentMoment);
 
+		if (assignment.getLeg() != null && !legs.contains(assignment.getLeg()))
+			legs.add(assignment.getLeg());
+
+		legChoices = SelectChoices.from(legs, "flightNumber", assignment.getLeg());
 		statuses = SelectChoices.from(CurrentStatus.class, assignment.getCurrentStatus());
 		duties = SelectChoices.from(DutyCrew.class, assignment.getDuty());
 
@@ -185,7 +188,7 @@ public class CrewAssignmentUpdateService extends AbstractGuiService<Crew, Assign
 		dataset.put("duty", duties);
 		dataset.put("leg", legChoices.getSelected().getKey());
 		dataset.put("legs", legChoices);
-		dataset.put("crewMember", crewMember.getCode());
+		dataset.put("crewMember", crewMember.getId());
 		dataset.put("isCompleted", isCompleted);
 		dataset.put("draftMode", assignment.isDraftMode());
 
