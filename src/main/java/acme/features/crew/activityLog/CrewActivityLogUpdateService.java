@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import acme.client.components.models.Dataset;
 import acme.client.components.views.SelectChoices;
 import acme.client.helpers.MomentHelper;
+import acme.client.helpers.PrincipalHelper;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.activityLog.ActivityLog;
@@ -28,22 +29,17 @@ public class CrewActivityLogUpdateService extends AbstractGuiService<Crew, Activ
 
 	@Override
 	public void authorise() {
-		boolean status;
-		int activityLogId;
-		ActivityLog activityLog;
-		int crewMemberId;
-		boolean isCrewMemberValid;
-		boolean isActivityLogOwnedByCrewMember;
+		boolean status = false;
+		if ("POST".equalsIgnoreCase(super.getRequest().getMethod())) {
+			int activityLogId = super.getRequest().getData("id", int.class);
+			ActivityLog activityLog = this.repository.findActivityLogById(activityLogId);
+			int crewMemberId = super.getRequest().getPrincipal().getActiveRealm().getId();
 
-		activityLogId = super.getRequest().getData("id", int.class);
-		activityLog = this.repository.findActivityLogById(activityLogId);
-		crewMemberId = super.getRequest().getPrincipal().getActiveRealm().getId();
+			boolean isCrewMemberValid = this.repository.existsCrewMember(crewMemberId);
+			boolean isActivityLogOwnedByCrewMember = isCrewMemberValid && this.repository.thatActivityLogIsOf(activityLogId, crewMemberId);
 
-		isCrewMemberValid = this.repository.existsCrewMember(crewMemberId);
-		isActivityLogOwnedByCrewMember = isCrewMemberValid && this.repository.thatActivityLogIsOf(activityLogId, crewMemberId);
-
-		status = isActivityLogOwnedByCrewMember && activityLog != null && activityLog.isDraftMode();
-
+			status = isActivityLogOwnedByCrewMember && activityLog != null && activityLog.isDraftMode();
+		}
 		super.getResponse().setAuthorised(status);
 	}
 
@@ -60,26 +56,27 @@ public class CrewActivityLogUpdateService extends AbstractGuiService<Crew, Activ
 
 	@Override
 	public void bind(final ActivityLog log) {
-		super.bindObject(log, "registrationMoment", "typeIncident", "description", "severityLevel");
+		super.bindObject(log, "typeIncident", "description", "severityLevel");
 	}
 
 	@Override
 	public void validate(final ActivityLog activityLog) {
 		if (activityLog == null)
 			return;
+
 		if (!activityLog.isDraftMode())
 			super.state(false, "*", "acme.validation.activityLog.assignment-published.message");
 
 		Assignment assignment = this.repository.findAssignmentByActivityLogId(activityLog.getId());
-		if (activityLog.getRegistrationMoment() == null || assignment == null)
-			return;
 
-		Leg leg = assignment.getLeg();
-		if (leg == null || leg.getScheduledArrival() == null)
-			return;
+		if (assignment != null) {
+			Leg leg = assignment.getLeg();
+			if (leg != null && leg.getScheduledArrival() != null) {
+				boolean isActivityLogMomentAfterScheduledArrival = this.repository.isAssociatedWithCompletedLeg(activityLog.getId(), MomentHelper.getCurrentMoment());
 
-		boolean isActivityLogMomentAfterScheduledArrival = this.repository.isAssociatedWithCompletedLeg(activityLog.getId(), MomentHelper.getCurrentMoment());
-		super.state(isActivityLogMomentAfterScheduledArrival, "WrongActivityLogDate", "acme.validation.activityLog.wrongMoment.message");
+				super.state(isActivityLogMomentAfterScheduledArrival, "WrongActivityLogDate", "acme.validation.activityLog.wrongMoment.message");
+			}
+		}
 	}
 
 	@Override
@@ -110,4 +107,9 @@ public class CrewActivityLogUpdateService extends AbstractGuiService<Crew, Activ
 		super.getResponse().addData(dataset);
 	}
 
+	@Override
+	public void onSuccess() {
+		if (super.getRequest().getMethod().equals("POST"))
+			PrincipalHelper.handleUpdate();
+	}
 }

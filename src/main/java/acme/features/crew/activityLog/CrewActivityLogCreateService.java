@@ -2,7 +2,6 @@
 package acme.features.crew.activityLog;
 
 import java.util.Collection;
-import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -25,28 +24,20 @@ public class CrewActivityLogCreateService extends AbstractGuiService<Crew, Activ
 	@Override
 	public void authorise() {
 		boolean status = false;
-		int assignmentId = super.getRequest().getData("assignmentId", int.class);
-		int crewMemberId = super.getRequest().getPrincipal().getActiveRealm().getId();
+		if ("POST".equalsIgnoreCase(super.getRequest().getMethod())) {
+			int assignmentId = super.getRequest().getData("assignmentId", int.class);
+			int crewMemberId = super.getRequest().getPrincipal().getActiveRealm().getId();
 
-		Assignment assignment = this.repository.findAssignmentById(assignmentId);
+			Assignment assignment = this.repository.findAssignmentById(assignmentId);
 
-		if (assignment != null) {
-			boolean isDraftMode = assignment.isDraftMode();
-			boolean isCrewMemberAuthorised = this.repository.existsCrewMember(crewMemberId);
-			boolean isOwnedByCrewMember = assignment.getCrew().getId() == crewMemberId;
-			boolean hasRealmAccess = super.getRequest().getPrincipal().hasRealm(assignment.getCrew());
+			if (assignment != null) {
+				boolean isCrewMemberAuthorised = this.repository.existsCrewMember(crewMemberId);
+				boolean isOwnedByCrewMember = assignment.getCrew().getId() == crewMemberId;
+				boolean hasRealmAccess = super.getRequest().getPrincipal().hasRealm(assignment.getCrew());
 
-			status = isDraftMode && isCrewMemberAuthorised && isOwnedByCrewMember && hasRealmAccess;
-
-			if (status && super.getRequest().getMethod().equals("POST")) {
-				Date lastUpdateClient = super.getRequest().getData("registrationMoment", Date.class);
-				Date lastUpdateServer = MomentHelper.getCurrentMoment();
-
-				if (lastUpdateClient == null || !lastUpdateClient.equals(lastUpdateServer))
-					status = false;
+				status = isCrewMemberAuthorised && isOwnedByCrewMember && hasRealmAccess;
 			}
 		}
-
 		super.getResponse().setAuthorised(status);
 	}
 
@@ -72,7 +63,7 @@ public class CrewActivityLogCreateService extends AbstractGuiService<Crew, Activ
 
 	@Override
 	public void bind(final ActivityLog log) {
-		super.bindObject(log, "registrationMoment", "typeIncident", "description", "severityLevel");
+		super.bindObject(log, "typeIncident", "description", "severityLevel");
 	}
 
 	@Override
@@ -81,6 +72,7 @@ public class CrewActivityLogCreateService extends AbstractGuiService<Crew, Activ
 
 	@Override
 	public void perform(final ActivityLog activityLog) {
+		activityLog.setRegistrationMoment(MomentHelper.getCurrentMoment());
 		this.repository.save(activityLog);
 	}
 

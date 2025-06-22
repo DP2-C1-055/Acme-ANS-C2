@@ -22,16 +22,12 @@ import acme.realms.crew.Crew;
 @Service
 public class CrewAssignmentCreateService extends AbstractGuiService<Crew, Assignment> {
 
-	// ------------------------------------------------------------------------
-	// Internal state
-	// ------------------------------------------------------------------------
+	// Internal state ---------------------------------------------------------
 
 	@Autowired
 	private CrewAssignmentRepository repository;
 
-	// ------------------------------------------------------------------------
-	// AbstractGuiService interface
-	// ------------------------------------------------------------------------
+	// AbstractGuiService interface -------------------------------------------
 
 
 	@Override

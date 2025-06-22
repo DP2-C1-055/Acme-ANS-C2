@@ -12,7 +12,7 @@
 	<acme:list-payload path="payload"/>
 </acme:list>
 <jstl:choose>
-	<jstl:when test="${acme:anyOf(_command, 'list') && draftModeAssignment == true}">
+	<jstl:when test="${acme:anyOf(_command, 'list')}">
 	<acme:button code="crew.activityLog.list.button.create" action="/crew/activity-log/create?assignmentId=${id}"/>
 	</jstl:when>
 </jstl:choose>

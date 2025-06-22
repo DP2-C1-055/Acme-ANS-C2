@@ -25,20 +25,18 @@ public class CrewActivityLogPublishService extends AbstractGuiService<Crew, Acti
 
 	@Override
 	public void authorise() {
-		boolean status;
-		int activityLogId;
-		ActivityLog activityLog;
-		int crewMemberId;
-		boolean isActivityLogOwnedByCrewMember;
-		boolean isCrewMemberValid;
+		boolean status = false;
 
-		activityLogId = super.getRequest().getData("id", int.class);
-		activityLog = this.repository.findActivityLogById(activityLogId);
-		crewMemberId = super.getRequest().getPrincipal().getActiveRealm().getId();
+		if ("POST".equalsIgnoreCase(super.getRequest().getMethod())) {
+			int activityLogId = super.getRequest().getData("id", int.class);
+			ActivityLog activityLog = this.repository.findActivityLogById(activityLogId);
+			int crewMemberId = super.getRequest().getPrincipal().getActiveRealm().getId();
 
-		isActivityLogOwnedByCrewMember = this.repository.thatActivityLogIsOf(activityLogId, crewMemberId);
-		isCrewMemberValid = this.repository.existsCrewMember(crewMemberId) && isActivityLogOwnedByCrewMember;
-		status = isCrewMemberValid && activityLog != null && activityLog.isDraftMode();
+			boolean isActivityLogOwnedByCrewMember = this.repository.thatActivityLogIsOf(activityLogId, crewMemberId);
+			boolean isCrewMemberValid = this.repository.existsCrewMember(crewMemberId) && isActivityLogOwnedByCrewMember;
+
+			status = isCrewMemberValid && activityLog != null && activityLog.isDraftMode();
+		}
 
 		super.getResponse().setAuthorised(status);
 	}
@@ -56,37 +54,46 @@ public class CrewActivityLogPublishService extends AbstractGuiService<Crew, Acti
 
 	@Override
 	public void bind(final ActivityLog log) {
-		super.bindObject(log, "registrationMoment", "typeIncident", "description", "severityLevel");
+		super.bindObject(log, "typeIncident", "description", "severityLevel");
 
 	}
 
 	@Override
 	public void validate(final ActivityLog activityLog) {
-		int activityLogId = activityLog.getId();
-
-		Assignment assignment = this.repository.findAssignmentByActivityLogId(activityLogId);
-		if (activityLog.getRegistrationMoment() == null || assignment == null)
+		if (activityLog == null)
 			return;
+
+		Assignment assignment = this.repository.findAssignmentByActivityLogId(activityLog.getId());
+		if (assignment == null)
+			return;
+
 		Leg leg = assignment.getLeg();
 		if (leg == null || leg.getScheduledArrival() == null)
 			return;
-		Date activityLogMoment = activityLog.getRegistrationMoment();
-		boolean isActivityLogMomentAfterScheduledArrival = this.repository.isAssociatedWithCompletedLeg(activityLogId, activityLogMoment);
-		super.state(isActivityLogMomentAfterScheduledArrival, "WrongActivityLogDate", "acme.validation.activityLog.wrongMoment.message");
-		boolean assignmentIsPublished = this.repository.isAssignmentAlreadyPublishedById(activityLogId);
-		super.state(assignmentIsPublished, "activityLog", "acme.validation.ActivityLog.AssignmentNotPublished.message");
 
+		Date registrationMoment = activityLog.getRegistrationMoment();
+		if (registrationMoment == null)
+			return;
+
+		// Verificar que el registrationMoment es posterior a la llegada programada
+		boolean isMomentValid = this.repository.isAssociatedWithCompletedLeg(activityLog.getId(), registrationMoment);
+		super.state(isMomentValid, "WrongActivityLogDate", "acme.validation.activityLog.wrongMoment.message");
+
+		// Verificar que el assignment no está en draft mode (está publicado)
+		boolean assignmentIsPublished = !assignment.isDraftMode();
+		super.state(assignmentIsPublished, "activityLog", "acme.validation.activityLog.assignmentNotPublished.message");
+
+		// Verificar que el vuelo ya terminó (fecha actual posterior a scheduledArrival)
 		Date now = MomentHelper.getCurrentMoment();
-		if (assignment.isDraftMode())
-			super.state(false, "*", "acme.validation.activity-log.assignment-not-published.message");
-		if (now.before(assignment.getLeg().getScheduledArrival()))
-			super.state(false, "*", "acme.validation.activity-log.leg-not-finished.message");
+		super.state(!now.before(leg.getScheduledArrival()), "*", "acme.validation.activityLog.legNotFinished.message");
 	}
 
 	@Override
 	public void perform(final ActivityLog log) {
 		ActivityLog oldLog = this.repository.findActivityLogById(log.getId());
-		boolean hasChanged = !oldLog.getDescription().equals(log.getDescription()) || oldLog.getSeverityLevel() != log.getSeverityLevel() || oldLog.getTypeIncident() != log.getTypeIncident();
+		boolean hasChanged = !oldLog.getDescription().equals(log.getDescription()) || // 
+			oldLog.getSeverityLevel() != log.getSeverityLevel() || //
+			oldLog.getTypeIncident() != log.getTypeIncident();
 
 		if (hasChanged)
 			log.setRegistrationMoment(MomentHelper.getCurrentMoment());
