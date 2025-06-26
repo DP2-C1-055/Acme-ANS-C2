@@ -36,6 +36,13 @@ public class CrewActivityLogPublishService extends AbstractGuiService<Crew, Acti
 			boolean isCrewMemberValid = this.repository.existsCrewMember(crewMemberId) && isActivityLogOwnedByCrewMember;
 
 			status = isCrewMemberValid && activityLog != null && activityLog.isDraftMode();
+
+			if (status) {
+				Date registrationMomentClient = super.getRequest().getData("registrationMoment", Date.class);
+				Date registrationMomentServer = activityLog.getRegistrationMoment();
+				if (registrationMomentClient == null || !registrationMomentClient.equals(registrationMomentServer))
+					status = false;
+			}
 		}
 
 		super.getResponse().setAuthorised(status);

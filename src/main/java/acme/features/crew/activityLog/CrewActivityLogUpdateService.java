@@ -2,6 +2,7 @@
 package acme.features.crew.activityLog;
 
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -30,6 +31,7 @@ public class CrewActivityLogUpdateService extends AbstractGuiService<Crew, Activ
 	@Override
 	public void authorise() {
 		boolean status = false;
+
 		if ("POST".equalsIgnoreCase(super.getRequest().getMethod())) {
 			int activityLogId = super.getRequest().getData("id", int.class);
 			ActivityLog activityLog = this.repository.findActivityLogById(activityLogId);
@@ -39,7 +41,15 @@ public class CrewActivityLogUpdateService extends AbstractGuiService<Crew, Activ
 			boolean isActivityLogOwnedByCrewMember = isCrewMemberValid && this.repository.thatActivityLogIsOf(activityLogId, crewMemberId);
 
 			status = isActivityLogOwnedByCrewMember && activityLog != null && activityLog.isDraftMode();
+
+			if (status) {
+				Date registrationMomentClient = super.getRequest().getData("registrationMoment", Date.class);
+				Date registrationMomentServer = activityLog.getRegistrationMoment();
+				if (registrationMomentClient == null || !registrationMomentClient.equals(registrationMomentServer))
+					status = false;
+			}
 		}
+
 		super.getResponse().setAuthorised(status);
 	}
 

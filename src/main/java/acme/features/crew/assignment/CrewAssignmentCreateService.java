@@ -1,7 +1,9 @@
 
 package acme.features.crew.assignment;
 
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,16 +34,30 @@ public class CrewAssignmentCreateService extends AbstractGuiService<Crew, Assign
 
 	@Override
 	public void authorise() {
+
 		boolean status = super.getRequest().getPrincipal().hasRealmOfType(Crew.class);
 
 		if (status && "POST".equals(super.getRequest().getMethod()) && super.getRequest().hasData("leg", Integer.class)) {
 
-			Integer legId = super.getRequest().getData("leg", Integer.class);
+			String dutyStatus = super.getRequest().getData("duty", String.class);
+			if (!"0".equals(dutyStatus))
+				status = status && Arrays.stream(DutyCrew.values()).anyMatch(tc -> tc.name().equalsIgnoreCase(dutyStatus));
 
-			if (legId != null && legId > 0) {
-				Leg leg = this.repository.findLegById(legId);
-				status = leg != null && !leg.isDraftMode() && leg.getScheduledDeparture().after(MomentHelper.getCurrentMoment());
-			}
+			String currentStatus = super.getRequest().getData("currentStatus", String.class);
+			if (!"0".equals(currentStatus))
+				status = status && Arrays.stream(CurrentStatus.values()).anyMatch(tc -> tc.name().equalsIgnoreCase(currentStatus));
+
+			Integer legId = super.getRequest().getData("leg", Integer.class);
+			Leg leg = this.repository.findLegById(legId);
+
+			if (leg == null || leg.isDraftMode() || !leg.getScheduledDeparture().after(MomentHelper.getCurrentMoment()))
+				status = false;
+
+			Date lastUpdateClient = super.getRequest().getData("lastUpdate", Date.class);
+			Date lastUpdateExpected = MomentHelper.getBaseMoment();
+
+			if (lastUpdateClient == null || !lastUpdateClient.equals(lastUpdateExpected))
+				status = false;
 		}
 
 		super.getResponse().setAuthorised(status);

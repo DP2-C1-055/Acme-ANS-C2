@@ -2,6 +2,7 @@
 package acme.features.crew.activityLog;
 
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -24,20 +25,28 @@ public class CrewActivityLogCreateService extends AbstractGuiService<Crew, Activ
 	@Override
 	public void authorise() {
 		boolean status = false;
-		if ("POST".equalsIgnoreCase(super.getRequest().getMethod())) {
-			int assignmentId = super.getRequest().getData("assignmentId", int.class);
-			int crewMemberId = super.getRequest().getPrincipal().getActiveRealm().getId();
+		int assignmentId = super.getRequest().getData("assignmentId", int.class);
+		int crewMemberId = super.getRequest().getPrincipal().getActiveRealm().getId();
 
-			Assignment assignment = this.repository.findAssignmentById(assignmentId);
+		Assignment assignment = this.repository.findAssignmentById(assignmentId);
 
-			if (assignment != null) {
-				boolean isCrewMemberAuthorised = this.repository.existsCrewMember(crewMemberId);
-				boolean isOwnedByCrewMember = assignment.getCrew().getId() == crewMemberId;
-				boolean hasRealmAccess = super.getRequest().getPrincipal().hasRealm(assignment.getCrew());
+		if (assignment != null) {
 
-				status = isCrewMemberAuthorised && isOwnedByCrewMember && hasRealmAccess;
+			boolean isCrewMemberAuthorised = this.repository.existsCrewMember(crewMemberId);
+			boolean isOwnedByCrewMember = assignment.getCrew().getId() == crewMemberId;
+			boolean hasRealmAccess = super.getRequest().getPrincipal().hasRealm(assignment.getCrew());
+
+			status = isCrewMemberAuthorised && isOwnedByCrewMember && hasRealmAccess;
+
+			if (status && super.getRequest().getMethod().equals("POST")) {
+				Date lastUpdateClient = super.getRequest().getData("registrationMoment", Date.class);
+				Date lastUpdateServer = MomentHelper.getCurrentMoment();
+
+				if (lastUpdateClient == null || !lastUpdateClient.equals(lastUpdateServer))
+					status = false;
 			}
 		}
+
 		super.getResponse().setAuthorised(status);
 	}
 
@@ -93,7 +102,11 @@ public class CrewActivityLogCreateService extends AbstractGuiService<Crew, Activ
 		dataset.put("id", activityLog.getAssignment().getId());
 		dataset.put("assignmentId", assignmentId);
 		dataset.put("assignments", selectedAssignments);
-		dataset.put("assignment", selectedAssignments.getSelected().getKey());
+		if (selectedAssignments.getSelected() != null)
+			dataset.put("assignment", selectedAssignments.getSelected().getKey());
+		else
+			dataset.put("assignment", null);
+
 		dataset.put("draftMode", activityLog.isDraftMode());
 		dataset.put("readonly", false);
 		dataset.put("masterDraftMode", !this.repository.isAssignmentAlreadyPublishedById(assignmentId));

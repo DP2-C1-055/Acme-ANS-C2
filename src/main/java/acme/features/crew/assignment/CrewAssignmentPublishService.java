@@ -1,6 +1,7 @@
 
 package acme.features.crew.assignment;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 
@@ -50,17 +51,28 @@ public class CrewAssignmentPublishService extends AbstractGuiService<Crew, Assig
 
 			method = super.getRequest().getMethod();
 			if ("POST".equals(method) && status) {
+				// Validación de duty
+				String dutyStatus = super.getRequest().getData("duty", String.class);
+				if (!"0".equals(dutyStatus))
+					status = status && Arrays.stream(DutyCrew.values()).anyMatch(tc -> tc.name().equalsIgnoreCase(dutyStatus));
+
+				// Validación de currentStatus
+				String currentStatus = super.getRequest().getData("currentStatus", String.class);
+				if (!"0".equals(currentStatus))
+					status = status && Arrays.stream(CurrentStatus.values()).anyMatch(tc -> tc.name().equalsIgnoreCase(currentStatus));
+
+				// Validación de leg
 				int legId = super.getRequest().getData("leg", int.class);
 				Leg leg = this.repository.findLegById(legId);
 				if (legId != 0 && leg == null)
 					status = false;
 
+				// Validación de lastUpdate
 				Date lastUpdateClient = super.getRequest().getData("lastUpdate", Date.class);
 				Date lastUpdateServer = assignment.getLastUpdate();
 				if (lastUpdateClient == null || !lastUpdateClient.equals(lastUpdateServer))
 					status = false;
 			}
-
 		}
 
 		super.getResponse().setAuthorised(status);
