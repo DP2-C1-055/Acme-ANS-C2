@@ -9,4 +9,3 @@
 # they accept any liabilities with respect to them.
 
 - Álvaro Carrera (alvcarber1@alum.us.es)
-- Eduardo Bustamante (edubusluc@alum.us.es)
