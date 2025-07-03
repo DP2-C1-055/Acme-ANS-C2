@@ -16,33 +16,29 @@ public class CrewAssignmentController extends AbstractGuiController<Crew, Assign
 	// Internal state ---------------------------------------------------------
 
 	@Autowired
-	private CrewAssignmentListLegsCompletedService	listCompletedService;
+	private CrewAssignmentListLegsService	listService;
 
 	@Autowired
-	private CrewAssignmentListLegsPlannedService	listPlannedService;
+	private CrewAssignmentShowService		showService;
 
 	@Autowired
-	private CrewAssignmentShowService				showService;
+	private CrewAssignmentCreateService		createService;
 
 	@Autowired
-	private CrewAssignmentCreateService				createService;
+	private CrewAssignmentUpdateService		updateService;
 
 	@Autowired
-	private CrewAssignmentUpdateService				updateService;
+	private CrewAssignmentDeleteService		deleteService;
 
 	@Autowired
-	private CrewAssignmentDeleteService				deleteService;
-
-	@Autowired
-	private CrewAssignmentPublishService			publishService;
+	private CrewAssignmentPublishService	publishService;
 
 	// Constructors -----------------------------------------------------------
 
 
 	@PostConstruct
 	protected void initialise() {
-		super.addCustomCommand("list-completed", "list", this.listCompletedService);
-		super.addCustomCommand("list-planned", "list", this.listPlannedService);
+		super.addBasicCommand("list", this.listService);
 		super.addBasicCommand("show", this.showService);
 		super.addBasicCommand("create", this.createService);
 		super.addBasicCommand("update", this.updateService);

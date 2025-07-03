@@ -50,6 +50,7 @@ acme.validation.assignment.havePilot.message = The selected leg already has a pi
 acme.validation.assignment.haveCopilot.message = The selected leg already has a copilot
 acme.validation.assignment.duty-null.message = El duty es nulo y no puede ser asignado
 acme.validation.assignment.leg-null.message = El tramo no puede ser nulo
+acme.validation.assignment.LegAlreadyCompleted.message = El tramo ya está completado
 acme.validation.assignment.legIncompatible.message=El tramo seleccionado no es compatible con la asignación. Verifique las fechas y horarios
 acme.validation.assignment.update-cannot-confirm.message=No puedes confirmar el assignment desde la operación de actualización. Usa el botón de publicar
 acme.validation.activity-log.assignment-not-published.message = Este registro no puede ser publicado porque la asignación de vuelo seleccionada aún no ha sido publicada

@@ -75,4 +75,10 @@ public interface CrewAssignmentRepository extends AbstractRepository {
 	@Query("select case when count(l) > 0 then true else false end from Leg l where l.id = :legId and l.draftMode = false")
 	boolean existsByIdAndPublishedTrue(int legId);
 
+	@Query("select l from Leg l where l.draftMode = false")
+	Collection<Leg> findAllPublishedLegs();
+
+	@Query("select a.crew from Assignment a where a.leg.id = :legId")
+	Collection<Crew> findCrewMembersByLegId(int legId);
+
 }

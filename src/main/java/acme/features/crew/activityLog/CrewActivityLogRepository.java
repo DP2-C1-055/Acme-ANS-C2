@@ -49,4 +49,7 @@ public interface CrewActivityLogRepository extends AbstractRepository {
 
 	@Query("select case when count(al) > 0 then true else false end from ActivityLog al where al.id = :activityLogId and al.assignment.leg.scheduledArrival < :activityLogMoment")
 	boolean isAssociatedWithCompletedLeg(int activityLogId, Date activityLogMoment);
+	@Query("select case when count(a) > 0 then true else false end " + "from Assignment a where a.id = :id and a.leg.scheduledArrival < :currentMoment")
+	boolean areLegsCompletedByAssignment(int id, Date currentMoment);
+
 }

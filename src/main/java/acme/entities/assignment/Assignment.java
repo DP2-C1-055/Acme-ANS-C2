@@ -29,6 +29,8 @@ import lombok.Setter;
 	@Index(columnList = "crew_id, draftMode"), //
 	@Index(columnList = "duty"), //
 	@Index(columnList = "crew_id, duty"), //
+	@Index(columnList = "leg_id, duty"), //
+	@Index(columnList = "leg_id, crew_id")
 })
 public class Assignment extends AbstractEntity {
 

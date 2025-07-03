@@ -25,20 +25,25 @@ public class CrewActivityLogPublishService extends AbstractGuiService<Crew, Acti
 
 	@Override
 	public void authorise() {
-		boolean status;
-		int activityLogId;
-		ActivityLog activityLog;
-		int crewMemberId;
-		boolean isActivityLogOwnedByCrewMember;
-		boolean isCrewMemberValid;
+		boolean status = false;
 
-		activityLogId = super.getRequest().getData("id", int.class);
-		activityLog = this.repository.findActivityLogById(activityLogId);
-		crewMemberId = super.getRequest().getPrincipal().getActiveRealm().getId();
+		if ("POST".equalsIgnoreCase(super.getRequest().getMethod())) {
+			int activityLogId = super.getRequest().getData("id", int.class);
+			ActivityLog activityLog = this.repository.findActivityLogById(activityLogId);
+			int crewMemberId = super.getRequest().getPrincipal().getActiveRealm().getId();
 
-		isActivityLogOwnedByCrewMember = this.repository.thatActivityLogIsOf(activityLogId, crewMemberId);
-		isCrewMemberValid = this.repository.existsCrewMember(crewMemberId) && isActivityLogOwnedByCrewMember;
-		status = isCrewMemberValid && activityLog != null && activityLog.isDraftMode();
+			boolean isActivityLogOwnedByCrewMember = this.repository.thatActivityLogIsOf(activityLogId, crewMemberId);
+			boolean isCrewMemberValid = this.repository.existsCrewMember(crewMemberId) && isActivityLogOwnedByCrewMember;
+
+			status = isCrewMemberValid && activityLog != null && activityLog.isDraftMode();
+
+			if (status) {
+				Date registrationMomentClient = super.getRequest().getData("registrationMoment", Date.class);
+				Date registrationMomentServer = activityLog.getRegistrationMoment();
+				if (registrationMomentClient == null || !registrationMomentClient.equals(registrationMomentServer))
+					status = false;
+			}
+		}
 
 		super.getResponse().setAuthorised(status);
 	}

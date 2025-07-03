@@ -1,6 +1,7 @@
 
 package acme.features.crew.assignment;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 
@@ -54,10 +55,22 @@ public class CrewAssignmentUpdateService extends AbstractGuiService<Crew, Assign
 		if ("GET".equals(method))
 			status2 = status;
 		else {
+			// Validación de duty
+			String dutyStatus = super.getRequest().getData("duty", String.class);
+			if (!"0".equals(dutyStatus))
+				status = status && Arrays.stream(DutyCrew.values()).anyMatch(tc -> tc.name().equalsIgnoreCase(dutyStatus));
+
+			// Validación de currentStatus
+			String currentStatus = super.getRequest().getData("currentStatus", String.class);
+			if (!"0".equals(currentStatus))
+				status = status && Arrays.stream(CurrentStatus.values()).anyMatch(tc -> tc.name().equalsIgnoreCase(currentStatus));
+
+			// Validación de leg
 			legId = super.getRequest().getData("leg", int.class);
 			leg = this.repository.findLegById(legId);
 			status2 = (legId == 0 || leg != null) && status;
 
+			// Validación de lastUpdate
 			if (status2) {
 				Date lastUpdateClient = super.getRequest().getData("lastUpdate", Date.class);
 				Date lastUpdateServer = assignment.getLastUpdate();
@@ -169,7 +182,7 @@ public class CrewAssignmentUpdateService extends AbstractGuiService<Crew, Assign
 		currentMoment = MomentHelper.getCurrentMoment();
 		isCompleted = this.repository.areLegsCompletedByAssignment(assignmentId, currentMoment);
 
-		legs = this.repository.findAllLegs();
+		legs = this.repository.findAllPublishedLegs();
 		legChoices = SelectChoices.from(legs, "flightNumber", assignment.getLeg());
 
 		statuses = SelectChoices.from(CurrentStatus.class, assignment.getCurrentStatus());
@@ -177,6 +190,7 @@ public class CrewAssignmentUpdateService extends AbstractGuiService<Crew, Assign
 
 		int crewMemberId = super.getRequest().getPrincipal().getActiveRealm().getId();
 		Crew crewMember = this.repository.findCrewById(crewMemberId);
+		Collection<Crew> crewMembers = this.repository.findCrewMembersByLegId(assignment.getLeg().getId());
 
 		dataset = super.unbindObject(assignment, "duty", "lastUpdate", "currentStatus", "remarks", "draftMode");
 		dataset.put("readonly", !assignment.isDraftMode());
@@ -188,6 +202,10 @@ public class CrewAssignmentUpdateService extends AbstractGuiService<Crew, Assign
 		dataset.put("crewMember", crewMember.getCode());
 		dataset.put("isCompleted", isCompleted);
 		dataset.put("draftMode", assignment.isDraftMode());
+
+		String crewCodes = crewMembers.stream().map(Crew::getCode).distinct().reduce((a, b) -> a + ", " + b).orElse("-");
+
+		dataset.put("crewMembers", crewCodes);
 
 		super.getResponse().addData(dataset);
 	}

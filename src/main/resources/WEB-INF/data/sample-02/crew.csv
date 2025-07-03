@@ -3,3 +3,5 @@ key,code,phoneNumber,skills,availability,salary,yearsExperience,key:airline,key:
 crew-01,CO123456,+34632154789,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",AVAILABLE,EUR 500.00,50,airline-01,user-account-crew-01
 crew-02,CT223456,+51123456789,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",ON_VACATION,EUR 500000.00,5,airline-02,user-account-crew-02
 crew-03,CT323456,+5491112345678,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",ON_LEAVE,EUR 50.00,10,airline-03,user-account-crew-03
+crew-04,CM123456,+54123456789,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",AVAILABLE,EUR 50.00,10,airline-04,user-account-crew-04
+crew-05,CMM123456,+54987654321,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do: eiusmod tempor incididunt ut labore et dolore magna aliqua! Ut*",AVAILABLE,EUR 50.00,10,airline-05,user-account-crew-05

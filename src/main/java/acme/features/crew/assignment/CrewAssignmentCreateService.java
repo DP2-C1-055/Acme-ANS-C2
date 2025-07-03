@@ -1,7 +1,9 @@
 
 package acme.features.crew.assignment;
 
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,18 +33,33 @@ public class CrewAssignmentCreateService extends AbstractGuiService<Crew, Assign
 
 	@Override
 	public void authorise() {
-		int crewMemberId = super.getRequest().getPrincipal().getActiveRealm().getId();
-		boolean authorised1 = this.repository.existsCrewMember(crewMemberId);
 
-		boolean authorised2 = true;
-		if (super.getRequest().hasData("leg", int.class)) {
-			int legId = super.getRequest().getData("leg", int.class);
-			if (legId != 0)
-				authorised2 = this.repository.existsByIdAndPublishedTrue(legId);
+		boolean status = super.getRequest().getPrincipal().hasRealmOfType(Crew.class);
+
+		if (status && "POST".equals(super.getRequest().getMethod()) && super.getRequest().hasData("leg", Integer.class)) {
+
+			String dutyStatus = super.getRequest().getData("duty", String.class);
+			if (!"0".equals(dutyStatus))
+				status = status && Arrays.stream(DutyCrew.values()).anyMatch(tc -> tc.name().equalsIgnoreCase(dutyStatus));
+
+			String currentStatus = super.getRequest().getData("currentStatus", String.class);
+			if (!"0".equals(currentStatus))
+				status = status && Arrays.stream(CurrentStatus.values()).anyMatch(tc -> tc.name().equalsIgnoreCase(currentStatus));
+
+			Integer legId = super.getRequest().getData("leg", Integer.class);
+			Leg leg = this.repository.findLegById(legId);
+
+			if (leg == null || leg.isDraftMode() || !leg.getScheduledDeparture().after(MomentHelper.getCurrentMoment()))
+				status = false;
+
+			Date lastUpdateClient = super.getRequest().getData("lastUpdate", Date.class);
+			Date lastUpdateExpected = MomentHelper.getBaseMoment();
+
+			if (lastUpdateClient == null || !lastUpdateClient.equals(lastUpdateExpected))
+				status = false;
 		}
 
-		boolean authorised = authorised1 && authorised2;
-		super.getResponse().setAuthorised(authorised);
+		super.getResponse().setAuthorised(status);
 	}
 
 	@Override
@@ -117,7 +134,7 @@ public class CrewAssignmentCreateService extends AbstractGuiService<Crew, Assign
 		SelectChoices statuses;
 		SelectChoices duties;
 
-		legs = this.repository.findAllLegs();
+		legs = this.repository.findAllPublishedLegs();
 
 		legChoices = SelectChoices.from(legs, "flightNumber", assignment.getLeg());
 		statuses = SelectChoices.from(CurrentStatus.class, assignment.getCurrentStatus());

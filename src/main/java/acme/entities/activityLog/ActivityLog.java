@@ -28,6 +28,7 @@ import lombok.Setter;
 @ValidActivityLog
 @Table(indexes = {
 	@Index(columnList = "draftMode"), //
+	@Index(columnList = "assignment_id, draftMode")
 })
 public class ActivityLog extends AbstractEntity {
 

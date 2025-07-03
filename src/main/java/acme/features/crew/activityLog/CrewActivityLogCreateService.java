@@ -36,7 +36,9 @@ public class CrewActivityLogCreateService extends AbstractGuiService<Crew, Activ
 			boolean isOwnedByCrewMember = assignment.getCrew().getId() == crewMemberId;
 			boolean hasRealmAccess = super.getRequest().getPrincipal().hasRealm(assignment.getCrew());
 
-			status = isDraftMode && isCrewMemberAuthorised && isOwnedByCrewMember && hasRealmAccess;
+			boolean isCompletedAssignment = assignment.getLeg().getScheduledArrival().before(MomentHelper.getCurrentMoment());
+
+			status = isDraftMode && isCrewMemberAuthorised && isOwnedByCrewMember && hasRealmAccess && isCompletedAssignment;
 
 			if (status && super.getRequest().getMethod().equals("POST")) {
 				Date lastUpdateClient = super.getRequest().getData("registrationMoment", Date.class);
