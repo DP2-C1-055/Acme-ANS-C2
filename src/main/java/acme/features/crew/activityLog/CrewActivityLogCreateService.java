@@ -93,11 +93,13 @@ public class CrewActivityLogCreateService extends AbstractGuiService<Crew, Activ
 		Collection<Assignment> assignments;
 		int member;
 		int assignmentId;
+		Assignment assignment;
 
 		member = super.getRequest().getPrincipal().getActiveRealm().getId();
 		assignments = this.repository.findAssignmentPublishedByCrewId(member);
 		selectedAssignments = SelectChoices.from(assignments, "leg.flightNumber", activityLog.getAssignment());
 		assignmentId = super.getRequest().getData("assignmentId", int.class);
+		assignment = this.repository.findAssignmentById(assignmentId);
 
 		dataset = super.unbindObject(activityLog, "registrationMoment", "typeIncident", "description", "severityLevel", "draftMode");
 		dataset.put("id", activityLog.getAssignment().getId());
@@ -107,6 +109,18 @@ public class CrewActivityLogCreateService extends AbstractGuiService<Crew, Activ
 		dataset.put("draftMode", activityLog.isDraftMode());
 		dataset.put("readonly", false);
 		dataset.put("masterDraftMode", !this.repository.isAssignmentAlreadyPublishedById(assignmentId));
+
+		// Variables de control para la vista
+		boolean isCompleted = assignment.getLeg().getScheduledArrival().before(MomentHelper.getCurrentMoment());
+		dataset.put("isCompleted", isCompleted);
+
+		boolean showAction = isCompleted && activityLog.isDraftMode();
+		super.getResponse().addGlobal("showAction", showAction);
+		super.getResponse().addGlobal("draftMode", activityLog.isDraftMode());
+		super.getResponse().addGlobal("masterDraftMode", !this.repository.isAssignmentAlreadyPublishedById(assignmentId));
+		super.getResponse().addGlobal("isCompleted", isCompleted);
+
 		super.getResponse().addData(dataset);
 	}
+
 }

@@ -6,6 +6,7 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import acme.client.components.models.Dataset;
+import acme.client.helpers.MomentHelper;
 import acme.client.services.AbstractGuiService;
 import acme.client.services.GuiService;
 import acme.entities.activityLog.ActivityLog;
@@ -56,10 +57,11 @@ public class CrewActivityLogListService extends AbstractGuiService<Crew, Activit
 
 		assignment = this.repository.findAssignmentById(assignmentId);
 		super.getResponse().addGlobal("draftModeAssignment", assignment.isDraftMode());
+		boolean isCompleted = assignment.getLeg().getScheduledArrival().before(MomentHelper.getCurrentMoment());
+		super.getResponse().addGlobal("isCompleted", isCompleted);
 
 		super.getResponse().addGlobal("id", assignmentId);
 		super.getBuffer().addData(activityLogs);
-
 	}
 
 	@Override
