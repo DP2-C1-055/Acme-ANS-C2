@@ -114,7 +114,7 @@ public class CrewAssignmentPublishService extends AbstractGuiService<Crew, Assig
 			return;
 
 		if (crew != null && leg != null && cambioLeg && !this.isLegCompatible(assignment))
-			super.state(false, "crew", "acme.validation.assignment.CrewIncompatibleLegs.message");
+			super.state(false, "leg", "acme.validation.assignment.legIncompatible.message");
 
 		if (leg != null && (cambioDuty || cambioLeg))
 			this.checkPilotAndCopilotAssignment(assignment);
@@ -185,7 +185,7 @@ public class CrewAssignmentPublishService extends AbstractGuiService<Crew, Assig
 		isCompleted = this.repository.areLegsCompletedByAssignment(assignmentId, currentMoment);
 
 		Collection<Crew> crewMembers = this.repository.findCrewByAvailability(AvailabilityStatus.AVAILABLE);
-		SelectChoices crewMemberChoices = SelectChoices.from(crewMembers, "code", assignment.getCrew());
+		String crewCodes = crewMembers.stream().map(Crew::getCode).distinct().reduce((a, b) -> a + ", " + b).orElse("-");
 
 		legs = this.repository.findAllLegs();
 		legChoices = SelectChoices.from(legs, "flightNumber", assignment.getLeg());
@@ -200,8 +200,8 @@ public class CrewAssignmentPublishService extends AbstractGuiService<Crew, Assig
 		dataset.put("duty", duties);
 		dataset.put("leg", legChoices.getSelected().getKey());
 		dataset.put("legs", legChoices);
-		dataset.put("crewMember", crewMemberChoices.getSelected().getKey());
-		dataset.put("crewMembers", crewMemberChoices);
+		dataset.put("crewMember", assignment.getCrew() != null ? assignment.getCrew().getCode() : null);
+		dataset.put("crewMembers", crewCodes);
 		dataset.put("isCompleted", isCompleted);
 		dataset.put("draftMode", assignment.isDraftMode());
 

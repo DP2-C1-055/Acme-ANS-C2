@@ -3,6 +3,7 @@ package acme.features.crew.assignment;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -37,10 +38,21 @@ public class CrewAssignmentListLegsService extends AbstractGuiService<Crew, Assi
 
 	@Override
 	public void unbind(final Assignment assignment) {
-		Dataset dataset = super.unbindObject(assignment, "duty", "lastUpdate", "currentStatus", "remarks", "draftMode", "leg");
+		Dataset dataset = super.unbindObject(assignment, "duty", "lastUpdate", "currentStatus", "remarks", "leg");
 		dataset.put("leg", assignment.getLeg().getFlightNumber());
 
 		Date now = MomentHelper.getCurrentMoment();
+
+		if (assignment.isDraftMode()) {
+			final Locale locale = super.getRequest().getLocale();
+			String draftModeText;
+			if (locale.equals(Locale.ENGLISH))
+				draftModeText = "Yes";
+			else
+				draftModeText = "Sí";
+			dataset.put("draftMode", draftModeText);
+		} else
+			dataset.put("draftMode", "No");
 
 		String status;
 		if (assignment.getLeg().getScheduledArrival().before(now))

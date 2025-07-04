@@ -33,30 +33,32 @@ public class CrewAssignmentCreateService extends AbstractGuiService<Crew, Assign
 
 	@Override
 	public void authorise() {
-
 		boolean status = super.getRequest().getPrincipal().hasRealmOfType(Crew.class);
 
 		if (status && "POST".equals(super.getRequest().getMethod()) && super.getRequest().hasData("leg", Integer.class)) {
-
-			String dutyStatus = super.getRequest().getData("duty", String.class);
-			if (!"0".equals(dutyStatus))
-				status = status && Arrays.stream(DutyCrew.values()).anyMatch(tc -> tc.name().equalsIgnoreCase(dutyStatus));
-
-			String currentStatus = super.getRequest().getData("currentStatus", String.class);
-			if (!"0".equals(currentStatus))
-				status = status && Arrays.stream(CurrentStatus.values()).anyMatch(tc -> tc.name().equalsIgnoreCase(currentStatus));
-
 			Integer legId = super.getRequest().getData("leg", Integer.class);
-			Leg leg = this.repository.findLegById(legId);
 
-			if (leg == null || leg.isDraftMode() || !leg.getScheduledDeparture().after(MomentHelper.getCurrentMoment()))
-				status = false;
+			if (legId != null && legId != 0)
+				status = status && this.repository.existsByIdAndPublishedTrue(legId);
 
-			Date lastUpdateClient = super.getRequest().getData("lastUpdate", Date.class);
-			Date lastUpdateExpected = MomentHelper.getBaseMoment();
+			if (super.getRequest().hasData("duty", String.class)) {
+				String dutyStatus = super.getRequest().getData("duty", String.class);
+				if (!"0".equals(dutyStatus))
+					status = status && Arrays.stream(DutyCrew.values()).anyMatch(tc -> tc.name().equalsIgnoreCase(dutyStatus));
+			}
 
-			if (lastUpdateClient == null || !lastUpdateClient.equals(lastUpdateExpected))
-				status = false;
+			if (super.getRequest().hasData("currentStatus", String.class)) {
+				String currentStatus = super.getRequest().getData("currentStatus", String.class);
+				if (!"0".equals(currentStatus))
+					status = status && Arrays.stream(CurrentStatus.values()).anyMatch(tc -> tc.name().equalsIgnoreCase(currentStatus));
+			}
+
+			if (super.getRequest().hasData("lastUpdate", Date.class)) {
+				Date lastUpdateClient = super.getRequest().getData("lastUpdate", Date.class);
+				Date lastUpdateExpected = MomentHelper.getBaseMoment();
+				if (lastUpdateClient == null || !lastUpdateClient.equals(lastUpdateExpected))
+					status = false;
+			}
 		}
 
 		super.getResponse().setAuthorised(status);

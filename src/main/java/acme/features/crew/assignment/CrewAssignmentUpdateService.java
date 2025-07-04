@@ -4,6 +4,7 @@ package acme.features.crew.assignment;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -190,13 +191,19 @@ public class CrewAssignmentUpdateService extends AbstractGuiService<Crew, Assign
 
 		int crewMemberId = super.getRequest().getPrincipal().getActiveRealm().getId();
 		Crew crewMember = this.repository.findCrewById(crewMemberId);
-		Collection<Crew> crewMembers = this.repository.findCrewMembersByLegId(assignment.getLeg().getId());
+		Collection<Crew> crewMembers = assignment.getLeg() != null ? this.repository.findCrewMembersByLegId(assignment.getLeg().getId()) //
+			: List.of(); //
 
 		dataset = super.unbindObject(assignment, "duty", "lastUpdate", "currentStatus", "remarks", "draftMode");
 		dataset.put("readonly", !assignment.isDraftMode());
 		dataset.put("lastUpdate", assignment.getLastUpdate());
 		dataset.put("currentStatus", statuses);
 		dataset.put("duty", duties);
+
+		if (assignment.getLeg() != null && legChoices.getSelected() != null)
+			dataset.put("leg", legChoices.getSelected().getKey());
+		else
+			dataset.put("leg", "0");
 		dataset.put("leg", legChoices.getSelected().getKey());
 		dataset.put("legs", legChoices);
 		dataset.put("crewMember", crewMember.getCode());

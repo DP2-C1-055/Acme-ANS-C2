@@ -66,13 +66,13 @@ public class CrewActivityLogUpdateService extends AbstractGuiService<Crew, Activ
 
 	@Override
 	public void bind(final ActivityLog log) {
+		System.out.println("bind draftMode:" + log.isDraftMode());
 		super.bindObject(log, "typeIncident", "description", "severityLevel");
 	}
 	@Override
 	public void validate(final ActivityLog activityLog) {
 		if (activityLog == null)
 			return;
-
 		if (!activityLog.isDraftMode())
 			super.state(false, "*", "acme.validation.activityLog.assignment-published.message");
 

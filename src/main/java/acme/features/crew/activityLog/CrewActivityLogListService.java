@@ -2,6 +2,7 @@
 package acme.features.crew.activityLog;
 
 import java.util.Collection;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -70,9 +71,19 @@ public class CrewActivityLogListService extends AbstractGuiService<Crew, Activit
 		int assignmentId;
 
 		assignmentId = super.getRequest().getData("assignmentId", int.class);
-		dataset = super.unbindObject(activityLog, "registrationMoment", "typeIncident", "severityLevel", "draftMode");
+		dataset = super.unbindObject(activityLog, "registrationMoment", "typeIncident", "severityLevel");
 		dataset.put("flightNumber", activityLog.getAssignment().getLeg().getFlightNumber());
 
+		if (activityLog.isDraftMode()) {
+			final Locale locale = super.getRequest().getLocale();
+			String draftModeText;
+			if (locale.equals(Locale.ENGLISH))
+				draftModeText = "Yes";
+			else
+				draftModeText = "Sí";
+			dataset.put("draftMode", draftModeText);
+		} else
+			dataset.put("draftMode", "No");
 		super.getResponse().addGlobal("id", assignmentId);
 		super.getResponse().addData(dataset);
 	}

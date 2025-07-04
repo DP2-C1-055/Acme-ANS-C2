@@ -115,6 +115,7 @@ public class CrewActivityLogPublishService extends AbstractGuiService<Crew, Acti
 		dataset.put("assignment", selectedAssignments.getSelected().getKey());
 		dataset.put("id", super.getRequest().getData("id", int.class));
 		dataset.put("draftMode", log.isDraftMode());
+
 		dataset.put("readonly", false);
 
 		super.getResponse().addData(dataset);
